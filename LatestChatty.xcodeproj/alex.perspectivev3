@@ -232,6 +232,8 @@
 			<key>Layout</key>
 			<array>
 				<dict>
+					<key>BecomeActive</key>
+					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -315,8 +317,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -334,7 +334,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>FA02CB9D0E44FEAF0013981F</string>
+										<string>FA02CBAD0E45111D0013981F</string>
 										<key>history</key>
 										<array>
 											<string>FA461BCF0E4256E700E3654D</string>
@@ -353,13 +353,13 @@
 											<string>FA02CB1D0E44EB4C0013981F</string>
 											<string>FA02CB300E44F1BF0013981F</string>
 											<string>FA02CB3C0E44F79C0013981F</string>
-											<string>FA02CB4E0E44FB790013981F</string>
 											<string>FA02CB500E44FB790013981F</string>
 											<string>FA02CB520E44FB790013981F</string>
 											<string>FA02CB810E44FCCA0013981F</string>
 											<string>FA02CB930E44FE7C0013981F</string>
 											<string>FA02CB940E44FE7C0013981F</string>
-											<string>FA02CB950E44FE7C0013981F</string>
+											<string>FA02CBA90E45111D0013981F</string>
+											<string>FA02CBAA0E45111D0013981F</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -447,6 +447,8 @@
 											<string>FA02CB960E44FE7C0013981F</string>
 											<string>FA02CB970E44FE7C0013981F</string>
 											<string>FA02CB980E44FE7C0013981F</string>
+											<string>FA02CBAB0E45111D0013981F</string>
+											<string>FA02CBAC0E45111D0013981F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -755,6 +757,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1C530D5B069F1CE1000CFCEE</string>
 		<string>FA02CA720E44CB510013981F</string>
 		<string>FA02CA590E44C32E0013981F</string>
 		<string>/Users/alex/Projects/Cocoa/LatestChatty/LatestChatty.xcodeproj</string>
@@ -1133,7 +1136,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C530D5B069F1CE1000CFCEE</string>
-				<string>FAD9145B0E447417004A9030</string>
+				<string>FA02CBAE0E45111D0013981F</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
