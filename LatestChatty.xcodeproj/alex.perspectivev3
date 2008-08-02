@@ -333,7 +333,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>FA02CA710E44CB510013981F</string>
+										<string>FA02CA9F0E44D58B0013981F</string>
 										<key>history</key>
 										<array>
 											<string>FA461BCF0E4256E700E3654D</string>
@@ -354,7 +354,7 @@
 											<string>FA02CA460E44C32E0013981F</string>
 											<string>FA02CA630E44CA610013981F</string>
 											<string>FA02CA6C0E44CA850013981F</string>
-											<string>FA02CA6D0E44CA850013981F</string>
+											<string>FA02CA9E0E44D5890013981F</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -421,8 +421,6 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {1330, -27}}</string>
-										<key>RubberWindowFrame</key>
-										<string>0 59 1600 1119 0 0 1600 1178 </string>
 									</dict>
 									<key>Module</key>
 									<string>XCDetailModule</string>
@@ -439,6 +437,8 @@
 									<dict>
 										<key>Frame</key>
 										<string>{{10, 27}, {1330, -27}}</string>
+										<key>RubberWindowFrame</key>
+										<string>0 59 1600 1119 0 0 1600 1178 </string>
 									</dict>
 									<key>Module</key>
 									<string>PBXProjectFindModule</string>

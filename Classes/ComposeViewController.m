@@ -70,7 +70,7 @@
     urlString = [NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/create/%d.xml", storyId];
   }
   
-  // Create the quest for the URL
+  // Create the request
   NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
   [request setURL:[NSURL URLWithString:urlString]];
   
@@ -83,11 +83,36 @@
   [request setHTTPMethod:@"POST"];
   
   // Send the request
-  NSURLResponse *response;
+  NSHTTPURLResponse *response;
   [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
   
-  // Return to previous view
-  [[self navigationController] popViewControllerAnimated:YES];
+  int statusCode = (int)[response statusCode];
+  if (statusCode == 201) {
+    // Success! Return to previous view
+    [[self navigationController] popViewControllerAnimated:YES];
+    
+  } else if (statusCode == 403) {
+    // Authentication Failure, display alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication Failed"
+                                                    message:@"It appears you credentials aren't right.  Go your device settings and set your username and password for the \"LatestChatty\" application."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    
+  } else {
+    // Something unexpected happened, display alert
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unexpected Error"
+                                                    message:@"Something has gone wrong.  Sorry for the inconvience, but this can't be posted right now."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    
+  }
+
 }
 
 
