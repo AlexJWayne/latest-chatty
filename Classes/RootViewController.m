@@ -14,11 +14,8 @@
 
 
 - (void)viewDidLoad {
-	// Add the following line if you want the list to be editable
-	// self.navigationItem.leftBarButtonItem = self.editButtonItem;
-  
+  // Fetch feed
   feed = [[Feed alloc] init];
-  
   
   // Refresh button
   UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh

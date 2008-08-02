@@ -11,6 +11,7 @@
 
 @interface ComposeViewController : UIViewController {
   IBOutlet UILabel *parentPreview;
+  IBOutlet UITextView *postContent;
   
   Post *parentPost;
   int storyId;
@@ -18,5 +19,7 @@
 
 - (id)initWithStoryId:(int)aStoryId;
 - (id)initWithStoryId:(int)aStoryId parentPost:(Post *)aPost;
+
+- (IBAction)sendPost:(id)sender;
 
 @end

@@ -27,7 +27,7 @@
     [posts addObject:[[Post alloc] initWithXmlElement:postXml parent:nil]];
   }
   
-  storyId = (int)[[[xml rootElement] attributeForName:@"story_id"] stringValue];
+  storyId = [[[[xml rootElement] attributeForName:@"story_id"] stringValue] intValue];
   
   return self;
 }

@@ -26,7 +26,7 @@
   self.parent   = [aParent retain];
   self.author   = [[xml attributeForName:@"author"]  stringValue];
   self.date     = [[xml attributeForName:@"date"]    stringValue];
-  self.postId   = [[xml attributeForName:@"id"]      stringValue];
+  self.postId   = [[[xml attributeForName:@"id"]     stringValue] intValue];
   self.preview  = [[xml attributeForName:@"preview"] stringValue];
   self.body     = [[[xml nodesForXPath:@"body"  error:nil] objectAtIndex:0] stringValue];
   self.children = [[NSMutableArray alloc] init];
@@ -48,7 +48,7 @@
 }
 
 - (id)initWithThreadId:(int)threadId {
-  NSString *urlString = [NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/thread/%@.xml", threadId];
+  NSString *urlString = [NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/thread/%d.xml", threadId];
   CXMLDocument *xml = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:urlString]
                                                            options:1
                                                              error:nil] autorelease];
@@ -63,7 +63,6 @@
   [preview release];
   [body release];
   [date release];
-  [postId release];
   [children dealloc];
   [super dealloc];
 }

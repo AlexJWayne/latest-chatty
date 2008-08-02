@@ -15,7 +15,7 @@
   NSString *preview;
   NSString *body;
   NSString *date;
-  NSString *postId;
+  int postId;
   NSMutableArray *children;
   int depth;
 }
@@ -33,7 +33,7 @@
 @property (readwrite, copy) NSString *preview;
 @property (readwrite, copy) NSString *body;
 @property (readwrite, copy) NSString *date;
-@property (readwrite, copy) NSString *postId;
+@property (readwrite) int postId;
 @property (readwrite, retain) NSMutableArray *children;
 @property (readwrite, assign) int depth;
 

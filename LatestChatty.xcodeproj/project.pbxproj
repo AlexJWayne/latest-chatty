@@ -15,6 +15,7 @@
 		2899E5600DE3E45000AC0155 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E55F0DE3E45000AC0155 /* RootViewController.xib */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
+		FA02CA310E44C1F90013981F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FA02CA300E44C1F90013981F /* Settings.bundle */; };
 		FA3D72480E43FCB3002998D3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA3D72460E43FCB3002998D3 /* Icon.png */; };
 		FA3D72490E43FCB3002998D3 /* post.html in Resources */ = {isa = PBXBuildFile; fileRef = FA3D72470E43FCB3002998D3 /* post.html */; };
 		FA3D72570E43FCC0002998D3 /* CXMLDocument_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3D724B0E43FCC0002998D3 /* CXMLDocument_PrivateExtensions.m */; };
@@ -45,6 +46,7 @@
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA02CA300E44C1F90013981F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		FA3D72460E43FCB3002998D3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Assets/Icon.png; sourceTree = "<group>"; };
 		FA3D72470E43FCB3002998D3 /* post.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = post.html; path = Assets/post.html; sourceTree = "<group>"; };
 		FA3D724A0E43FCC0002998D3 /* CXMLDocument_PrivateExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLDocument_PrivateExtensions.h; path = TouchXML/CXMLDocument_PrivateExtensions.h; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				2899E55F0DE3E45000AC0155 /* RootViewController.xib */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				FA02CA300E44C1F90013981F /* Settings.bundle */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				FA3D72480E43FCB3002998D3 /* Icon.png in Resources */,
 				FA3D72490E43FCB3002998D3 /* post.html in Resources */,
 				FAE5535C0E442EEB00228EFB /* ComposeViewController.xib in Resources */,
+				FA02CA310E44C1F90013981F /* Settings.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

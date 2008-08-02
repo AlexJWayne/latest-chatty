@@ -56,4 +56,39 @@
 }
 
 
+
+
+
+
+- (IBAction)sendPost:(id)sender {
+  
+  // Find the proper URL based on whether this is a root post or reply
+  NSString *urlString;
+  if (parentPost) {
+    urlString = [NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/create/%d/%d.xml", storyId, parentPost.postId];
+  } else {
+    urlString = [NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/create/%d.xml", storyId];
+  }
+  
+  // Create the quest for the URL
+  NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
+  [request setURL:[NSURL URLWithString:urlString]];
+  
+  // Set request body and HTTP method
+  NSString *usernameString = [[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"] autorelease];
+  NSString *passwordString = [[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"] autorelease];
+  
+  NSString *postBody = [NSString stringWithFormat:@"body=%@&username=%@&password=%@", postContent.text, usernameString, passwordString];
+  [request setHTTPBody:[postBody dataUsingEncoding: NSASCIIStringEncoding]];
+  [request setHTTPMethod:@"POST"];
+  
+  // Send the request
+  NSURLResponse *response;
+  [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
+  
+  // Return to previous view
+  [[self navigationController] popViewControllerAnimated:YES];
+}
+
+
 @end
