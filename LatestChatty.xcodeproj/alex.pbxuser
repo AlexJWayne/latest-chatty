@@ -199,6 +199,14 @@
 			FA02CB220E44EB4C0013981F /* PBXTextBookmark */ = FA02CB220E44EB4C0013981F /* PBXTextBookmark */;
 			FA02CB230E44EB4C0013981F /* PBXTextBookmark */ = FA02CB230E44EB4C0013981F /* PBXTextBookmark */;
 			FA02CB240E44EB4C0013981F /* PBXTextBookmark */ = FA02CB240E44EB4C0013981F /* PBXTextBookmark */;
+			FA02CB2F0E44F1BF0013981F /* PBXTextBookmark */ = FA02CB2F0E44F1BF0013981F /* PBXTextBookmark */;
+			FA02CB300E44F1BF0013981F /* PlistBookmark */ = FA02CB300E44F1BF0013981F /* PlistBookmark */;
+			FA02CB310E44F1BF0013981F /* PBXBookmark */ = FA02CB310E44F1BF0013981F /* PBXBookmark */;
+			FA02CB320E44F1BF0013981F /* PBXTextBookmark */ = FA02CB320E44F1BF0013981F /* PBXTextBookmark */;
+			FA02CB330E44F1BF0013981F /* PBXBookmark */ = FA02CB330E44F1BF0013981F /* PBXBookmark */;
+			FA02CB340E44F1BF0013981F /* PlistBookmark */ = FA02CB340E44F1BF0013981F /* PlistBookmark */;
+			FA02CB350E44F1BF0013981F /* PBXBookmark */ = FA02CB350E44F1BF0013981F /* PBXBookmark */;
+			FA02CB3A0E44F4550013981F /* PBXBookmark */ = FA02CB3A0E44F4550013981F /* PBXBookmark */;
 			FA3D70A10E42E0A6002998D3 = FA3D70A10E42E0A6002998D3 /* PBXTextBookmark */;
 			FA3D70D40E42E590002998D3 = FA3D70D40E42E590002998D3 /* PBXTextBookmark */;
 			FA3D70D90E42E590002998D3 = FA3D70D90E42E590002998D3 /* PBXTextBookmark */;
@@ -1452,6 +1460,64 @@
 		vrLen = 1952;
 		vrLoc = 4279;
 	};
+	FA02CB2F0E44F1BF0013981F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = FA461BC70E42561900E3654D /* DetailViewController.m */;
+		name = "DetailViewController.m: 166";
+		rLen = 0;
+		rLoc = 5241;
+		rType = 0;
+		vrLen = 1938;
+		vrLoc = 4240;
+	};
+	FA02CB300E44F1BF0013981F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/alex/Projects/Cocoa/LatestChatty/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	FA02CB310E44F1BF0013981F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = FA02CB290E44F1000013981F /* Default.png */;
+	};
+	FA02CB320E44F1BF0013981F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = FA461BC70E42561900E3654D /* DetailViewController.m */;
+		name = "DetailViewController.m: 166";
+		rLen = 0;
+		rLoc = 5241;
+		rType = 0;
+		vrLen = 1938;
+		vrLoc = 4240;
+	};
+	FA02CB330E44F1BF0013981F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = FA02CB290E44F1000013981F /* Default.png */;
+	};
+	FA02CB340E44F1BF0013981F /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+		);
+		name = /Users/alex/Projects/Cocoa/LatestChatty/Info.plist;
+		rLen = 0;
+		rLoc = 2147483647;
+	};
+	FA02CB350E44F1BF0013981F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = FA02CB290E44F1000013981F /* Default.png */;
+	};
+	FA02CB3A0E44F4550013981F /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = FA02CB290E44F1000013981F /* Default.png */;
+	};
 	FA3D70A10E42E0A6002998D3 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = FA461BBE0E4255B500E3654D /* Feed.m */;
@@ -1610,8 +1676,8 @@
 	FA461BC70E42561900E3654D /* DetailViewController.m */ = {
 		uiCtxt = {
 			sepNavIntBoundsRect = "{{0, 0}, {1363, 3280}}";
-			sepNavSelRange = "{5431, 0}";
-			sepNavVisRange = "{4279, 1952}";
+			sepNavSelRange = "{5241, 0}";
+			sepNavVisRange = "{4240, 1938}";
 			sepNavWindowFrame = "{{15, 4}, {1205, 1169}}";
 		};
 	};
@@ -2019,9 +2085,9 @@
 	};
 	FAE5535F0E442F3200228EFB /* ComposeViewController.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1269, 2736}}";
-			sepNavSelRange = "{796, 0}";
-			sepNavVisRange = "{0, 1231}";
+			sepNavIntBoundsRect = "{{0, 0}, {1539, 2512}}";
+			sepNavSelRange = "{1717, 0}";
+			sepNavVisRange = "{1034, 653}";
 		};
 	};
 	FAE553600E442F3200228EFB /* ComposeViewController.h */ = {

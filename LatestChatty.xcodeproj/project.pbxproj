@@ -16,6 +16,7 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		FA02CA310E44C1F90013981F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FA02CA300E44C1F90013981F /* Settings.bundle */; };
+		FA02CB2A0E44F1000013981F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA02CB290E44F1000013981F /* Default.png */; };
 		FA3D72480E43FCB3002998D3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA3D72460E43FCB3002998D3 /* Icon.png */; };
 		FA3D72490E43FCB3002998D3 /* post.html in Resources */ = {isa = PBXBuildFile; fileRef = FA3D72470E43FCB3002998D3 /* post.html */; };
 		FA3D72570E43FCC0002998D3 /* CXMLDocument_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3D724B0E43FCC0002998D3 /* CXMLDocument_PrivateExtensions.m */; };
@@ -47,6 +48,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA02CA300E44C1F90013981F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		FA02CB290E44F1000013981F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Assets/Default.png; sourceTree = "<group>"; };
 		FA3D72460E43FCB3002998D3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Assets/Icon.png; sourceTree = "<group>"; };
 		FA3D72470E43FCB3002998D3 /* post.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = post.html; path = Assets/post.html; sourceTree = "<group>"; };
 		FA3D724A0E43FCC0002998D3 /* CXMLDocument_PrivateExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLDocument_PrivateExtensions.h; path = TouchXML/CXMLDocument_PrivateExtensions.h; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FA02CB290E44F1000013981F /* Default.png */,
 				FA3D72460E43FCB3002998D3 /* Icon.png */,
 				FA3D72470E43FCB3002998D3 /* post.html */,
 				FA461BA90E4255A300E3654D /* TouchXML */,
@@ -254,6 +257,7 @@
 				FA3D72490E43FCB3002998D3 /* post.html in Resources */,
 				FAE5535C0E442EEB00228EFB /* ComposeViewController.xib in Resources */,
 				FA02CA310E44C1F90013981F /* Settings.bundle in Resources */,
+				FA02CB2A0E44F1000013981F /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
