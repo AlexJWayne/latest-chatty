@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="79"/>
+			<integer value="1"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -38,8 +38,8 @@
 						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
+						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentMode">5</int>
-						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 					</object>
 					<object class="IBUITableView" id="312101205">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -78,14 +78,6 @@
 							</object>
 							<object class="IBUIBarButtonItem" id="360959257">
 								<int key="IBUISystemItemIdentifier">13</int>
-								<reference key="IBUIToolbar" ref="590153400"/>
-							</object>
-							<object class="IBUIBarButtonItem" id="432518117">
-								<int key="IBUISystemItemIdentifier">5</int>
-								<reference key="IBUIToolbar" ref="590153400"/>
-							</object>
-							<object class="IBUIBarButtonItem" id="1073054763">
-								<int key="IBUISystemItemIdentifier">8</int>
 								<reference key="IBUIToolbar" ref="590153400"/>
 							</object>
 							<object class="IBUIBarButtonItem" id="96088583">
@@ -182,6 +174,14 @@
 					</object>
 					<int key="connectionID">91</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="202056912"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">93</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -231,20 +231,13 @@
 						<reference key="object" ref="590153400"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1073054763"/>
 							<reference ref="96088583"/>
 							<reference ref="963289956"/>
-							<reference ref="432518117"/>
 							<reference ref="95830099"/>
 							<reference ref="360959257"/>
 							<reference ref="169275364"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">80</int>
-						<reference key="object" ref="1073054763"/>
-						<reference key="parent" ref="590153400"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">81</int>
@@ -254,11 +247,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">82</int>
 						<reference key="object" ref="963289956"/>
-						<reference key="parent" ref="590153400"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">83</int>
-						<reference key="object" ref="432518117"/>
 						<reference key="parent" ref="590153400"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -289,10 +277,8 @@
 					<string>52.IBPluginDependency</string>
 					<string>55.IBPluginDependency</string>
 					<string>79.IBPluginDependency</string>
-					<string>80.IBPluginDependency</string>
 					<string>81.IBPluginDependency</string>
 					<string>82.IBPluginDependency</string>
-					<string>83.IBPluginDependency</string>
 					<string>84.IBPluginDependency</string>
 					<string>89.IBPluginDependency</string>
 					<string>90.IBPluginDependency</string>
@@ -301,9 +287,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>DetailViewController</string>
 					<string>UIResponder</string>
-					<string>{{484, 162}, {320, 416}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{-1010, 348}, {320, 416}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -335,7 +319,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">91</int>
+			<int key="maxID">93</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -349,10 +333,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>nextReply:</string>
 							<string>refresh:</string>
+							<string>reply:</string>
 							<string>toggleTable:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>

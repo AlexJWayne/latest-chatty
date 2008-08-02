@@ -27,6 +27,8 @@
 		FA461BC20E4255B500E3654D /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = FA461BC00E4255B500E3654D /* Post.m */; };
 		FA461BC80E42561900E3654D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA461BC70E42561900E3654D /* DetailViewController.m */; };
 		FA461BCB0E42568900E3654D /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA461BCA0E42568900E3654D /* DetailViewController.xib */; };
+		FAE5535C0E442EEB00228EFB /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */; };
+		FAE553610E442F3200228EFB /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5535F0E442F3200228EFB /* ComposeViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,9 @@
 		FA461BC60E42561900E3654D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		FA461BC70E42561900E3654D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		FA461BCA0E42568900E3654D /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
+		FAE5535F0E442F3200228EFB /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		FAE553600E442F3200228EFB /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +130,7 @@
 				FA3D72460E43FCB3002998D3 /* Icon.png */,
 				FA3D72470E43FCB3002998D3 /* post.html */,
 				FA461BA90E4255A300E3654D /* TouchXML */,
+				FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */,
 				FA461BCA0E42568900E3654D /* DetailViewController.xib */,
 				2899E55F0DE3E45000AC0155 /* RootViewController.xib */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
@@ -177,6 +183,8 @@
 		FA461BC50E4255C200E3654D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FAE553600E442F3200228EFB /* ComposeViewController.h */,
+				FAE5535F0E442F3200228EFB /* ComposeViewController.m */,
 				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
 				28C286E00D94DF7D0034E888 /* RootViewController.m */,
 				1D3623240D0F684500981E51 /* LatestChattyAppDelegate.h */,
@@ -241,6 +249,7 @@
 				FA461BCB0E42568900E3654D /* DetailViewController.xib in Resources */,
 				FA3D72480E43FCB3002998D3 /* Icon.png in Resources */,
 				FA3D72490E43FCB3002998D3 /* post.html in Resources */,
+				FAE5535C0E442EEB00228EFB /* ComposeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +272,7 @@
 				FA3D725A0E43FCC0002998D3 /* CXMLNode_PrivateExtensions.m in Sources */,
 				FA3D725B0E43FCC0002998D3 /* CXMLNode_XPathExtensions.m in Sources */,
 				FA3D725C0E43FCC0002998D3 /* CXMLNode.m in Sources */,
+				FAE553610E442F3200228EFB /* ComposeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

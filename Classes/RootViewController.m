@@ -76,7 +76,7 @@
 
  - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
    Post *post = [[feed posts] objectAtIndex:indexPath.row];
-   DetailViewController *detailViewController = [[DetailViewController alloc] initWithRootPost:post];
+   DetailViewController *detailViewController = [[DetailViewController alloc] initWithStoryId:feed.storyId rootPost:post];
    
    // Push the detail view controller
    [[self navigationController] pushViewController:detailViewController animated:YES];
@@ -167,7 +167,9 @@
 }
 
 - (IBAction)compose:(id)sender {
-  NSLog(@"Compose Button Clicked");
+  ComposeViewController *composeViewController = [[ComposeViewController alloc] initWithStoryId:feed.storyId];
+  [[self navigationController] pushViewController:composeViewController animated:YES];
+  [composeViewController release];
 }
 
 

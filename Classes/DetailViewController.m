@@ -10,8 +10,9 @@
 
 @implementation DetailViewController
 
-- (id)initWithRootPost:(Post *)post {
+- (id)initWithStoryId:(int)aStoryId rootPost:(Post *)post; {
   [self initWithNibName:@"DetailViewController" bundle:nil];
+  storyId = aStoryId;
   currentRoot = [[Post alloc] initWithThreadId:(int)post.postId];
   currentPost = currentRoot;
   currentPostIndex = 0;
@@ -20,15 +21,12 @@
   
   self.title = @"Thread";
   
-  /*
-  // Table toggle button
-	UIBarButtonItem *toggleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+  // Reply button
+	UIBarButtonItem *replyItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemReply
                                                                               target:self
-                                                                              action:@selector(toggleTable:)];
-  toggleItem.style = UIBarButtonItemStylePlain;
-	self.navigationItem.rightBarButtonItem = toggleItem;
-	[toggleItem release];
-  */
+                                                                              action:@selector(reply:)];
+	self.navigationItem.rightBarButtonItem = replyItem;
+	[replyItem release];
    
   return self;
 }
@@ -102,6 +100,17 @@
 // End UITableViewDelegate methods
 
 
+// UIWebViewDelegate methods
+- (BOOL)webView:(UIWebView *)aWebView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+  NSLog(@"expected:%d, got:%d", UIWebViewNavigationTypeLinkClicked, navigationType);
+  if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+    [[UIApplication sharedApplication] openURL:[request URL]];
+    return NO;
+  }
+  
+  return YES;
+}
+// End UIWebViewDelegate methods
 
 
 - (void)showCurrentThread {
@@ -114,7 +123,7 @@
 
 - (void)showPost:(Post *)post {
   currentPost = post;
-  [postView loadHTMLString:[currentPost html] baseURL:[NSURL URLWithString:@"http://www.shacknews.com"]];
+  [postView loadHTMLString:[currentPost html] baseURL:[NSURL URLWithString:@"http://thread-detail.shacknews.com/"]];
 }
 
 - (void)updateViews {
@@ -173,6 +182,12 @@
   [self showPost:currentRoot];
   [self updateViews];
   [tableView reloadData];
+}
+
+- (IBAction)reply:(id)sender {
+  ComposeViewController *composeViewController = [[ComposeViewController alloc] initWithStoryId:storyId parentPost:currentPost];
+  [[self navigationController] pushViewController:composeViewController animated:YES];
+  [composeViewController release];
 }
 
 @end

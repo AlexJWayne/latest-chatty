@@ -10,6 +10,8 @@
 
 @implementation Feed
 
+@synthesize storyId;
+
 - (id)initWithUrl:(NSString *)urlString {
   [super init];
   
@@ -25,6 +27,8 @@
     [posts addObject:[[Post alloc] initWithXmlElement:postXml parent:nil]];
   }
   
+  storyId = (int)[[[xml rootElement] attributeForName:@"story_id"] stringValue];
+  
   return self;
 }
 
@@ -32,8 +36,8 @@
   return [self initWithUrl:@"http://latestchatty.beautifulpixel.com/"];
 }
 
-- (id)initWithStoryId:(NSString *)storyId {
-  return [self initWithUrl:[NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/%@.xml", storyId]];
+- (id)initWithStoryId:(NSString *)aStoryId {
+  return [self initWithUrl:[NSURL URLWithString:[NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/%@.xml", storyId]]];
 }
 
 - (void)dealloc {

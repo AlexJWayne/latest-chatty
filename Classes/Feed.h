@@ -14,10 +14,13 @@
 @interface Feed : NSObject {
   CXMLDocument *xml;
   NSMutableArray *posts;
+  int storyId;
 }
 
 - (id)initWithUrl:(NSString *)url;
-- (id)initWithStoryId:(NSString *)storyId;
+- (id)initWithStoryId:(NSString *)aStoryId;
 - (NSArray *)posts;
+
+@property (readwrite) int storyId;
 
 @end

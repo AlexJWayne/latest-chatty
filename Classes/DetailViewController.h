@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ComposeViewController.h"
 #import "Feed.h"
 #import "Post.h"
 
@@ -16,12 +17,13 @@
   IBOutlet UIToolbar *toolbarView;
   
   BOOL tableIsVisible;
+  int storyId;
   Post *currentRoot;
   Post *currentPost;
   int currentPostIndex;
 }
 
-- (id)initWithRootPost:(Post *)post;
+- (id)initWithStoryId:(int)aStoryId rootPost:(Post *)post;
 - (void)showCurrentThread;
 - (void)showPost:(Post *)post;
 - (void)updateViews;
@@ -29,6 +31,7 @@
 - (IBAction)toggleTable:(id)sender;
 - (IBAction)nextReply:(id)sender;
 - (IBAction)refresh:(id)sender;
+- (IBAction)reply:(id)sender;
 
 @end
 
