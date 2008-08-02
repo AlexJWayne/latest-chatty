@@ -279,8 +279,9 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>23</integer>
-									<integer>19</integer>
+									<integer>4</integer>
+									<integer>2</integer>
+									<integer>1</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -320,7 +321,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>FA461B910E42536600E3654D</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RootViewController.m</string>
+								<string>ComposeViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -328,11 +329,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>FA461B920E42536600E3654D</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RootViewController.m</string>
+										<string>ComposeViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>FA02CAE10E44DFB80013981F</string>
+										<string>FA02CB0B0E44E70C0013981F</string>
 										<key>history</key>
 										<array>
 											<string>FA461BCF0E4256E700E3654D</string>
@@ -350,10 +351,10 @@
 											<string>FA02CA460E44C32E0013981F</string>
 											<string>FA02CA6C0E44CA850013981F</string>
 											<string>FA02CAA50E44D83B0013981F</string>
-											<string>FA02CACB0E44DA100013981F</string>
-											<string>FA02CAD40E44DADD0013981F</string>
-											<string>FA02CAD50E44DADD0013981F</string>
-											<string>FA02CAD60E44DADD0013981F</string>
+											<string>FA02CAE30E44E1170013981F</string>
+											<string>FA02CAF90E44E6260013981F</string>
+											<string>FA02CAFA0E44E6260013981F</string>
+											<string>FA02CB0A0E44E7080013981F</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -390,6 +391,11 @@
 											<string>FA02CABE0E44D9BE0013981F</string>
 											<string>FA02CAD70E44DADD0013981F</string>
 											<string>FA02CAD80E44DADD0013981F</string>
+											<string>FA02CAE50E44E1170013981F</string>
+											<string>FA02CAFC0E44E6260013981F</string>
+											<string>FA02CAFD0E44E6260013981F</string>
+											<string>FA02CAFE0E44E6260013981F</string>
+											<string>FA02CAFF0E44E6260013981F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

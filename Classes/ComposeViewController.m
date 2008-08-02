@@ -37,6 +37,8 @@
   } else {
     parentPreview.text = @"New Post";
   }
+  
+  postContent.selectedRange = NSRangeFromString(@"0");
 }
 
 
@@ -61,7 +63,17 @@
 
 
 - (IBAction)sendPost:(id)sender {
-  
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit Post" message:@"All ready to submit your post?"
+                                                 delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send", nil];
+	[alert show];
+	[alert release];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+  if (buttonIndex == 1) [self sendPostConfirmed];
+}
+
+- (void)sendPostConfirmed {
   // Find the proper URL based on whether this is a root post or reply
   NSString *urlString;
   if (parentPost) {

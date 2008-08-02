@@ -23,5 +23,6 @@
 - (id)initWithStoryId:(int)aStoryId parentPost:(Post *)aPost;
 
 - (IBAction)sendPost:(id)sender;
+- (void)sendPostConfirmed;
 
 @end
