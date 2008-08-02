@@ -31,6 +31,8 @@
   self.body     = [[[xml nodesForXPath:@"body"  error:nil] objectAtIndex:0] stringValue];
   self.children = [[NSMutableArray alloc] init];
   
+  self.preview  = [self cleanString:self.preview];
+  
   if (parent == nil) {
     self.depth = 0;
   } else {
@@ -103,6 +105,14 @@
   }
   
   return result;
+}
+
+- (NSString *)cleanString:(NSString *)string {
+  string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+  string = [string stringByReplacingOccurrencesOfString:@"&gt;"  withString:@">"];
+  string = [string stringByReplacingOccurrencesOfString:@"&lt;"  withString:@"<"];
+  
+  return string;
 }
 
 @end

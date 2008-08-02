@@ -26,6 +26,7 @@
 - (NSString *)html;
 - (int)replyCount;
 - (Post *)postAtIndex:(int)index;
+- (NSString *)cleanString:(NSString *)string;
 
 @property (readwrite, retain) Post *parent;
 @property (readwrite, copy) NSString *author;
