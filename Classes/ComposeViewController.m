@@ -89,6 +89,15 @@
   int statusCode = (int)[response statusCode];
   if (statusCode == 201) {
     // Success! Return to previous view
+    if (parentPost) {
+      DetailViewController *viewController = [[self navigationController].viewControllers objectAtIndex:[[self navigationController].viewControllers count] - 2];
+      [viewController refresh:nil];
+    } else {
+      RootViewController *viewController = [[self navigationController].viewControllers objectAtIndex:[[self navigationController].viewControllers count] - 2];
+      [viewController refresh:nil];
+    }
+    
+    
     [[self navigationController] popViewControllerAnimated:YES];
     
   } else if (statusCode == 403) {
