@@ -279,7 +279,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>4</integer>
+									<integer>10</integer>
 									<integer>2</integer>
 									<integer>1</integer>
 									<integer>0</integer>
@@ -321,7 +321,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>FA461B910E42536600E3654D</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>ComposeViewController.m</string>
+								<string>DetailViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -329,11 +329,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>FA461B920E42536600E3654D</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>ComposeViewController.m</string>
+										<string>DetailViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>FA02CB0B0E44E70C0013981F</string>
+										<string>FA02CB240E44EB4C0013981F</string>
 										<key>history</key>
 										<array>
 											<string>FA461BCF0E4256E700E3654D</string>
@@ -343,18 +343,18 @@
 											<string>FAE553040E44243900228EFB</string>
 											<string>FA5EF6130E4443A10041421E</string>
 											<string>FA5EF6730E4449120041421E</string>
-											<string>FA5EF6A90E444EF50041421E</string>
 											<string>FAD914170E44603B004A9030</string>
 											<string>FAD9143F0E4461E6004A9030</string>
 											<string>FAD9144D0E446209004A9030</string>
-											<string>FA02CA450E44C32E0013981F</string>
-											<string>FA02CA460E44C32E0013981F</string>
 											<string>FA02CA6C0E44CA850013981F</string>
 											<string>FA02CAA50E44D83B0013981F</string>
 											<string>FA02CAE30E44E1170013981F</string>
-											<string>FA02CAF90E44E6260013981F</string>
 											<string>FA02CAFA0E44E6260013981F</string>
-											<string>FA02CB0A0E44E7080013981F</string>
+											<string>FA02CB1A0E44EB4C0013981F</string>
+											<string>FA02CB1B0E44EB4C0013981F</string>
+											<string>FA02CB1C0E44EB4C0013981F</string>
+											<string>FA02CB1D0E44EB4C0013981F</string>
+											<string>FA02CB1E0E44EB4C0013981F</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -396,6 +396,11 @@
 											<string>FA02CAFD0E44E6260013981F</string>
 											<string>FA02CAFE0E44E6260013981F</string>
 											<string>FA02CAFF0E44E6260013981F</string>
+											<string>FA02CB1F0E44EB4C0013981F</string>
+											<string>FA02CB200E44EB4C0013981F</string>
+											<string>FA02CB210E44EB4C0013981F</string>
+											<string>FA02CB220E44EB4C0013981F</string>
+											<string>FA02CB230E44EB4C0013981F</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>

@@ -29,6 +29,7 @@
 - (void)updateViews;
 
 - (IBAction)toggleTable:(id)sender;
+- (IBAction)prevReply:(id)sender;
 - (IBAction)nextReply:(id)sender;
 - (IBAction)refresh:(id)sender;
 - (IBAction)reply:(id)sender;

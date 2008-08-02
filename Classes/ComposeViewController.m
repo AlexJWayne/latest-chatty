@@ -38,7 +38,7 @@
     parentPreview.text = @"New Post";
   }
   
-  postContent.selectedRange = NSRangeFromString(@"0");
+  //[postContent becomeFirstResponder];
 }
 
 

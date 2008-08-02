@@ -161,6 +161,17 @@
   [UIView commitAnimations];
 }
 
+- (IBAction)prevReply:(id)sender {
+  if (currentPostIndex > 0) {
+    currentPostIndex--;
+    currentPost = [currentRoot postAtIndex:currentPostIndex];
+    [self showPost:currentPost];
+    [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentPostIndex inSection:0]
+                           animated:NO
+                     scrollPosition:UITableViewScrollPositionMiddle];
+  }  
+}
+
 - (IBAction)nextReply:(id)sender {
   if (currentPostIndex < [currentRoot replyCount]) {
     currentPostIndex++;
