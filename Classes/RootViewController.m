@@ -46,6 +46,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
+  /*
 	static NSString *MyIdentifier = @"indexCell";
 	
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
@@ -61,13 +62,10 @@
     contentView.textColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
     [cell.contentView addSubview:contentView];
 	}
+   */
 	
 	// Set up the cell
-  Post *post = [[feed posts] objectAtIndex:indexPath.row];
-  UILabel *label = [cell.contentView.subviews objectAtIndex:0];
-  label.text = post.preview;
-  
-	return cell;
+	return [[RootPostCellView alloc] initWithPost:[[feed posts] objectAtIndex:indexPath.row]];
 }
 
 
