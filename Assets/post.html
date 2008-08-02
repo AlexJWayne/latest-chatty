@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <title>Latest Chatty Post</title>
+    <style>
+      body {
+      	-webkit-user-select: none;
+      	overflow: visible;
+      	padding: 0;
+      	margin: 0;
+        background: rgb(34,34,34);
+        font-family: Helvetica;
+        font-size: 11pt;
+      }
+    
+      div.wrapper {
+        padding: 10px;
+      }
+      div.author {
+        font-size: 10pt;
+        color: rgb(255,186,0);
+        float: left;
+      }
+      div.date {
+        font-size: 8pt;
+        color: rgb(100,100,100);
+        float: right;
+      }
+      div.body {
+        color: white;
+        padding: 10px 0;
+        clear: both;
+      }
+      div.body a {
+        color: #AEAE9B;
+      }
+      
+      span.jt_red    { color: #FF0000; }
+      span.jt_green  { color: #8DC63F; }
+      span.jt_blue   { color: #44AEDF; }
+      span.jt_yellow { color: #FFDE00; }
+      span.jt_olive  { color: olive;   }
+      span.jt_lime   { color: #C0FFC0; }
+      span.jt_orange { color: #F7941C; }
+      span.jt_pink   { color: #F49AC1; }
+      
+      span.jt_spoiler {
+        background-color: #383838;
+        color: #383838;
+      }
+      
+      span.jt_strike {
+        text-decoration: line-through;
+      }
+      
+      span.jt_sample {
+        font-size: 80%;
+      }
+      
+      span.jt_quote {
+        font-family: serif;
+        font-size: 110%;
+      }
+      
+      pre.jt_code {
+        border-left: 1px solid #666666;
+        display: block;
+        font-family: monospace;
+        margin: 5px 0pt 5px 10px;
+        padding: 3px 0pt 3px 10px;
+      }
+    </style>
+    <script type="text/javascript" charset="utf-8">
+      function doSpoiler(element) {
+        element.style.color = 'white';
+        return false;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="date"><%= date %></div>
+      <div class="author"><%= author %></div>
+      <div class="body">
+        <%= body %>
+      </div>
+    </div>
+  </body>
+</html>
