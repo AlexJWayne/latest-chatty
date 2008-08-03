@@ -123,7 +123,7 @@
 
 - (void)showPost:(Post *)post {
   currentPost = post;
-  [postView loadHTMLString:[currentPost html] baseURL:[NSURL URLWithString:@"http://thread-detail.shacknews.com/"]];
+  [postView loadHTMLString:[[currentPost html] stringByReplacingOccurrencesOfString:@"target=\"_blank\"" withString:@""]baseURL:[NSURL URLWithString:@"http://thread-detail.shacknews.com/"]];
 }
 
 - (void)updateViews {
