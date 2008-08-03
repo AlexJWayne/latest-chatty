@@ -73,10 +73,11 @@
 
 - (NSString *)html {
   NSString *template = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"post" ofType:@"html"]];
-  template = [template stringByReplacingOccurrencesOfString:@"<%= date %>"   withString:date];
-  template = [template stringByReplacingOccurrencesOfString:@"<%= author %>" withString:author];
-  template = [template stringByReplacingOccurrencesOfString:@"<%= body %>"   withString:body];
-  
+	template = [template stringByReplacingOccurrencesOfString:@"<%= date %>"   withString:date];
+	template = [template stringByReplacingOccurrencesOfString:@"<%= author %>" withString:author];
+	template = [template stringByReplacingOccurrencesOfString:@"<%= body %>"   withString:body];
+	template = [template stringByReplacingOccurrencesOfString:@"<%= postID %>" withString:[[NSString alloc] initWithFormat:@"%i", postId]];
+
   return template;
 }
 
