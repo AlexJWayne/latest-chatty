@@ -3,10 +3,10 @@
     <title>Latest Chatty Post</title>
     <style>
       body {
-      	-webkit-user-select: none;
-      	overflow: visible;
-      	padding: 0;
-      	margin: 0;
+        -webkit-user-select: none;
+        overflow: visible;
+        padding: 0;
+        margin: 0;
         background: rgb(34,34,34);
         font-family: Helvetica;
         font-size: 11pt;
@@ -15,15 +15,17 @@
       div.wrapper {
         padding: 10px;
       }
-      div.author a{
+      div.author a {
         font-size: 10pt;
         color: rgb(255,186,0);
         float: left;
+        text-decoration: none;
       }
-      div.date a{
+      div.date a {
         font-size: 8pt;
         color: rgb(100,100,100);
         float: right;
+        text-decoration: none;
       }
       div.body {
         color: white;
@@ -69,18 +71,12 @@
         padding: 3px 0pt 3px 10px;
       }
     </style>
-    <script type="text/javascript" charset="utf-8">
-      function doSpoiler(element) {
-        element.style.color = 'white';
-        return false;
-      }
-    </script>
   </head>
   <body>
     <div class="wrapper">
-			<div class="date"><a href="http://www.shacknews.com/laryn.x?id=<%= postID %>"><%= date %></a></div>
-			<div class="author"><a href="http://www.shacknews.com/profile/<%= author %>"><%= author %></a></div>
-			<div class="body"><%= body %></div>
+      <div class="date"><a href="http://www.shacknews.com/laryn.x?id=<%= postId %>"><%= date %></a></div>
+      <div class="author"><a href="http://www.shacknews.com/profile/<%= author %>"><%= author %></a></div>
+      <div class="body"><%= body %></div>
     </div>
   </body>
 </html>
