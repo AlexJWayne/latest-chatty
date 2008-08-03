@@ -24,5 +24,6 @@
 
 - (IBAction)sendPost:(id)sender;
 - (void)sendPostConfirmed;
+- (NSString *)urlEscape:(NSString *)string;
 
 @end

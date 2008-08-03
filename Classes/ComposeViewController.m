@@ -87,10 +87,11 @@
   [request setURL:[NSURL URLWithString:urlString]];
   
   // Set request body and HTTP method
-  NSString *usernameString = [[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"] autorelease];
-  NSString *passwordString = [[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"] autorelease];
-  
-  NSString *postBody = [NSString stringWithFormat:@"body=%@&username=%@&password=%@", postContent.text, usernameString, passwordString];
+  NSString *usernameString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
+  NSString *passwordString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
+  NSString *bodyString     = [self urlEscape:postContent.text];
+    
+  NSString *postBody = [NSString stringWithFormat:@"body=%@&username=%@&password=%@", bodyString, usernameString, passwordString];
   [request setHTTPBody:[postBody dataUsingEncoding: NSASCIIStringEncoding]];
   [request setHTTPMethod:@"POST"];
   
@@ -99,8 +100,9 @@
   [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
   
   int statusCode = (int)[response statusCode];
+  
+  // Success! Return to previous view
   if (statusCode == 201) {
-    // Success! Return to previous view
     if (parentPost) {
       DetailViewController *viewController = [[self navigationController].viewControllers objectAtIndex:[[self navigationController].viewControllers count] - 2];
       [viewController refresh:nil];
@@ -112,8 +114,8 @@
     
     [[self navigationController] popViewControllerAnimated:YES];
     
+  // Authentication Failure, display alert
   } else if (statusCode == 403) {
-    // Authentication Failure, display alert
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication Failed"
                                                     message:@"It appears you credentials aren't right.  Go your device settings and set your username and password for the \"LatestChatty\" application."
                                                    delegate:nil
@@ -121,11 +123,11 @@
                                           otherButtonTitles:nil];
     [alert show];
     [alert release];
-    
+  
+  // Something unexpected happened, display alert
   } else {
-    // Something unexpected happened, display alert
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unexpected Error"
-                                                    message:@"Something has gone wrong.  Sorry for the inconvience, but this can't be posted right now."
+                                                    message:@"Something has gone terribly wrong.  Sorry for the inconvience, but this can't be posted right now."
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
@@ -133,7 +135,17 @@
     [alert release];
     
   }
+  
+}
 
+- (NSString *)urlEscape:(NSString *)string {
+  return (NSString *)CFURLCreateStringByAddingPercentEscapes(
+    NULL,
+    (CFStringRef)string,
+    NULL,
+    (CFStringRef)@";/?:@&=+$,",
+    kCFStringEncodingUTF8
+  );
 }
 
 

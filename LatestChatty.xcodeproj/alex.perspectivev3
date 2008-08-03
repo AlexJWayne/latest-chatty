@@ -232,8 +232,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -282,8 +280,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>4</integer>
-									<integer>2</integer>
+									<integer>7</integer>
+									<integer>5</integer>
 									<integer>1</integer>
 									<integer>0</integer>
 								</array>
@@ -317,12 +315,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>FA461B910E42536600E3654D</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>RootPostCellView.m</string>
+								<string>ComposeViewController.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -330,11 +330,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>FA461B920E42536600E3654D</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>RootPostCellView.m</string>
+										<string>ComposeViewController.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>FAD890D20E4527F900A836D6</string>
+										<string>FAD891060E45320100A836D6</string>
 										<key>history</key>
 										<array>
 											<string>FA461BCF0E4256E700E3654D</string>
@@ -347,7 +347,6 @@
 											<string>FAD9144D0E446209004A9030</string>
 											<string>FA02CA6C0E44CA850013981F</string>
 											<string>FA02CAA50E44D83B0013981F</string>
-											<string>FA02CAFA0E44E6260013981F</string>
 											<string>FA02CB1B0E44EB4C0013981F</string>
 											<string>FA02CB1C0E44EB4C0013981F</string>
 											<string>FA02CB1D0E44EB4C0013981F</string>
@@ -356,10 +355,11 @@
 											<string>FA02CB500E44FB790013981F</string>
 											<string>FA02CB520E44FB790013981F</string>
 											<string>FA02CB810E44FCCA0013981F</string>
-											<string>FA02CB930E44FE7C0013981F</string>
 											<string>FA02CB940E44FE7C0013981F</string>
 											<string>FA02CBA90E45111D0013981F</string>
-											<string>FAD890D10E4527F900A836D6</string>
+											<string>FAD890E30E452E7A00A836D6</string>
+											<string>FAD890F80E45318F00A836D6</string>
+											<string>FAD890F90E45318F00A836D6</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -386,6 +386,11 @@
 											<string>FA02CB550E44FB790013981F</string>
 											<string>FA02CB560E44FB790013981F</string>
 											<string>FA02CB690E44FB790013981F</string>
+											<string>FAD890E50E452E7A00A836D6</string>
+											<string>FAD890FA0E45318F00A836D6</string>
+											<string>FAD890FB0E45318F00A836D6</string>
+											<string>FAD890FC0E45318F00A836D6</string>
+											<string>FAD890FD0E45318F00A836D6</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -399,18 +404,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1330, 751}}</string>
+								<string>{{0, 0}, {1330, 1073}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 59 1600 1119 0 0 1600 1178 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>751pt</string>
+							<string>1073pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>322pt</string>
+							<string>0pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -424,7 +429,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1330, 295}}</string>
+										<string>{{10, 27}, {1330, -27}}</string>
 										<key>RubberWindowFrame</key>
 										<string>0 59 1600 1119 0 0 1600 1178 </string>
 									</dict>
@@ -694,6 +699,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>FAD890EF0E45304400A836D6</string>
+		<string>FAD890EB0E452F5800A836D6</string>
 		<string>/Users/alex/Projects/Cocoa/LatestChatty/LatestChatty.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

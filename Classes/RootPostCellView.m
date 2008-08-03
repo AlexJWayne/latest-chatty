@@ -42,7 +42,7 @@
     preview.text = post.preview;
     [self.contentView addSubview:preview];
     
-    // Added the "There more content if you tap here" accesory view
+    // Added the "there's more content if you tap here" accesory view
     self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	return self;
