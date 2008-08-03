@@ -97,6 +97,12 @@
   currentPostIndex = indexPath.row;
   [self showPost:[currentRoot postAtIndex:currentPostIndex]];
 }
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+  if (scrollView == tableView) {
+    [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentPostIndex inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+  }
+}
 // End UITableViewDelegate methods
 
 
