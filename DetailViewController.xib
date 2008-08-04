@@ -100,6 +100,7 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">left.png</string>
 								</object>
+								<float key="IBUIWidth">2.000000e+01</float>
 								<reference key="IBUIToolbar" ref="590153400"/>
 							</object>
 							<object class="IBUIBarButtonItem" id="434002468">
@@ -111,6 +112,7 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">right.png</string>
 								</object>
+								<float key="IBUIWidth">2.000000e+01</float>
 								<reference key="IBUIToolbar" ref="590153400"/>
 							</object>
 						</object>
@@ -417,12 +419,10 @@
 							<string>refresh:</string>
 							<string>reply:</string>
 							<string>tag:</string>
-							<string>tagConfirmed</string>
 							<string>toggleTable:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
