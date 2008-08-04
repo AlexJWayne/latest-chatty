@@ -208,17 +208,16 @@
 
 - (IBAction)tag:(id)sender {
 	UIActionSheet *dialog = [[UIActionSheet alloc] initWithTitle:@"Tag Post"
-                                                           delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
-                                                  otherButtonTitles:@"LOL", @"INF", @"MARK", nil];
-	dialog.actionSheetStyle = UIActionSheetStyleDefault;
-	dialog.destructiveButtonIndex = 1;	// make the second button red (destructive)
+                                                      delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
+                                             otherButtonTitles:@"LOL", @"INF", @"Shackmark", nil];
+	dialog.actionSheetStyle = UIBarStyleBlackTranslucent;
+	dialog.destructiveButtonIndex = -1;
 	[dialog showInView:self.view];
 	[dialog release];  
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-  if([[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"] length] == 0)
-  {
+  if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"] length] == 0) {
     //Should probably make some uniform function to display errors, no?
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Username"
                                                     message:@"It appears you credentials aren't right.  Go your device settings and set your username and password for the \"LatestChatty\" application."
@@ -227,40 +226,32 @@
                                           otherButtonTitles:nil];
     [alert show];
     [alert release];
-    return;
-  }
-  switch (buttonIndex) {
-    case 0:
-      [self tagWithTag:@"lol"];
-      break;
-    case 1:
-      [self tagWithTag:@"inf"];
-      break;
-    case 2:
-      [self tagWithTag:@"mark"];
-      break;
-    default:
-      break;
+    
+  } else {
+    switch (buttonIndex) {
+      case 0:
+        [self tagWithTag:@"lol"]; break;
+      case 1:
+        [self tagWithTag:@"inf"]; break;
+      case 2:
+        [self tagWithTag:@"mark"]; break;
+    }    
   }
 }
 
 - (void)tagWithTag:(NSString *)tag {
   NSURL *url = nil;
   //I dunno if this is exactly a great way to do this.  But really, this is probably the last thing that's going to get tagged, so it's probably fine.
-  if ([tag isEqualToString:@"mark"])
-  {
+  if (tag == @"mark") {
     url = [NSURL URLWithString:[NSString stringWithFormat:@"http://socksandthecity.net/shackmarks/shackmark.php?user=%@&id=%d&version=20080528",
-                                       [[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"], currentPost.postId]];    
-  }
-  else
-  {
+                                [[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"], currentPost.postId]];    
+  } else {
     url = [NSURL URLWithString:[NSString stringWithFormat:@"http://lmnopc.com/greasemonkey/shacklol/report.php?who=%@&what=%d&tag=%@&version=-1",
-                                       [[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"], currentPost.postId, tag]];    
+                                [[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"], currentPost.postId, tag]];
   }
   
-  if (url)
-  {
-    NSLog([url relativeString]);
+  if (url) {
+    NSLog(@"Tagged URL: @%", [url relativeString]);
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection connectionWithRequest:request delegate:nil];    
