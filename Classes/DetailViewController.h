@@ -15,6 +15,7 @@
   IBOutlet UIWebView *postView;
   IBOutlet UITableView *tableView;
   IBOutlet UIToolbar *toolbarView;
+  IBOutlet UIBarButtonItem *lolButton;
   
   BOOL tableIsVisible;
   int storyId;
@@ -33,6 +34,8 @@
 - (IBAction)nextReply:(id)sender;
 - (IBAction)refresh:(id)sender;
 - (IBAction)reply:(id)sender;
+- (IBAction)lol:(id)sender;
+- (IBAction)lolConfirmed;
 
 @end
 
