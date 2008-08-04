@@ -30,6 +30,9 @@
 		FA461BC20E4255B500E3654D /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = FA461BC00E4255B500E3654D /* Post.m */; };
 		FA461BC80E42561900E3654D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA461BC70E42561900E3654D /* DetailViewController.m */; };
 		FA461BCB0E42568900E3654D /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA461BCA0E42568900E3654D /* DetailViewController.xib */; };
+		FAA25FB70E4688F000F0C53C /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA25FB50E4688EF00F0C53C /* left.png */; };
+		FAA25FB80E4688F000F0C53C /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA25FB60E4688F000F0C53C /* right.png */; };
+		FAA260460E46940B00F0C53C /* tag.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA260450E46940B00F0C53C /* tag.png */; };
 		FAE5535C0E442EEB00228EFB /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */; };
 		FAE553610E442F3200228EFB /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5535F0E442F3200228EFB /* ComposeViewController.m */; };
 /* End PBXBuildFile section */
@@ -74,6 +77,9 @@
 		FA461BC60E42561900E3654D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		FA461BC70E42561900E3654D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		FA461BCA0E42568900E3654D /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		FAA25FB50E4688EF00F0C53C /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = left.png; path = Assets/left.png; sourceTree = "<group>"; };
+		FAA25FB60E4688F000F0C53C /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right.png; path = Assets/right.png; sourceTree = "<group>"; };
+		FAA260450E46940B00F0C53C /* tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tag.png; path = Assets/tag.png; sourceTree = "<group>"; };
 		FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
 		FAE5535F0E442F3200228EFB /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		FAE553600E442F3200228EFB /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
@@ -137,6 +143,9 @@
 			children = (
 				FA02CB290E44F1000013981F /* Default.png */,
 				FA3D72460E43FCB3002998D3 /* Icon.png */,
+				FAA25FB50E4688EF00F0C53C /* left.png */,
+				FAA25FB60E4688F000F0C53C /* right.png */,
+				FAA260450E46940B00F0C53C /* tag.png */,
 				FA3D72470E43FCB3002998D3 /* post.html */,
 				FA461BA90E4255A300E3654D /* TouchXML */,
 				FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */,
@@ -271,6 +280,9 @@
 				FAE5535C0E442EEB00228EFB /* ComposeViewController.xib in Resources */,
 				FA02CA310E44C1F90013981F /* Settings.bundle in Resources */,
 				FA02CB2A0E44F1000013981F /* Default.png in Resources */,
+				FAA25FB70E4688F000F0C53C /* left.png in Resources */,
+				FAA25FB80E4688F000F0C53C /* right.png in Resources */,
+				FAA260460E46940B00F0C53C /* tag.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -108,7 +108,6 @@
 
 // UIWebViewDelegate methods
 - (BOOL)webView:(UIWebView *)aWebView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-  NSLog(@"expected:%d, got:%d", UIWebViewNavigationTypeLinkClicked, navigationType);
   if (navigationType == UIWebViewNavigationTypeLinkClicked) {
     [[UIApplication sharedApplication] openURL:[request URL]];
     return NO;
@@ -130,7 +129,6 @@
 - (void)showPost:(Post *)post {
   currentPost = post;
   [postView loadHTMLString:[[currentPost html] stringByReplacingOccurrencesOfString:@"target=\"_blank\"" withString:@""]baseURL:[NSURL URLWithString:@"http://thread-detail.shacknews.com/"]];
-  lolButton.title = @"LOL";
 }
 
 - (void)updateViews {
@@ -208,28 +206,34 @@
   [composeViewController release];
 }
 
-- (IBAction)lol:(id)sender {
-  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"LOL Post" message:@"Is the post that funny?"
-                                                 delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"LOL", nil];
-	[alert show];
-	[alert release];  
+- (IBAction)tag:(id)sender {
+	UIActionSheet *dialog = [[UIActionSheet alloc] initWithTitle:@"Tag Post"
+                                                           delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
+                                                  otherButtonTitles:@"LOL", @"INF", nil];
+	dialog.actionSheetStyle = UIActionSheetStyleDefault;
+	dialog.destructiveButtonIndex = 1;	// make the second button red (destructive)
+	[dialog showInView:self.view];
+	[dialog release];  
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-  if (buttonIndex == 1) [self lolConfirmed];
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+  if (buttonIndex == 0) {
+    [self tagWithTag:@"lol"];
+  } else if (buttonIndex == 1) {
+    [self tagWithTag:@"inf"];
+  }
 }
 
 
-- (IBAction)lolConfirmed {
-  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://lmnopc.com/greasemonkey/shacklol/report.php?who=%@&what=%d&tag=lol&version=-1",
-                                     [[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"], currentPost.postId]];
+- (void)tagWithTag:(NSString *)tag {
+  NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://lmnopc.com/greasemonkey/shacklol/report.php?who=%@&what=%d&tag=%@&version=-1",
+                                     [[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"], currentPost.postId, tag]];
   
-  NSLog([NSString stringWithFormat:@"http://lmnopc.com/greasemonkey/shacklol/report.php?who=%@&what=%d&tag=lol&version=-1",
-         [[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"], currentPost.postId]);
+  NSLog([NSString stringWithFormat:@"http://lmnopc.com/greasemonkey/shacklol/report.php?who=%@&what=%d&tag=%@&version=-1",
+         [[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"], currentPost.postId, tag]);
   
   NSURLRequest *request = [NSURLRequest requestWithURL:url];
   [NSURLConnection connectionWithRequest:request delegate:nil];
-  lolButton.title = @"LOL'D";
 }
 
 @end

@@ -11,7 +11,7 @@
 #import "Feed.h"
 #import "Post.h"
 
-@interface DetailViewController : UIViewController {
+@interface DetailViewController : UIViewController <UIActionSheetDelegate> {
   IBOutlet UIWebView *postView;
   IBOutlet UITableView *tableView;
   IBOutlet UIToolbar *toolbarView;
@@ -34,8 +34,8 @@
 - (IBAction)nextReply:(id)sender;
 - (IBAction)refresh:(id)sender;
 - (IBAction)reply:(id)sender;
-- (IBAction)lol:(id)sender;
-- (IBAction)lolConfirmed;
+- (IBAction)tag:(id)sender;
+- (void)tagWithTag:(NSString *)tag;
 
 @end
 
