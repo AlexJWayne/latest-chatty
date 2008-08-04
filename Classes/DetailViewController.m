@@ -251,7 +251,7 @@
   }
   
   if (url) {
-    NSLog(@"Tagged URL: @%", [url relativeString]);
+    NSLog(@"Tagged URL: %@", [url relativeString]);
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [NSURLConnection connectionWithRequest:request delegate:nil];    
