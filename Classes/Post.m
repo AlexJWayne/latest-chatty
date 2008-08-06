@@ -26,14 +26,13 @@
   
   self.parent   = [aParent retain];
   self.author   = [[xml attributeForName:@"author"]  stringValue];
-  self.date     = [[xml attributeForName:@"date"]    stringValue];
+  self.date     = [NSDate dateWithNaturalLanguageString:[[xml attributeForName:@"date"] stringValue]];
   self.postId   = [[[xml attributeForName:@"id"]     stringValue] intValue];
   self.preview  = [[xml attributeForName:@"preview"] stringValue];
   self.body     = [[[xml nodesForXPath:@"body"  error:nil] objectAtIndex:0] stringValue];
   self.children = [[NSMutableArray alloc] init];
   self.preview  = [self cleanString:self.preview];
   self.cachedReplyCount = [[[xml attributeForName:@"reply_count"] stringValue] intValue];
-  
   
   if (parent == nil) {
     self.depth = 0;
@@ -75,7 +74,7 @@
 
 - (NSString *)html {
   NSString *template = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"post" ofType:@"html"]];
-  template = [template stringByReplacingOccurrencesOfString:@"<%= date %>"   withString:date];
+  template = [template stringByReplacingOccurrencesOfString:@"<%= date %>"   withString:[self formattedDate]];
   template = [template stringByReplacingOccurrencesOfString:@"<%= author %>" withString:author];
   template = [template stringByReplacingOccurrencesOfString:@"<%= body %>"   withString:body];
   template = [template stringByReplacingOccurrencesOfString:@"<%= postId %>" withString:[[NSString alloc] initWithFormat:@"%i", postId]];
@@ -115,6 +114,10 @@
   string = [string stringByReplacingOccurrencesOfString:@"&lt;"  withString:@"<"];
   
   return string;
+}
+
+- (NSString *)formattedDate {
+  return [date descriptionWithCalendarFormat:@"%b %d, %Y %I:%M %p" timeZone:nil locale:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
 }
 
 @end

@@ -14,7 +14,7 @@
   NSString *author;
   NSString *preview;
   NSString *body;
-  NSString *date;
+  NSDate *date;
   int postId;
   NSMutableArray *children;
   int depth;
@@ -33,10 +33,11 @@
 @property (readwrite, copy) NSString *author;
 @property (readwrite, copy) NSString *preview;
 @property (readwrite, copy) NSString *body;
-@property (readwrite, copy) NSString *date;
+@property (readwrite, copy) NSDate *date;
 @property (readwrite) int postId;
 @property (readwrite, retain) NSMutableArray *children;
 @property (readwrite, assign) int depth;
 @property (readwrite, assign) int cachedReplyCount;
+@property (readonly) NSString *formattedDate;
 
 @end

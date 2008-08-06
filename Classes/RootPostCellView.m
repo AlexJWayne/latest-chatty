@@ -58,11 +58,11 @@
   timestamp.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
   timestamp.backgroundColor = [UIColor clearColor];
   timestamp.textAlignment = UITextAlignmentRight;
-  timestamp.text = post.date;
+  timestamp.text = post.formattedDate;
   [self.contentView addSubview:timestamp];
   
   // Post preview
-  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 18, 320, 38)];
+  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 18, 310, 38)];
   preview.backgroundColor = [UIColor clearColor];
   preview.numberOfLines = 2;
   preview.font = [UIFont systemFontOfSize:14];
@@ -73,7 +73,7 @@
   
   // Reply count accessory
   if (post.cachedReplyCount > 0) {
-    UILabel *replyCount = [[UILabel alloc] initWithFrame:CGRectMake(0, 52, 320, 20)];
+    UILabel *replyCount = [[UILabel alloc] initWithFrame:CGRectMake(5, 52, 310, 20)];
     replyCount.text = [NSString stringWithFormat:@"%d", post.cachedReplyCount];
     replyCount.font = [UIFont systemFontOfSize:11];
     replyCount.textAlignment = UITextAlignmentRight;
