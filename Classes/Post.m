@@ -19,6 +19,7 @@
 @synthesize postId;
 @synthesize children;
 @synthesize depth;
+@synthesize cachedReplyCount;
 
 - (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent {
   [super init];
@@ -30,8 +31,9 @@
   self.preview  = [[xml attributeForName:@"preview"] stringValue];
   self.body     = [[[xml nodesForXPath:@"body"  error:nil] objectAtIndex:0] stringValue];
   self.children = [[NSMutableArray alloc] init];
-  
   self.preview  = [self cleanString:self.preview];
+  self.cachedReplyCount = [[[xml attributeForName:@"reply_count"] stringValue] intValue];
+  
   
   if (parent == nil) {
     self.depth = 0;

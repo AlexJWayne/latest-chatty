@@ -50,24 +50,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-  /*
-	static NSString *MyIdentifier = @"indexCell";
-	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
-	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:MyIdentifier] autorelease];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    
-    UILabel *contentView = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, 290, 60)];
-    contentView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.0];
-    contentView.numberOfLines = 2;
-    contentView.font = [UIFont systemFontOfSize:14];
-    contentView.minimumFontSize = 14;
-    contentView.textColor = [UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:1.0];
-    [cell.contentView addSubview:contentView];
-	}
-   */
-	
   UITableViewCell *cell;
 	if (indexPath.row < [[feed posts] count]) {
     cell = [[RootPostCellView alloc] initWithPost:[[feed posts] objectAtIndex:indexPath.row]];
@@ -79,7 +61,7 @@
   if (indexPath.row % 2 == 1) {
     [cell.backgroundView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.05]];
   }
-    
+  
   return cell;
 }
 

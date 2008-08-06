@@ -78,17 +78,6 @@
     cell.font = [UIFont boldSystemFontOfSize:14.0];
   } else {
     cell.font = [UIFont systemFontOfSize:14.0];
-    
-    //    if ([post replyCount] > 0) {
-    //      UILabel *replyCount = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 20, 23)];
-    //      replyCount.text = [NSString stringWithFormat:@"(%d)", [post replyCount]];
-    //      replyCount.font = [UIFont systemFontOfSize:11];
-    //      replyCount.textAlignment = UITextAlignmentRight;
-    //      replyCount.opaque = NO;
-    //      replyCount.backgroundColor = [UIColor blackColor];
-    //      replyCount.textColor = [UIColor yellowColor];
-    //      cell.accessoryView = replyCount;
-    //    }
   }
   
   return cell;

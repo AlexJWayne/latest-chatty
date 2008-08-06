@@ -18,6 +18,7 @@
   int postId;
   NSMutableArray *children;
   int depth;
+  int cachedReplyCount;
 }
 
 - (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent;
@@ -36,5 +37,6 @@
 @property (readwrite) int postId;
 @property (readwrite, retain) NSMutableArray *children;
 @property (readwrite, assign) int depth;
+@property (readwrite, assign) int cachedReplyCount;
 
 @end
