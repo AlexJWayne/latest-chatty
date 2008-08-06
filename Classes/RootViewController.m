@@ -15,7 +15,7 @@
 
 - (void)viewDidLoad {
   // Fetch feed
-  feed = [[Feed alloc] init];
+  feed = [[Feed alloc] initWithLatestChatty];
   
   // Refresh button
   UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
@@ -40,7 +40,11 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return [[feed posts] count];
+  if ([feed hasMorePages]) {
+    return [[feed posts] count] + 1;
+  } else {
+    return [[feed posts] count];
+  }
 }
 
 
@@ -64,18 +68,35 @@
 	}
    */
 	
-	// Set up the cell
-	return [[RootPostCellView alloc] initWithPost:[[feed posts] objectAtIndex:indexPath.row]];
+  UITableViewCell *cell;
+	if (indexPath.row < [[feed posts] count]) {
+    cell = [[RootPostCellView alloc] initWithPost:[[feed posts] objectAtIndex:indexPath.row]];
+  } else {
+    cell = [[RootPostCellView alloc] initLoadMore];
+  }
+  
+  // This doesn't work right now
+  if (indexPath.row % 2 == 1) {
+    [cell.backgroundView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.05]];
+  }
+    
+  return cell;
 }
 
 
  - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   Post *post = [[feed posts] objectAtIndex:indexPath.row];
-   DetailViewController *detailViewController = [[DetailViewController alloc] initWithStoryId:feed.storyId rootPost:post];
-   
-   // Push the detail view controller
-   [[self navigationController] pushViewController:detailViewController animated:YES];
-   [detailViewController release];
+  if (indexPath.row < [[feed posts] count]) {
+    Post *post = [[feed posts] objectAtIndex:indexPath.row];
+    DetailViewController *detailViewController = [[DetailViewController alloc] initWithStoryId:feed.storyId rootPost:post];
+
+    // Push the detail view controller
+    [[self navigationController] pushViewController:detailViewController animated:YES];
+    [detailViewController release];
+  } else {
+    [feed loadNextPage];
+    [tableView reloadData];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+  }
 }
 
 

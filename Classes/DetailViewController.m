@@ -68,7 +68,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   UITableViewCell *cell = [[UITableViewCell alloc] init];
-  cell.textColor = [UIColor colorWithRed:0.7 green:0.7 blue:0.7 alpha:1.0];
+  cell.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
   
   Post *post = [currentRoot postAtIndex:indexPath.row];
   

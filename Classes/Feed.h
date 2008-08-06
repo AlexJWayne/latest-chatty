@@ -15,10 +15,18 @@
   CXMLDocument *xml;
   NSMutableArray *posts;
   int storyId;
+  int lastPageLoaded;
+  int lastPage;
 }
 
+- (id)initWithLatestChatty;
 - (id)initWithUrl:(NSString *)url;
-- (id)initWithStoryId:(NSString *)aStoryId;
+- (id)initWithStoryId:(int)aStoryId;
+- (void)addPostsInFeedWithUrl:(NSString *)urlString;
+
+- (void)loadNextPage;
+- (BOOL)hasMorePages;
+
 - (NSArray *)posts;
 
 @property (readwrite) int storyId;

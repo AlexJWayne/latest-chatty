@@ -16,6 +16,7 @@
   UILabel *preview;
 }
 
+- (id)initLoadMore;
 - (id)initWithPost:(Post *)aPost;
 
 @end
