@@ -160,7 +160,7 @@
 
 - (void)refresh:(id)sender {
   [feed release];
-  feed = [[Feed alloc] init];
+  feed = [[Feed alloc] initWithLatestChatty];
   [[self tableView] reloadData];
 }
 
