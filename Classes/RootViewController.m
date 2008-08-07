@@ -15,7 +15,7 @@
 
 - (void)viewDidLoad {
   // Fetch feed
-  feed = [[Feed alloc] initWithLatestChatty];
+  feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
   
   // Refresh button
   UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
@@ -57,7 +57,7 @@
     cell = [[RootPostCellView alloc] initLoadMore];
   }
   
-  // This doesn't work right now
+  // Zebra striping
   if (indexPath.row % 2 == 1) {
     [cell.backgroundView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.05]];
   }
@@ -68,19 +68,34 @@
 
  - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   if (indexPath.row < [[feed posts] count]) {
+    // Update cell laoding status
+    RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
+    [cell updateStatus];
+    
+    // get the chosen post, and create the detail view controller
     Post *post = [[feed posts] objectAtIndex:indexPath.row];
     DetailViewController *detailViewController = [[DetailViewController alloc] initWithStoryId:feed.storyId rootPost:post];
 
-    // Push the detail view controller
+    // Push the detail view controller onto the navigation stack
     [[self navigationController] pushViewController:detailViewController animated:YES];
     [detailViewController release];
+    
   } else {
+    RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
+    [cell updateStatus];
     [feed loadNextPage];
-    [tableView reloadData];
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
   }
 }
 
+- (void)feedDidFinishLoading {
+  [[self tableView] reloadData];
+  if (feed.lastPageLoaded == 1) {
+    [[self tableView] scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+  } else {
+    [[self tableView] scrollToRowAtIndexPath:[[self tableView] indexPathForSelectedRow] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+  }
+  [[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
+}
 
 /*
  Override if you support editing the list
@@ -160,8 +175,7 @@
 
 - (void)refresh:(id)sender {
   [feed release];
-  feed = [[Feed alloc] initWithLatestChatty];
-  [[self tableView] reloadData];
+  feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
 }
 
 - (IBAction)compose:(id)sender {

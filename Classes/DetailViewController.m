@@ -122,26 +122,26 @@
 }
 
 - (void)updateViews {
-  int height;
-  int width;
-  
-  if (self.interfaceOrientation == UIInterfaceOrientationPortrait) {
-    height = 372;
-    width  = 320;
-  } else {
-    height = 224;
-    width  = 480;
-  }
-  
-  if (tableIsVisible) {
-    tableView.frame = CGRectMake(0, height/2, width, height/2);
-    postView.frame  = CGRectMake(0,        0, width, height/2);
-  } else {
-    tableView.frame = CGRectMake(0,  height , width, 0);
-    postView.frame  = CGRectMake(0,        0, width, height);
-  }
-  
-  toolbarView.frame = CGRectMake(toolbarView.frame.origin.x, height, width, toolbarView.frame.size.height);
+//  int height;
+//  int width;
+//  
+//  if (self.interfaceOrientation == UIInterfaceOrientationPortrait) {
+//    height = 372;
+//    width  = 320;
+//  } else {
+//    height = 224;
+//    width  = 480;
+//  }
+//  
+//  if (tableIsVisible) {
+//    tableView.frame = CGRectMake(0, height/2, width, height/2);
+//    postView.frame  = CGRectMake(0,        0, width, height/2);
+//  } else {
+//    tableView.frame = CGRectMake(0,  height , width, 0);
+//    postView.frame  = CGRectMake(0,        0, width, height);
+//  }
+//  
+//  toolbarView.frame = CGRectMake(toolbarView.frame.origin.x, height, width, toolbarView.frame.size.height);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
@@ -159,24 +159,28 @@
 - (IBAction)prevReply:(id)sender {
   if (currentPostIndex > 0) {
     currentPostIndex--;
-    currentPost = [currentRoot postAtIndex:currentPostIndex];
-    [self showPost:currentPost];
-    [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentPostIndex inSection:0]
-                           animated:NO
-                     scrollPosition:UITableViewScrollPositionMiddle];
+    [self showRow:currentPostIndex];
   }  
 }
 
 - (IBAction)nextReply:(id)sender {
   if (currentPostIndex < [currentRoot replyCount]) {
     currentPostIndex++;
-    currentPost = [currentRoot postAtIndex:currentPostIndex];
-    [self showPost:currentPost];
-    [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentPostIndex inSection:0]
-                           animated:NO
-                     scrollPosition:UITableViewScrollPositionMiddle];
+    [self showRow:currentPostIndex];
   }
 }
+
+- (void)showRow:(int)row {
+  currentPost = [currentRoot postAtIndex:row];
+  [self showPost:currentPost];
+  
+  NSIndexPath *indexPath = [NSIndexPath indexPathForRow:currentPostIndex inSection:0];
+  [tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:currentPostIndex inSection:0]
+                         animated:NO
+                   scrollPosition:UITableViewScrollPositionNone];
+  [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
+
 
 - (IBAction)refresh:(id)sender {
   int postId = (int)currentRoot.postId;
@@ -187,7 +191,6 @@
   currentPostIndex = 0;
   [self showPost:currentRoot];
   [self updateViews];
-  [tableView reloadData];
 }
 
 - (IBAction)reply:(id)sender {

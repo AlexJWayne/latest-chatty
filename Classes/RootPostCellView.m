@@ -11,6 +11,8 @@
 
 @implementation RootPostCellView
 
+@synthesize preview;
+
 - (id)init {
   [super initWithFrame:CGRectMake(0, 0, 320, 70)];
   
@@ -33,8 +35,12 @@
   preview.textColor = [UIColor colorWithWhite:1.0 alpha:0.4];
   preview.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.75];
   preview.textAlignment = UITextAlignmentCenter;
-  preview.text = @"Load More...";
+  preview.text = @"Load More";
   [self.contentView addSubview:preview];
+  
+  activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+  activityIndicator.frame = CGRectMake(141, 16, activityIndicator.frame.size.width, activityIndicator.frame.size.height);
+  [self.contentView addSubview:activityIndicator];
   
   return self;
 }
@@ -62,7 +68,7 @@
   [self.contentView addSubview:timestamp];
   
   // Post preview
-  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 18, 310, 38)];
+  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 18, 285, 38)];
   preview.backgroundColor = [UIColor clearColor];
   preview.numberOfLines = 2;
   preview.font = [UIFont systemFontOfSize:14];
@@ -71,7 +77,12 @@
   preview.text = post.preview;
   [self.contentView addSubview:preview];
   
-  // Reply count accessory
+  // Loading spinner
+  activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+  activityIndicator.frame = CGRectMake(295, 25, activityIndicator.frame.size.width, activityIndicator.frame.size.height);
+  [self.contentView addSubview:activityIndicator];
+  
+  // Reply count
   if (post.cachedReplyCount > 0) {
     UILabel *replyCount = [[UILabel alloc] initWithFrame:CGRectMake(5, 52, 310, 20)];
     replyCount.text = [NSString stringWithFormat:@"%d", post.cachedReplyCount];
@@ -93,6 +104,11 @@
 	[super setSelected:selected animated:animated];
 
 	// Configure the view for the selected state
+}
+
+- (void)updateStatus {
+  if (preview.text == @"Load More") preview.text = @"";
+  [activityIndicator startAnimating];
 }
 
 

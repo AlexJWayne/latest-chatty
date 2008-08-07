@@ -12,6 +12,9 @@
 
 
 @interface Feed : NSObject {
+  id delegate;
+  
+  NSMutableData *partialData;
   CXMLDocument *xml;
   NSMutableArray *posts;
   int storyId;
@@ -19,10 +22,11 @@
   int lastPage;
 }
 
-- (id)initWithLatestChatty;
-- (id)initWithUrl:(NSString *)url;
-- (id)initWithStoryId:(int)aStoryId;
+- (id)initWithLatestChattyAndDelegate:(id)aDelegate;
+- (id)initWithUrl:(NSString *)urlString delegate:(id)aDelegate;
+- (id)initWithStoryId:(int)aStoryId delegate:(id)aDelegate;
 - (void)addPostsInFeedWithUrl:(NSString *)urlString;
+- (void)addPostsInFeedWithString:(NSString *)dataString;
 
 - (void)loadNextPage;
 - (BOOL)hasMorePages;
@@ -30,5 +34,6 @@
 - (NSArray *)posts;
 
 @property (readwrite) int storyId;
+@property (readonly) int lastPageLoaded;
 
 @end

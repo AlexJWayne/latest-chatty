@@ -30,8 +30,11 @@
 - (void)updateViews;
 
 - (IBAction)toggleTable:(id)sender;
+
 - (IBAction)prevReply:(id)sender;
 - (IBAction)nextReply:(id)sender;
+- (void)showRow:(int)row;
+   
 - (IBAction)refresh:(id)sender;
 - (IBAction)reply:(id)sender;
 - (IBAction)tag:(id)sender;

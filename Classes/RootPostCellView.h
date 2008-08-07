@@ -14,9 +14,14 @@
   UILabel *username;
   UILabel *timestamp;
   UILabel *preview;
+  UIActivityIndicatorView *activityIndicator;
 }
 
 - (id)initLoadMore;
 - (id)initWithPost:(Post *)aPost;
+
+- (void)updateStatus;
+
+@property (readonly) UILabel *preview;
 
 @end

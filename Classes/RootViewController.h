@@ -16,6 +16,8 @@
   Feed *feed;
 }
 
+- (void)feedDidFinishLoading;
+
 - (IBAction)refresh:(id)sender;
 - (IBAction)compose:(id)sender;
 
