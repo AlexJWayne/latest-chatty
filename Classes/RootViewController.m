@@ -90,9 +90,7 @@
 - (void)feedDidFinishLoading {
   [[self tableView] reloadData];
   if (feed.lastPageLoaded == 1) {
-    [[self tableView] scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-  } else {
-    [[self tableView] scrollToRowAtIndexPath:[[self tableView] indexPathForSelectedRow] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [[self tableView] scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
   }
   [[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
 }

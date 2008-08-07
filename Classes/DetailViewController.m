@@ -122,26 +122,26 @@
 }
 
 - (void)updateViews {
-//  int height;
-//  int width;
-//  
-//  if (self.interfaceOrientation == UIInterfaceOrientationPortrait) {
-//    height = 372;
-//    width  = 320;
-//  } else {
-//    height = 224;
-//    width  = 480;
-//  }
-//  
-//  if (tableIsVisible) {
-//    tableView.frame = CGRectMake(0, height/2, width, height/2);
-//    postView.frame  = CGRectMake(0,        0, width, height/2);
-//  } else {
-//    tableView.frame = CGRectMake(0,  height , width, 0);
-//    postView.frame  = CGRectMake(0,        0, width, height);
-//  }
-//  
-//  toolbarView.frame = CGRectMake(toolbarView.frame.origin.x, height, width, toolbarView.frame.size.height);
+  int height;
+  int width;
+  
+  if (self.interfaceOrientation == UIInterfaceOrientationPortrait) {
+    height = 372;
+    width  = 320;
+  } else {
+    height = 224;
+    width  = 480;
+  }
+  
+  if (tableIsVisible) {
+    tableView.frame = CGRectMake(0, height/2, width, height/2);
+    postView.frame  = CGRectMake(0,        0, width, height/2);
+  } else {
+    tableView.frame = CGRectMake(0,  height , width, 0);
+    postView.frame  = CGRectMake(0,        0, width, height);
+  }
+  
+  toolbarView.frame = CGRectMake(toolbarView.frame.origin.x, height, width, toolbarView.frame.size.height);
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
