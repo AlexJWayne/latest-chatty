@@ -14,7 +14,9 @@
 @synthesize lastPageLoaded;
 
 + (NSString *)urlStringWithPath:(NSString *)path {
-  return [[[NSUserDefaults standardUserDefaults] stringForKey:@"api_server"] stringByAppendingString:path];
+  NSString *prefix = [[NSUserDefaults standardUserDefaults] stringForKey:@"api_service"];
+  if (prefix == nil) prefix = @"http://ws.shackchatty.com/";
+  return [prefix stringByAppendingString:path];
 }
 
 
