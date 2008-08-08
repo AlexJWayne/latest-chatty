@@ -13,6 +13,12 @@
 @synthesize storyId;
 @synthesize lastPageLoaded;
 
++ (NSString *)urlStringWithPath:(NSString *)path {
+  return [[[NSUserDefaults standardUserDefaults] stringForKey:@"api_server"] stringByAppendingString:path];
+}
+
+
+
 // Designated Initializer.
 - (id)init {
   [super init];
@@ -31,12 +37,12 @@
 
 // Use the default feed that just includes the latest chatty.
 - (id)initWithLatestChattyAndDelegate:(id)aDelegate {
-  return [self initWithUrl:@"http://latestchatty.beautifulpixel.com/" delegate:aDelegate];
+  return [self initWithUrl:[Feed urlStringWithPath:@"index.xml"] delegate:aDelegate];
 }
 
 // Get a feed for a specific storyId
 - (id)initWithStoryId:(int)aStoryId delegate:(id)aDelegate {
-  return [self initWithUrl:[NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/%d.xml", storyId] delegate:aDelegate];
+  return [self initWithUrl:[Feed urlStringWithPath:[NSString stringWithFormat:@"%d.xml", storyId]] delegate:aDelegate];
 }
 
 - (void)addPostsInFeedWithUrl:(NSString *)urlString {
@@ -62,7 +68,9 @@
   // Parse response into post objects
   NSArray *postElements = [[xml rootElement] nodesForXPath:@"comment" error:nil];
   for (CXMLElement *postXml in [postElements objectEnumerator]) {
-    [posts addObject:[[Post alloc] initWithXmlElement:postXml parent:nil]];
+    Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:nil];
+    if (postObject != nil)
+      [posts addObject:postObject];
   }
   
   storyId         = [[[[xml rootElement] attributeForName:@"story_id"]  stringValue] intValue];
@@ -75,7 +83,7 @@
 - (void)loadNextPage {
   if (lastPageLoaded < lastPage) {
     lastPageLoaded++;
-    [self addPostsInFeedWithUrl:[NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/%d.%d.xml", storyId, lastPageLoaded]];
+    [self addPostsInFeedWithUrl:[Feed urlStringWithPath:[NSString stringWithFormat:@"%d.%d.xml", storyId, lastPageLoaded]]];
   }
 }
 

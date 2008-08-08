@@ -68,7 +68,7 @@
   [self.contentView addSubview:timestamp];
   
   // Post preview
-  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 18, 285, 38)];
+  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 18, 310, 38)];
   preview.backgroundColor = [UIColor clearColor];
   preview.numberOfLines = 2;
   preview.font = [UIFont systemFontOfSize:14];
@@ -107,8 +107,10 @@
 }
 
 - (void)updateStatus {
-  if (preview.text == @"Load More") preview.text = @"";
-  [activityIndicator startAnimating];
+  if (preview.text == @"Load More") {
+    preview.text = @"";
+    [activityIndicator startAnimating];
+  }
 }
 
 

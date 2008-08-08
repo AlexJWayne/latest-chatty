@@ -184,7 +184,7 @@
 
 - (IBAction)refresh:(id)sender {
   int postId = (int)currentRoot.postId;
-  [currentRoot release];
+  //[currentRoot release];
   
   currentRoot = [[Post alloc] initWithThreadId:postId];
   currentPost = currentRoot;

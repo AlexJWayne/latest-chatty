@@ -58,21 +58,21 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Not Work Safe</string>
+			<string>NWS</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Key</key>
-			<string>filterNotWorkSafe</string>
+			<string>filter_nws</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Random</string>
+			<string>Random / Stupid</string>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Key</key>
-			<string>filterRandom</string>
+			<string>filter_stupid</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -82,7 +82,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Key</key>
-			<string>filterInteresting</string>
+			<string>filter_interesting</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -92,7 +92,7 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Key</key>
-			<string>filterPolitical</string>
+			<string>filter_political</string>
 			<key>DefaultValue</key>
 			<true/>
 		</dict>
@@ -102,9 +102,33 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Key</key>
-			<string>filterOffTopic</string>
+			<string>filter_offtopic</string>
 			<key>DefaultValue</key>
 			<true/>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>Server</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTextFieldSpecifier</string>
+			<key>Title</key>
+			<string>Feed Server</string>
+			<key>Key</key>
+			<string>api_server</string>
+			<key>DefaultValue</key>
+			<string>http://ws.shackschatty.com/</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>URL</string>
+			<key>AutocapitalizationType</key>
+			<string>None</string>
+			<key>AutocorrectionType</key>
+			<string>No</string>
 		</dict>
 	</array>
 </dict>

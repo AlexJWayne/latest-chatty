@@ -22,6 +22,8 @@
   int lastPage;
 }
 
++ (NSString *)urlStringWithPath:(NSString *)path;
+
 - (id)initWithLatestChattyAndDelegate:(id)aDelegate;
 - (id)initWithUrl:(NSString *)urlString delegate:(id)aDelegate;
 - (id)initWithStoryId:(int)aStoryId delegate:(id)aDelegate;

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Feed.h"
 #import "TouchXML.h"
 
 @interface Post : NSObject {
@@ -14,6 +15,7 @@
   NSString *author;
   NSString *preview;
   NSString *body;
+  NSString *category;
   NSDate *date;
   int postId;
   NSMutableArray *children;
@@ -33,6 +35,7 @@
 @property (readwrite, copy) NSString *author;
 @property (readwrite, copy) NSString *preview;
 @property (readwrite, copy) NSString *body;
+@property (readwrite, copy) NSString *category;
 @property (readwrite, copy) NSDate *date;
 @property (readwrite) int postId;
 @property (readwrite, retain) NSMutableArray *children;

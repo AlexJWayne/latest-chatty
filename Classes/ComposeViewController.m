@@ -77,9 +77,9 @@
   // Find the proper URL based on whether this is a root post or reply
   NSString *urlString;
   if (parentPost) {
-    urlString = [NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/create/%d/%d.xml", storyId, parentPost.postId];
+    urlString = [Feed urlStringWithPath:[NSString stringWithFormat:@"create/%d/%d.xml", storyId, parentPost.postId]];
   } else {
-    urlString = [NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/create/%d.xml", storyId];
+    urlString = [Feed urlStringWithPath:[NSString stringWithFormat:@"create/%d.xml", storyId]];
   }
   
   // Create the request

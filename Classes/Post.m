@@ -15,6 +15,7 @@
 @synthesize author;
 @synthesize preview;
 @synthesize body;
+@synthesize category;
 @synthesize date;
 @synthesize postId;
 @synthesize children;
@@ -30,8 +31,10 @@
   self.postId   = [[[xml attributeForName:@"id"]     stringValue] intValue];
   self.preview  = [[xml attributeForName:@"preview"] stringValue];
   self.body     = [[[xml nodesForXPath:@"body"  error:nil] objectAtIndex:0] stringValue];
-  self.children = [[NSMutableArray alloc] init];
+  self.category = [[xml attributeForName:@"category"] stringValue];
   self.preview  = [self cleanString:self.preview];
+  
+  self.children = [[NSMutableArray alloc] init];
   self.cachedReplyCount = [[[xml attributeForName:@"reply_count"] stringValue] intValue];
   
   if (parent == nil) {
@@ -42,14 +45,25 @@
   
   NSArray *postElements = [xml nodesForXPath:@"comments/comment" error:nil];
   for (CXMLElement *postXml in [postElements objectEnumerator]) {
-    [children addObject:[[Post alloc] initWithXmlElement:postXml parent:self]];
+    Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self];
+    if (postObject != nil)
+      [children addObject:postObject];
   }
   
-  return self;
+  if ([self.category isEqualToString:@"ontopic"]) {
+    return self;
+  } else {
+    NSLog(@"filter setting for %@, %d", self.category, (int)[[NSUserDefaults standardUserDefaults] boolForKey:[@"filter_" stringByAppendingString:self.category]]);
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:[@"filter_" stringByAppendingString:self.category]]) {
+      return self;
+    } else {
+      return nil;
+    }
+  }
 }
 
 - (id)initWithThreadId:(int)threadId {
-  NSString *urlString = [NSString stringWithFormat:@"http://latestchatty.beautifulpixel.com/thread/%d.xml", threadId];
+  NSString *urlString = [Feed urlStringWithPath:[NSString stringWithFormat:@"thread/%d.xml", threadId]];
   CXMLDocument *xml = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:urlString]
                                                            options:1
                                                              error:nil] autorelease];
