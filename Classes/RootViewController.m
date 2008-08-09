@@ -50,19 +50,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-  UITableViewCell *cell;
+  RootPostCellView *cell;
 	if (indexPath.row < [[feed posts] count]) {
-    cell = [[RootPostCellView alloc] initWithPost:[[feed posts] objectAtIndex:indexPath.row]];
+    Post *post = [[feed posts] objectAtIndex:indexPath.row];
+    
+    cell = (RootPostCellView *)[tableView dequeueReusableCellWithIdentifier:@"rootPostCell"];
+    if (cell == nil) {
+      cell = [[RootPostCellView alloc] initForPost];
+    }
+    
+    [cell updateWithPost:post];
   } else {
     cell = [[RootPostCellView alloc] initLoadMore];
   }
-  
-  // Zebra striping
-  if (indexPath.row % 2 == 1) {
-    [cell.backgroundView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.05]];
-  }
-  
-  return cell;
+
+  cell.striped = (indexPath.row % 2 == 1);
+  return (UITableViewCell *)cell;
 }
 
 

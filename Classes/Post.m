@@ -57,6 +57,7 @@
     if ([[NSUserDefaults standardUserDefaults] boolForKey:[@"filter_" stringByAppendingString:self.category]]) {
       return self;
     } else {
+      NSLog(@"denied %@, by %@", self.category, self.author);
       return nil;
     }
   }

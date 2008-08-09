@@ -14,14 +14,21 @@
   UILabel *username;
   UILabel *timestamp;
   UILabel *preview;
+  UILabel *replyCount;
+  UILabel *category;
   UIActivityIndicatorView *activityIndicator;
+  
+  BOOL striped;
 }
 
+- (id)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 - (id)initLoadMore;
-- (id)initWithPost:(Post *)aPost;
+- (id)initForPost;
+- (void)updateWithPost:(Post *)aPost;
 
 - (void)updateStatus;
 
 @property (readonly) UILabel *preview;
+@property (nonatomic) BOOL striped;
 
 @end
