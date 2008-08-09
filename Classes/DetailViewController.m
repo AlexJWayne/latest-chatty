@@ -98,7 +98,8 @@
 // UIWebViewDelegate methods
 - (BOOL)webView:(UIWebView *)aWebView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
   if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-    [[UIApplication sharedApplication] openURL:[request URL]];
+    ExternalWebViewController *controller = [[ExternalWebViewController alloc] initWithRequest:request];
+    [[self navigationController] pushViewController:controller animated:YES];
     return NO;
   }
   
@@ -191,6 +192,7 @@
   currentPostIndex = 0;
   [self showPost:currentRoot];
   [self updateViews];
+  [tableView reloadData];
 }
 
 - (IBAction)reply:(id)sender {

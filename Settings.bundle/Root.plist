@@ -64,7 +64,7 @@
 			<key>Key</key>
 			<string>filter_nws</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Title</key>
@@ -120,9 +120,7 @@
 			<key>Key</key>
 			<string>api_server</string>
 			<key>DefaultValue</key>
-			<string>http://ws.shackchatty.com/</string>
-			<key>IsSecure</key>
-			<false/>
+			<string>http://shackchatty.com/</string>
 			<key>KeyboardType</key>
 			<string>URL</string>
 			<key>AutocapitalizationType</key>

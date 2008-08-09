@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ComposeViewController.h"
+#import "ExternalWebViewController.h"
 #import "Feed.h"
 #import "Post.h"
 
