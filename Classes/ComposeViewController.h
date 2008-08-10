@@ -22,8 +22,10 @@
 - (id)initWithStoryId:(int)aStoryId;
 - (id)initWithStoryId:(int)aStoryId parentPost:(Post *)aPost;
 
+- (IBAction)toggleKeyboard:(id)sender;
 - (IBAction)sendPost:(id)sender;
 - (void)sendPostConfirmed;
 - (NSString *)urlEscape:(NSString *)string;
 
+- (IBAction)tag:(id)sender;
 @end

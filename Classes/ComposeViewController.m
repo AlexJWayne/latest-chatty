@@ -25,11 +25,10 @@
 }
 
 /*
- Implement loadView if you want to create a view hierarchy programmatically
 - (void)loadView {
-}
- */
 
+}
+*/
 
 - (void)viewDidLoad {
   if (parentPost) {
@@ -37,7 +36,11 @@
   } else {
     parentPreview.text = @"New Post";
   }
-  
+  UIBarButtonItem *toggleButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+                                                                  target:self
+                                                                  action:@selector(toggleKeyboard:)];
+	self.navigationItem.rightBarButtonItem = toggleButton;
+	[toggleButton release];  
   //[postContent becomeFirstResponder];
 }
 
@@ -59,8 +62,51 @@
 
 
 
+- (IBAction)toggleKeyboard:(id)sender {
+  //This will hide the keyboard.
+  [postContent resignFirstResponder];
+}
 
-
+- (IBAction)tag:(id)sender {
+  UIButton *btn = (UIButton *)sender;
+  NSString *append = nil;
+  NSString *buttonText = btn.currentTitle;
+  
+  if ([buttonText isEqualToString:@"Red"])         { append = @"r{}r"; }
+  else if ([buttonText isEqualToString:@"Green"])  { append = @"g{}g"; }
+  else if ([buttonText isEqualToString:@"Blue"])   { append = @"b{}b"; }
+  else if ([buttonText isEqualToString:@"Yellow"]) { append = @"y{}y"; }
+  else if ([buttonText isEqualToString:@"Olive"])  { append = @"e[]e"; }
+  else if ([buttonText isEqualToString:@"Lime"])   { append = @"l[]l"; }
+  else if ([buttonText isEqualToString:@"Orange"]) { append = @"n[]n"; }
+  else if ([buttonText isEqualToString:@"Pink"])   { append = @"p[]p"; }
+  else if ([buttonText isEqualToString:@"Italic"]) { append = @"/[]/"; }
+  else if ([buttonText isEqualToString:@"Bold"])   { append = @"b[]b"; }
+  else if ([buttonText isEqualToString:@"Quote"])  { append = @"q[]q"; }
+  else if ([buttonText isEqualToString:@"Small"])  { append = @"s[]s"; }
+  else if ([buttonText isEqualToString:@"Under"])  { append = @"_[]_"; }
+  else if ([buttonText isEqualToString:@"Strike"]) { append = @"-[]-"; }
+  else if ([buttonText isEqualToString:@"Spoil"])  { append = @"o[]o"; }
+  else if ([buttonText isEqualToString:@"Code"])   { append = @"/{{}}/"; }
+  
+  if (append)
+  {
+    int textLen = [[postContent text] length];
+    /* I realized this is probably useless after I wrote it.  Gonna leave it here because I want to.
+     if (textLen > 0){
+      NSRange range;
+      range.location = textLen - 1;
+      range.length = 1;
+      NSString *selectedText = [[postContent text] substringWithRange:range];
+      if (![selectedText isEqualToString:@" "])
+        append = [@" " stringByAppendingString:append];
+    }
+    */
+    postContent.text = [[postContent text] stringByAppendingString:append];
+    [postContent becomeFirstResponder];
+    [postContent setSelectedRange:NSMakeRange(([append length] == 4 ? textLen + 2 : textLen + 3), 0)];
+  }
+}
 
 - (IBAction)sendPost:(id)sender {
   UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Submit Post" message:@"All ready to submit your post?"
