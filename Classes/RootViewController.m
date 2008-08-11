@@ -14,9 +14,6 @@
 
 
 - (void)viewDidLoad {
-  // Fetch feed
-  feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
-  
   // Refresh button
   refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                target:self
@@ -33,6 +30,9 @@
                                                                                action:@selector(compose:)];
   self.navigationItem.rightBarButtonItem = composeItem;
   [composeItem release];
+  
+  // Fetch feed
+  [self refresh:nil];
 }
 
 
