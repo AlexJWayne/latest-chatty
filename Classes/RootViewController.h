@@ -14,6 +14,8 @@
 
 @interface RootViewController : UITableViewController {
   Feed *feed;
+  UIBarButtonItem *refreshButton;
+  UIBarButtonItem *refreshButtonLoading;
 }
 
 - (void)feedDidFinishLoading;

@@ -18,11 +18,13 @@
   feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
   
   // Refresh button
-  UIBarButtonItem *refreshItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+  refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                                                                target:self
                                                                                action:@selector(refresh:)];
-  self.navigationItem.leftBarButtonItem = refreshItem;
-  [refreshItem release];
+  self.navigationItem.leftBarButtonItem = refreshButton;
+  
+  // This replaces the refresh button while its loading data
+  refreshButtonLoading = [[UIBarButtonItem alloc] initWithCustomView:[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite]];
   
   
   // Compose button
@@ -96,6 +98,10 @@
     [[self tableView] scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
   }
   [[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
+  
+  // Replace refresh loader with a working refresh button
+  self.navigationItem.leftBarButtonItem = refreshButton;
+  [(UIActivityIndicatorView *)refreshButtonLoading.customView stopAnimating];
 }
 
 /*
@@ -166,6 +172,7 @@
 
 
 - (void)dealloc {
+  [refreshButton release];
 	[super dealloc];
 }
 
@@ -177,6 +184,8 @@
 - (void)refresh:(id)sender {
   [feed release];
   feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
+  self.navigationItem.leftBarButtonItem = refreshButtonLoading;
+  [(UIActivityIndicatorView *)refreshButtonLoading.customView startAnimating];
 }
 
 - (IBAction)compose:(id)sender {
