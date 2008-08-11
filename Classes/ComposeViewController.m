@@ -36,7 +36,8 @@
   } else {
     parentPreview.text = @"New Post";
   }
-  UIBarButtonItem *toggleButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
+  UIBarButtonItem *toggleButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavButtonTags.png"]
+                                                                   style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:@selector(toggleKeyboard:)];
 	self.navigationItem.rightBarButtonItem = toggleButton;
@@ -63,45 +64,33 @@
 
 
 - (IBAction)toggleKeyboard:(id)sender {
-  //This will hide the keyboard.
-  [postContent resignFirstResponder];
+  [postContent resignFirstResponder];  
 }
 
 - (IBAction)tag:(id)sender {
-  UIButton *btn = (UIButton *)sender;
-  NSString *append = nil;
-  NSString *buttonText = btn.currentTitle;
+  NSDictionary *tagLookup = [[NSDictionary dictionaryWithObjectsAndKeys:
+                              @"r{}r", @"Red",
+                              @"g{}g", @"Green",
+                              @"b{}b", @"Blue",
+                              @"y{}y", @"Yellow",
+                              @"e[]e", @"Olive",
+                              @"l[]l", @"Lime",
+                              @"n[]n", @"Orange",
+                              @"p[]p", @"Pink",
+                              @"/[]/", @"Italic",
+                              @"b[]b", @"Bold",
+                              @"q[]q", @"Quote",
+                              @"s[]s", @"Small",
+                              @"_[]_", @"Underline",
+                              @"-[]-", @"Strike",
+                              @"o[]o", @"Spoiler",
+                              @"/{{}}/", @"Code",
+                              nil] autorelease];
   
-  if ([buttonText isEqualToString:@"Red"])         { append = @"r{}r"; }
-  else if ([buttonText isEqualToString:@"Green"])  { append = @"g{}g"; }
-  else if ([buttonText isEqualToString:@"Blue"])   { append = @"b{}b"; }
-  else if ([buttonText isEqualToString:@"Yellow"]) { append = @"y{}y"; }
-  else if ([buttonText isEqualToString:@"Olive"])  { append = @"e[]e"; }
-  else if ([buttonText isEqualToString:@"Lime"])   { append = @"l[]l"; }
-  else if ([buttonText isEqualToString:@"Orange"]) { append = @"n[]n"; }
-  else if ([buttonText isEqualToString:@"Pink"])   { append = @"p[]p"; }
-  else if ([buttonText isEqualToString:@"Italic"]) { append = @"/[]/"; }
-  else if ([buttonText isEqualToString:@"Bold"])   { append = @"b[]b"; }
-  else if ([buttonText isEqualToString:@"Quote"])  { append = @"q[]q"; }
-  else if ([buttonText isEqualToString:@"Small"])  { append = @"s[]s"; }
-  else if ([buttonText isEqualToString:@"Under"])  { append = @"_[]_"; }
-  else if ([buttonText isEqualToString:@"Strike"]) { append = @"-[]-"; }
-  else if ([buttonText isEqualToString:@"Spoil"])  { append = @"o[]o"; }
-  else if ([buttonText isEqualToString:@"Code"])   { append = @"/{{}}/"; }
+  NSString *append = [tagLookup valueForKey:((UIButton *)sender).currentTitle];
   
-  if (append)
-  {
+  if (append) {
     int textLen = [[postContent text] length];
-    /* I realized this is probably useless after I wrote it.  Gonna leave it here because I want to.
-     if (textLen > 0){
-      NSRange range;
-      range.location = textLen - 1;
-      range.length = 1;
-      NSString *selectedText = [[postContent text] substringWithRange:range];
-      if (![selectedText isEqualToString:@" "])
-        append = [@" " stringByAppendingString:append];
-    }
-    */
     postContent.text = [[postContent text] stringByAppendingString:append];
     [postContent becomeFirstResponder];
     [postContent setSelectedRange:NSMakeRange(([append length] == 4 ? textLen + 2 : textLen + 3), 0)];
