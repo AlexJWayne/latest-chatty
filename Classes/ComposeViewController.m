@@ -36,13 +36,12 @@
   } else {
     parentPreview.text = @"New Post";
   }
-  UIBarButtonItem *toggleButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"NavButtonTags.png"]
-                                                                   style:UIBarButtonItemStylePlain
-                                                                  target:self
-                                                                  action:@selector(toggleKeyboard:)];
-	self.navigationItem.rightBarButtonItem = toggleButton;
-	[toggleButton release];  
-  //[postContent becomeFirstResponder];
+  UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle:@"Send"
+                                                                 style:UIBarButtonItemStyleDone
+                                                                target:self
+                                                                action:@selector(sendPost:)];
+	self.navigationItem.rightBarButtonItem = sendButton;
+	[sendButton release];
 }
 
 

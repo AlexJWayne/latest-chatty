@@ -203,7 +203,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{237, 206}, {77, 51}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="1001987407">
+						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">1</int>
 							<bytes key="NSRGB">MSAxIDAAA</bytes>
 						</object>
@@ -241,19 +241,22 @@
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica-BoldOblique</string>
-							<double key="NSSize">1.400000e+01</double>
-							<int key="NSfFlags">16</int>
-						</object>
-						<string key="IBUIHighlightedTitle">Send</string>
-						<string key="IBUIDisabledTitle">Send</string>
-						<string key="IBUISelectedTitle">Send</string>
-						<string key="IBUINormalTitle">Send</string>
-						<reference key="IBUIHighlightedTitleColor" ref="1001987407"/>
-						<reference key="IBUIDisabledTitleColor" ref="1001987407"/>
-						<reference key="IBUISelectedTitleColor" ref="1001987407"/>
+						<reference key="IBUIFont" ref="794779406"/>
+						<string key="IBUIHighlightedTitle"> Tags</string>
+						<string key="IBUIDisabledTitle"> Tags</string>
+						<string key="IBUISelectedTitle"> Tags</string>
+						<string key="IBUINormalTitle"> Tags</string>
+						<reference key="IBUIHighlightedTitleColor" ref="484238296"/>
+						<reference key="IBUIDisabledTitleColor" ref="484238296"/>
+						<reference key="IBUISelectedTitleColor" ref="484238296"/>
 						<reference key="IBUINormalTitleColor" ref="484238296"/>
+						<object class="NSCustomResource" key="IBUIHighlightedImage" id="764828187">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">NavButtonTags.png</string>
+						</object>
+						<reference key="IBUIDisabledImage" ref="764828187"/>
+						<reference key="IBUISelectedImage" ref="764828187"/>
+						<reference key="IBUINormalImage" ref="764828187"/>
 						<reference key="IBUIHighlightedBackgroundImage" ref="921299431"/>
 						<reference key="IBUIDisabledBackgroundImage" ref="3582267"/>
 						<reference key="IBUISelectedBackgroundImage" ref="3582267"/>
@@ -773,21 +776,21 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">sendPost:</string>
-						<reference key="source" ref="83135498"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">71</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">tag:</string>
 						<reference key="source" ref="467334273"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">72</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">toggleKeyboard:</string>
+						<reference key="source" ref="83135498"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">73</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1019,7 +1022,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">72</int>
+			<int key="maxID">73</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

@@ -51,8 +51,6 @@
   
   // username label
   username = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 155, 12)];
-  username.font = [UIFont systemFontOfSize:10];
-  username.textColor = [UIColor colorWithRed:1.0 green:0.73 blue:0 alpha:1.0];
   username.backgroundColor = [UIColor clearColor];
   [self.contentView addSubview:username];
   
@@ -115,6 +113,14 @@
   } else {
     category.text = @"";
     category.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
+  }
+  
+  if ([post.author isEqualToString:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]]) {
+    username.textColor = [UIColor colorWithRed:0.0 green:0.75 blue:0.95 alpha:1.0];
+    username.font = [UIFont boldSystemFontOfSize:10];
+  } else {
+    username.textColor = [UIColor colorWithRed:1.0 green:0.73 blue:0.0  alpha:1.0];
+    username.font = [UIFont systemFontOfSize:10];
   }
 }
 
