@@ -96,7 +96,7 @@
   CXMLDocument *xml = [[[CXMLDocument alloc] initWithData:partialData options:1 error:nil] autorelease];
   [self parseXml:[[xml nodesForXPath:@"comments/comment" error:nil] objectAtIndex:0]];
   
-  [delegate threadDidFinishLoadingThread:self];
+  [delegate didFinishLoadingThread:self];
   [partialData release];
   partialData = [[NSMutableData alloc] init];
 }

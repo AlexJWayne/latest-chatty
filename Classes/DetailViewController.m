@@ -191,7 +191,7 @@
   [refreshButtonLoading startAnimating];
 }
 
-- (void)threadDidFinishLoadingThread:(Post *)post {
+- (void)didFinishLoadingThread:(Post *)post {
   currentPost = currentRoot;
   currentPostIndex = 0;
   [self showPost:currentRoot];
@@ -201,6 +201,8 @@
   // Swap refresh button back in
   refreshButton.customView.hidden = YES;
   [refreshButtonLoading stopAnimating];
+  
+  NSLog(@"refreshed");
 }
 
 - (IBAction)reply:(id)sender {

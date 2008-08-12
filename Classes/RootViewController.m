@@ -99,7 +99,7 @@
   [(UIActivityIndicatorView *)refreshButtonLoading.customView stopAnimating];
 }
 
-- (void)threadDidFinishLoadingThread:(Post *)post {
+- (void)didFinishLoadingThread:(Post *)post {
   // create the detail view controller
   DetailViewController *detailViewController = [[DetailViewController alloc] initWithStoryId:feed.storyId rootPost:post];
   
