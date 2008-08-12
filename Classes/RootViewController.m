@@ -85,6 +85,8 @@
     [cell setLoading:YES];
     [feed loadNextPage];
   }
+  
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 - (void)feedDidFinishLoading {
@@ -97,6 +99,8 @@
   // Replace refresh loader with a working refresh button
   self.navigationItem.leftBarButtonItem = refreshButton;
   [(UIActivityIndicatorView *)refreshButtonLoading.customView stopAnimating];
+  
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (void)didFinishLoadingThread:(Post *)post {
@@ -109,6 +113,8 @@
   
   // Remove loading status from tapped cell
   [(RootPostCellView *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]] setLoading:NO];
+  
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 /*
@@ -193,6 +199,7 @@
   feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
   self.navigationItem.leftBarButtonItem = refreshButtonLoading;
   [(UIActivityIndicatorView *)refreshButtonLoading.customView startAnimating];
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 - (IBAction)compose:(id)sender {

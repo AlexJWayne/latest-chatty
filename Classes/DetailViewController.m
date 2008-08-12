@@ -186,9 +186,8 @@
 - (IBAction)refresh:(id)sender {
   currentRoot = [[Post alloc] initWithThreadId:currentPost.postId delegate:self];
   
-  // Swap refresh button for a loading spinner
-  refreshButton.customView.hidden = YES;
-  [refreshButtonLoading startAnimating];
+  //[refreshButtonLoading startAnimating];
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 - (void)didFinishLoadingThread:(Post *)post {
@@ -198,11 +197,9 @@
   [self updateViews];
   [tableView reloadData];
   
-  // Swap refresh button back in
-  refreshButton.customView.hidden = YES;
   [refreshButtonLoading stopAnimating];
   
-  NSLog(@"refreshed");
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (IBAction)reply:(id)sender {
