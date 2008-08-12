@@ -11,6 +11,7 @@
 #import "ComposeViewController.h"
 #import "RootPostCellView.h"
 #import "Feed.h"
+#import "Post.h"
 
 @interface RootViewController : UITableViewController {
   Feed *feed;

@@ -16,7 +16,8 @@
   IBOutlet UIWebView *postView;
   IBOutlet UITableView *tableView;
   IBOutlet UIToolbar *toolbarView;
-  IBOutlet UIBarButtonItem *lolButton;
+  IBOutlet UIBarButtonItem *refreshButton;
+  IBOutlet UIActivityIndicatorView *refreshButtonLoading;
   
   BOOL tableIsVisible;
   int storyId;

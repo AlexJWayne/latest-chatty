@@ -13,7 +13,7 @@
 - (id)initWithStoryId:(int)aStoryId rootPost:(Post *)post; {
   [self initWithNibName:@"DetailViewController" bundle:nil];
   storyId = aStoryId;
-  currentRoot = [[Post alloc] initWithThreadId:(int)post.postId];
+  currentRoot = post;
   currentPost = currentRoot;
   currentPostIndex = 0;
   tableIsVisible = YES;
@@ -184,15 +184,23 @@
 
 
 - (IBAction)refresh:(id)sender {
-  int postId = (int)currentRoot.postId;
-  //[currentRoot release];
+  currentRoot = [[Post alloc] initWithThreadId:currentPost.postId delegate:self];
   
-  currentRoot = [[Post alloc] initWithThreadId:postId];
+  // Swap refresh button for a loading spinner
+  refreshButton.customView.hidden = YES;
+  [refreshButtonLoading startAnimating];
+}
+
+- (void)threadDidFinishLoadingThread:(Post *)post {
   currentPost = currentRoot;
   currentPostIndex = 0;
   [self showPost:currentRoot];
   [self updateViews];
   [tableView reloadData];
+  
+  // Swap refresh button back in
+  refreshButton.customView.hidden = YES;
+  [refreshButtonLoading stopAnimating];
 }
 
 - (IBAction)reply:(id)sender {
@@ -208,7 +216,7 @@
 	dialog.actionSheetStyle = UIBarStyleBlackTranslucent;
 	dialog.destructiveButtonIndex = -1;
 	[dialog showInView:self.view];
-	[dialog release];  
+	[dialog release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

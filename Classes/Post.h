@@ -11,6 +11,9 @@
 #import "TouchXML.h"
 
 @interface Post : NSObject {
+  id delegate;
+  NSMutableData *partialData;
+  
   Post *parent;
   NSString *author;
   NSString *preview;
@@ -24,7 +27,9 @@
 }
 
 - (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent;
-- (id)initWithThreadId:(int)threadId;
+- (BOOL)parseXml:(CXMLElement *)xml;
+  
+- (id)initWithThreadId:(int)threadId delegate:(id)aDelegate;
 
 - (NSString *)html;
 - (int)replyCount;

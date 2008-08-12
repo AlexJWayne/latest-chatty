@@ -72,22 +72,17 @@
 
 
  - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+  // Tapped a post cell
   if (indexPath.row < [[feed posts] count]) {
-    // Update cell laoding status
     RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
-    [cell updateStatus];
-    
-    // get the chosen post, and create the detail view controller
-    Post *post = [[feed posts] objectAtIndex:indexPath.row];
-    DetailViewController *detailViewController = [[DetailViewController alloc] initWithStoryId:feed.storyId rootPost:post];
-
-    // Push the detail view controller onto the navigation stack
-    [[self navigationController] pushViewController:detailViewController animated:YES];
-    [detailViewController release];
-    
+    [cell setLoading:YES];
+    Post *rootPost = [[feed posts] objectAtIndex:indexPath.row];
+    [[Post alloc] initWithThreadId:rootPost.postId delegate:self];
+  
+  // Tapped the load more cell
   } else {
     RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
-    [cell updateStatus];
+    [cell setLoading:YES];
     [feed loadNextPage];
   }
 }
@@ -102,6 +97,18 @@
   // Replace refresh loader with a working refresh button
   self.navigationItem.leftBarButtonItem = refreshButton;
   [(UIActivityIndicatorView *)refreshButtonLoading.customView stopAnimating];
+}
+
+- (void)threadDidFinishLoadingThread:(Post *)post {
+  // create the detail view controller
+  DetailViewController *detailViewController = [[DetailViewController alloc] initWithStoryId:feed.storyId rootPost:post];
+  
+  // Push the detail view controller onto the navigation stack
+  [[self navigationController] pushViewController:detailViewController animated:YES];
+  [detailViewController release];
+  
+  // Remove loading status from tapped cell
+  [(RootPostCellView *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]] setLoading:NO];
 }
 
 /*

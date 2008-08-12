@@ -25,8 +25,7 @@
 - (id)initLoadMore;
 - (id)initForPost;
 - (void)updateWithPost:(Post *)aPost;
-
-- (void)updateStatus;
+- (void)setLoading:(BOOL)isLoading;
 
 @property (readonly) UILabel *preview;
 @property (nonatomic) BOOL striped;

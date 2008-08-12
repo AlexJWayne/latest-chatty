@@ -22,10 +22,24 @@
 @synthesize depth;
 @synthesize cachedReplyCount;
 
-- (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent {
+- (id)init {
   [super init];
-  
-  self.parent   = [aParent retain];
+  partialData = [[NSMutableData alloc] init];
+  return self;
+}
+
+- (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent {
+  [self init];
+  self.parent = [aParent retain];
+  if ([self parseXml:xml]) {
+    return self;
+  } else {
+    return nil;
+  }
+}
+
+- (BOOL)parseXml:(CXMLElement *)xml {
+  // Set basic attributes
   self.author   = [[xml attributeForName:@"author"]  stringValue];
   self.date     = [NSDate dateWithNaturalLanguageString:[[xml attributeForName:@"date"] stringValue]];
   self.postId   = [[[xml attributeForName:@"id"]     stringValue] intValue];
@@ -33,16 +47,17 @@
   self.body     = [[[xml nodesForXPath:@"body"  error:nil] objectAtIndex:0] stringValue];
   self.category = [[xml attributeForName:@"category"] stringValue];
   self.preview  = [self cleanString:self.preview];
-  
-  self.children = [[NSMutableArray alloc] init];
   self.cachedReplyCount = [[[xml attributeForName:@"reply_count"] stringValue] intValue];
   
+  // set depth
   if (parent == nil) {
     self.depth = 0;
   } else {
     self.depth = parent.depth + 1;
   }
   
+  // traverse children
+  self.children = [[NSMutableArray alloc] init];
   NSArray *postElements = [xml nodesForXPath:@"comments/comment" error:nil];
   for (CXMLElement *postXml in [postElements objectEnumerator]) {
     Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self];
@@ -50,27 +65,42 @@
       [children addObject:postObject];
   }
   
+  // Filter post
   if ([self.category isEqualToString:@"ontopic"]) {
-    return self;
+    return YES;
   } else {
     NSLog(@"filter setting for %@, %d", self.category, (int)[[NSUserDefaults standardUserDefaults] boolForKey:[@"filter_" stringByAppendingString:self.category]]);
     if ([[NSUserDefaults standardUserDefaults] boolForKey:[@"filter_" stringByAppendingString:self.category]]) {
-      return self;
+      return YES;
     } else {
       NSLog(@"denied %@, by %@", self.category, self.author);
-      return nil;
+      return NO;
     }
   }
 }
 
-- (id)initWithThreadId:(int)threadId {
+
+- (id)initWithThreadId:(int)threadId delegate:(id)aDelegate {
+  [self init];
+  delegate = aDelegate;
   NSString *urlString = [Feed urlStringWithPath:[NSString stringWithFormat:@"thread/%d.xml", threadId]];
-  CXMLDocument *xml = [[[CXMLDocument alloc] initWithContentsOfURL:[NSURL URLWithString:urlString]
-                                                           options:1
-                                                             error:nil] autorelease];
-  
-  return [self initWithXmlElement:[[xml nodesForXPath:@"comments/comment"  error:nil] objectAtIndex:0] parent:nil];
+  [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self];
+  return self;
 }
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+  [partialData appendData:data];
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+  CXMLDocument *xml = [[[CXMLDocument alloc] initWithData:partialData options:1 error:nil] autorelease];
+  [self parseXml:[[xml nodesForXPath:@"comments/comment" error:nil] objectAtIndex:0]];
+  
+  [delegate threadDidFinishLoadingThread:self];
+  [partialData release];
+  partialData = [[NSMutableData alloc] init];
+}
+
 
 
 - (void)dealloc {
