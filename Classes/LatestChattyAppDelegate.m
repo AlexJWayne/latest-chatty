@@ -28,6 +28,7 @@
   // Configure and show the window
 	[window addSubview:[navigationController view]];
 	[window makeKeyAndVisible];
+  [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque];
 }
 
 

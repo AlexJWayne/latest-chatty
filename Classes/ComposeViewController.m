@@ -36,7 +36,7 @@
   } else {
     parentPreview.text = @"New Post";
   }
-  UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle:@"Send"
+  UIBarButtonItem *sendButton = [[UIBarButtonItem alloc] initWithTitle:@"Post"
                                                                  style:UIBarButtonItemStyleDone
                                                                 target:self
                                                                 action:@selector(sendPost:)];
