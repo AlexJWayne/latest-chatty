@@ -24,6 +24,7 @@
   Post *currentRoot;
   Post *currentPost;
   int currentPostIndex;
+  BOOL loading;
 }
 
 - (id)initWithStoryId:(int)aStoryId rootPost:(Post *)post;

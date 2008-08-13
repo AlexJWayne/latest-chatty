@@ -184,6 +184,9 @@
 
 
 - (IBAction)refresh:(id)sender {
+  if (loading) return;
+  NSLog(@"Refreshing...");
+  loading = TRUE;
   currentRoot = [[Post alloc] initWithThreadId:currentPost.postId delegate:self];
   
   //[refreshButtonLoading startAnimating];
@@ -200,6 +203,8 @@
   [refreshButtonLoading stopAnimating];
   
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+  NSLog(@"Done refreshing...");
+  loading = FALSE;
 }
 
 - (IBAction)reply:(id)sender {
