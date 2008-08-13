@@ -184,13 +184,18 @@
 
 
 - (IBAction)refresh:(id)sender {
-  if (loading) return;
-  NSLog(@"Refreshing...");
-  loading = TRUE;
-  currentRoot = [[Post alloc] initWithThreadId:currentPost.postId delegate:self];
-  
-  //[refreshButtonLoading startAnimating];
-  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+  if (!loading) {
+    NSLog(@"Refreshing...");
+    loading = YES;
+    currentRoot = [[Post alloc] initWithThreadId:currentPost.postId delegate:self];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];    
+  }
+}
+
+- (void)refreshAndPop {
+  [self refresh:nil];
+  popAfterLoad = YES;
 }
 
 - (void)didFinishLoadingThread:(Post *)post {
@@ -204,7 +209,13 @@
   
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
   NSLog(@"Done refreshing...");
-  loading = FALSE;
+  loading = NO;
+  
+  if (popAfterLoad) {
+    [self.navigationController popViewControllerAnimated:YES];
+  }
+  
+  popAfterLoad = NO;
 }
 
 - (IBAction)reply:(id)sender {

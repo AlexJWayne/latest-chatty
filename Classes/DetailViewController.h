@@ -25,6 +25,7 @@
   Post *currentPost;
   int currentPostIndex;
   BOOL loading;
+  BOOL popAfterLoad;
 }
 
 - (id)initWithStoryId:(int)aStoryId rootPost:(Post *)post;
@@ -39,6 +40,8 @@
 - (void)showRow:(int)row;
    
 - (IBAction)refresh:(id)sender;
+- (void)refreshAndPop;
+
 - (IBAction)reply:(id)sender;
 - (IBAction)tag:(id)sender;
 - (void)tagWithTag:(NSString *)tag;

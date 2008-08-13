@@ -137,16 +137,17 @@
   
   // Success! Return to previous view
   if (statusCode == 201) {
-    /*
     if (parentPost) {
       DetailViewController *viewController = [[self navigationController].viewControllers objectAtIndex:[[self navigationController].viewControllers count] - 2];
-      [viewController refresh:nil];
+      [viewController refreshAndPop];
     } else {
       RootViewController *viewController = [[self navigationController].viewControllers objectAtIndex:[[self navigationController].viewControllers count] - 2];
       [viewController refresh:nil];
+      [[self navigationController] popViewControllerAnimated:YES];
     }
-     */
-    [[self navigationController] popViewControllerAnimated:YES];
+    
+    [self.navigationItem.rightBarButtonItem setTitle:@"Sending"];
+    [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleBordered];
     
   // Authentication Failure, display alert
   } else if (statusCode == 403) {
