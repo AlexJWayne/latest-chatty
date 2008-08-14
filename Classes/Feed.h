@@ -18,6 +18,7 @@
   CXMLDocument *xml;
   NSMutableArray *posts;
   int storyId;
+  NSString *storyName;
   int lastPageLoaded;
   int lastPage;
 }
@@ -34,6 +35,7 @@
 - (BOOL)hasMorePages;
 
 - (NSArray *)posts;
+- (NSString *)storyName;
 
 @property (readwrite) int storyId;
 @property (readonly) int lastPageLoaded;

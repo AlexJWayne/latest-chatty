@@ -75,9 +75,10 @@
       [posts addObject:postObject];
   }
   
-  storyId         = [[[[xml rootElement] attributeForName:@"story_id"]  stringValue] intValue];
-  lastPageLoaded  = [[[[xml rootElement] attributeForName:@"page"]      stringValue] intValue];
-  lastPage        = [[[[xml rootElement] attributeForName:@"last_page"] stringValue] intValue];  
+  storyId         = [[[[xml rootElement] attributeForName:@"story_id"]    stringValue] intValue];
+  storyName       =  [[[xml rootElement] attributeForName:@"story_name"]  stringValue];
+  lastPageLoaded  = [[[[xml rootElement] attributeForName:@"page"]        stringValue] intValue];
+  lastPage        = [[[[xml rootElement] attributeForName:@"last_page"]   stringValue] intValue];
 }
 
 
@@ -110,6 +111,10 @@
 
 - (NSArray *)posts {
   return posts;
+}
+
+- (NSString *)storyName {
+  return storyName;
 }
 
 @end

@@ -431,6 +431,7 @@
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B5007E2F-8F81-46C2-8917-6445C108AE5C";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Distribution;

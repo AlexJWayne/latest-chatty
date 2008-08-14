@@ -93,6 +93,7 @@
   }
   [[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
   
+  self.title = [feed storyName];
   
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
