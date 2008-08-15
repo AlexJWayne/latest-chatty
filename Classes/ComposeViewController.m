@@ -108,35 +108,27 @@
 }
 
 - (void)sendPostConfirmed {
-  // Find the proper URL based on whether this is a root post or reply
-  NSString *urlString;
-  if (parentPost) {
-    urlString = [Feed urlStringWithPath:[NSString stringWithFormat:@"create/%d/%d.xml", storyId, parentPost.postId]];
-  } else {
-    urlString = [Feed urlStringWithPath:[NSString stringWithFormat:@"create/%d.xml", storyId]];
-  }
-  
   // Create the request
   NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
-  [request setURL:[NSURL URLWithString:urlString]];
+  [request setURL:[[NSURL URLWithString:@"http://www.shacknews.com/extras/post_laryn_iphone.x"] autorelease]];
   
   // Set request body and HTTP method
   NSString *usernameString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
   NSString *passwordString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
   NSString *bodyString     = [self urlEscape:postContent.text];
     
-  NSString *postBody = [NSString stringWithFormat:@"body=%@&username=%@&password=%@", bodyString, usernameString, passwordString];
+  NSString *postBody = [NSString stringWithFormat:@"body=%@&iuser=%@&ipass=%@&parent=%d&group=%d", bodyString, usernameString, passwordString, parentPost.postId, storyId];
   [request setHTTPBody:[postBody dataUsingEncoding: NSASCIIStringEncoding]];
   [request setHTTPMethod:@"POST"];
   
   // Send the request
   NSHTTPURLResponse *response;
-  [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-  
-  int statusCode = (int)[response statusCode];
+  NSString *responseBody = [[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil]
+                                                 encoding:NSASCIIStringEncoding];
+  NSLog(responseBody);
   
   // Success! Return to previous view
-  if (statusCode == 201) {
+  if ([responseBody rangeOfString:@"navigate_page_no_history"].location != NSNotFound) {
     if (parentPost) {
       DetailViewController *viewController = [[self navigationController].viewControllers objectAtIndex:[[self navigationController].viewControllers count] - 2];
       [viewController refreshAndPop];
@@ -150,9 +142,19 @@
     [self.navigationItem.rightBarButtonItem setStyle:UIBarButtonItemStyleBordered];
     
   // Authentication Failure, display alert
-  } else if (statusCode == 403) {
+  } else if ([responseBody rangeOfString:@"You must be logged in to post"].location != NSNotFound) {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication Failed"
                                                     message:@"It appears you credentials aren't right.  Go your device settings and set your username and password for the \"LatestChatty\" application."
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    
+  // PRL'd, display alert
+  } else if ([responseBody rangeOfString:@"Please wait a few minutes"].location != NSNotFound) {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Post Rate Limited"
+                                                    message:@"Whoa, hands off that post button.  The server says you need to relax for a few minutes."
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
