@@ -47,8 +47,8 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSLog(@"asked for cell!");
   RootPostCellView *cell;
 	if (indexPath.row < [[feed posts] count]) {
     Post *post = [[feed posts] objectAtIndex:indexPath.row];
@@ -68,7 +68,7 @@
 }
 
 
- - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+ - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   // Tapped a post cell
   if (indexPath.row < [[feed posts] count]) {
     RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
@@ -87,11 +87,11 @@
 }
 
 - (void)feedDidFinishLoading {
-  [[self tableView] reloadData];
+  [tableView reloadData];
   if (feed.lastPageLoaded == 1) {
-    [[self tableView] scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    [tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
   }
-  [[self tableView] deselectRowAtIndexPath:[[self tableView] indexPathForSelectedRow] animated:YES];
+  [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
   
   self.title = [feed storyName];
   
@@ -107,7 +107,7 @@
   [detailViewController release];
   
   // Remove loading status from tapped cell
-  [(RootPostCellView *)[[self tableView] cellForRowAtIndexPath:[[self tableView] indexPathForSelectedRow]] setLoading:NO];
+  [(RootPostCellView *)[tableView cellForRowAtIndexPath:[tableView indexPathForSelectedRow]] setLoading:NO];
   
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
@@ -154,6 +154,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+  [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -13,8 +13,10 @@
 #import "Feed.h"
 #import "Post.h"
 
-@interface RootViewController : UITableViewController {
+@interface RootViewController : UIViewController {
   Feed *feed;
+  
+  IBOutlet UITableView *tableView;
 }
 
 - (void)feedDidFinishLoading;
