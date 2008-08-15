@@ -14,6 +14,8 @@
 	IBOutlet UINavigationController *navigationController;
 }
 
++ (void)showErrorAlertNamed:(NSString *)name;
+
 @property (nonatomic, retain) UIWindow *window;
 @property (nonatomic, retain) UINavigationController *navigationController;
 

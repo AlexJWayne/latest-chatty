@@ -43,4 +43,44 @@
 	[super dealloc];
 }
 
+
++ (void)showErrorAlertNamed:(NSString *)name {
+  NSLog(name);
+  
+  UIAlertView *alert = [UIAlertView alloc];
+  
+  if ([name isEqualToString:@"Authentication Failed"]) {
+    [alert initWithTitle:name
+                 message:@"It appears you credentials aren't right.  Go your device settings and set your username and password for the \"LatestChatty\" application."
+                delegate:nil
+       cancelButtonTitle:@"OK"
+       otherButtonTitles:nil];
+    
+  } else if ([name isEqualToString:@"Post Rate Limited"]) {
+    [alert initWithTitle:name
+                 message:@"Whoa, hands off that post button.  The server says you need to relax for a few minutes."
+                delegate:nil
+       cancelButtonTitle:@"OK"
+       otherButtonTitles:nil];
+    
+  } else if ([name isEqualToString:@"Post too Short"]) {
+    [alert initWithTitle:name
+                 message:@"Any post less than 5 characters can't be worth reading, can it?"
+                delegate:nil
+       cancelButtonTitle:@"OK"
+       otherButtonTitles:nil];
+    
+  } else {
+    [alert initWithTitle:@"Unexpected Error"
+                 message:@"Something has gone terribly wrong.  Sorry for the inconvience, but this can't be posted right now."
+                delegate:nil
+       cancelButtonTitle:@"OK"
+       otherButtonTitles:nil];
+  }
+  
+  [alert show];
+  [alert release];
+}
+
+
 @end

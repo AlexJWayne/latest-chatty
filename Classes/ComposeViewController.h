@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LatestChattyAppDelegate.h"
 #import "DetailViewController.h"
 #import "RootViewController.h"
 #import "Post.h"

@@ -254,14 +254,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
   if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"] length] == 0) {
-    //Should probably make some uniform function to display errors, no?
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Username"
-                                                    message:@"It appears you credentials aren't right.  Go your device settings and set your username and password for the \"LatestChatty\" application."
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    [alert release];
+    [LatestChattyAppDelegate showErrorAlertNamed:@"Authentication Failed"];
     
   } else {
     switch (buttonIndex) {

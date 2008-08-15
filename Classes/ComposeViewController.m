@@ -116,8 +116,11 @@
   NSString *usernameString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
   NSString *passwordString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
   NSString *bodyString     = [self urlEscape:postContent.text];
-    
-  NSString *postBody = [NSString stringWithFormat:@"body=%@&iuser=%@&ipass=%@&parent=%d&group=%d", bodyString, usernameString, passwordString, parentPost.postId, storyId];
+  NSString *parentId       = [NSString stringWithFormat:@"%d", parentPost.postId];
+  if ([parentId isEqualTo:parentId]) parentId = @"";
+  
+  
+  NSString *postBody = [NSString stringWithFormat:@"body=%@&iuser=%@&ipass=%@&parent=%@&group=%d", bodyString, usernameString, passwordString, parentId, storyId];
   [request setHTTPBody:[postBody dataUsingEncoding: NSASCIIStringEncoding]];
   [request setHTTPMethod:@"POST"];
   
@@ -125,6 +128,7 @@
   NSHTTPURLResponse *response;
   NSString *responseBody = [[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil]
                                                  encoding:NSASCIIStringEncoding];
+  
   NSLog(responseBody);
   
   // Success! Return to previous view
@@ -143,33 +147,19 @@
     
   // Authentication Failure, display alert
   } else if ([responseBody rangeOfString:@"You must be logged in to post"].location != NSNotFound) {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication Failed"
-                                                    message:@"It appears you credentials aren't right.  Go your device settings and set your username and password for the \"LatestChatty\" application."
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    [alert release];
+    [LatestChattyAppDelegate showErrorAlertNamed:@"Authentication Failed"];
     
   // PRL'd, display alert
   } else if ([responseBody rangeOfString:@"Please wait a few minutes"].location != NSNotFound) {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Post Rate Limited"
-                                                    message:@"Whoa, hands off that post button.  The server says you need to relax for a few minutes."
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    [alert release];
+    [LatestChattyAppDelegate showErrorAlertNamed:@"Post Rate Limited"];
   
+  // Too short, display alert
+  } else if ([responseBody rangeOfString:@"Please post something with more than 5 characters"].location != NSNotFound) {
+    [LatestChattyAppDelegate showErrorAlertNamed:@"Post too Short"];
+    
   // Something unexpected happened, display alert
   } else {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unexpected Error"
-                                                    message:@"Something has gone terribly wrong.  Sorry for the inconvience, but this can't be posted right now."
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-    [alert show];
-    [alert release];
+    [LatestChattyAppDelegate showErrorAlertNamed:@"Unhandled Error"];
     
   }
   
