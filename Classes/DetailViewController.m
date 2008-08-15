@@ -204,7 +204,7 @@
   if (!loading) {
     NSLog(@"Refreshing...");
     loading = YES;
-    currentRoot = [[Post alloc] initWithThreadId:currentPost.postId delegate:self];
+    currentRoot = [[Post alloc] initWithThreadId:currentRoot.postId delegate:self];
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];    
   }
