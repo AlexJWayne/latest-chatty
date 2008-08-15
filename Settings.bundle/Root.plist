@@ -26,7 +26,7 @@
 			<key>IsSecure</key>
 			<false/>
 			<key>KeyboardType</key>
-			<string>Alphabet</string>
+			<string>EmailAddress</string>
 			<key>AutocapitalizationType</key>
 			<string>None</string>
 			<key>AutocorrectionType</key>
