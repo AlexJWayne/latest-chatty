@@ -48,7 +48,6 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"asked for cell!");
   RootPostCellView *cell;
 	if (indexPath.row < [[feed posts] count]) {
     Post *post = [[feed posts] objectAtIndex:indexPath.row];

@@ -87,11 +87,9 @@
   if ([self.category isEqualToString:@"ontopic"]) {
     return YES;
   } else {
-    NSLog(@"filter setting for %@, %d", self.category, (int)[[NSUserDefaults standardUserDefaults] boolForKey:[@"filter_" stringByAppendingString:self.category]]);
     if ([[NSUserDefaults standardUserDefaults] boolForKey:[@"filter_" stringByAppendingString:self.category]]) {
       return YES;
     } else {
-      NSLog(@"denied %@, by %@", self.category, self.author);
       return NO;
     }
   }

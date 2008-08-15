@@ -70,7 +70,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = [[UITableViewCell alloc] init];
+  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"threadPreviewCell"];
+  if (cell == nil) {
+    cell = [[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:@"threadPreviewCell"];
+  }
   
   Post *post = [currentRoot postAtIndex:indexPath.row];
   
@@ -80,8 +83,6 @@
     alpha = alpha + ((1.0 - alpha) / 10) * (float)(10 - (post.recentIndex));
   }
   cell.textColor = [UIColor colorWithWhite:1.0 alpha:alpha];
-  
-  NSLog(@"alpha:%f  index:%d", alpha, post.recentIndex);
   
   // the latest post is bold
   if (post.recentIndex == 0) {
