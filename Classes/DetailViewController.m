@@ -31,9 +31,12 @@
   return self;
 }
 
+- (void)viewDidLoad {
+  [self showCurrentThread];
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-  [self showCurrentThread];
 }
 
 
@@ -68,20 +71,34 @@
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   UITableViewCell *cell = [[UITableViewCell alloc] init];
-  cell.textColor = [UIColor colorWithWhite:0.7 alpha:1.0];
   
   Post *post = [currentRoot postAtIndex:indexPath.row];
   
-  cell.text = [post preview];
+  // Most recent 10 posts are whiter than the rest
+  float alpha = 0.6;
+  if (post.recentIndex < 10) {
+    alpha = alpha + ((1.0 - alpha) / 10) * (float)(10 - (post.recentIndex));
+  }
+  cell.textColor = [UIColor colorWithWhite:1.0 alpha:alpha];
   
-  if (indexPath.row == 0) {
+  NSLog(@"alpha:%f  index:%d", alpha, post.recentIndex);
+  
+  // the latest post is bold
+  if (post.recentIndex == 0) {
     cell.font = [UIFont boldSystemFontOfSize:14.0];
   } else {
     cell.font = [UIFont systemFontOfSize:14.0];
   }
   
+  
+  
+  // Set preview text
+  cell.text = [post preview];
+  
   return cell;
 }
+
+
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   currentPostIndex = indexPath.row;
   [self showPost:[currentRoot postAtIndex:currentPostIndex]];

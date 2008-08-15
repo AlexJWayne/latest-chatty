@@ -24,6 +24,7 @@
   NSMutableArray *children;
   int depth;
   int cachedReplyCount;
+  int recentIndex;
 }
 
 - (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent;
@@ -36,6 +37,8 @@
 - (Post *)postAtIndex:(int)index;
 - (NSString *)cleanString:(NSString *)string;
 
+- (int)compare:(Post *)otherPost;
+
 @property (readwrite, retain) Post *parent;
 @property (readwrite, copy) NSString *author;
 @property (readwrite, copy) NSString *preview;
@@ -47,5 +50,6 @@
 @property (readwrite, assign) int depth;
 @property (readwrite, assign) int cachedReplyCount;
 @property (readonly) NSString *formattedDate;
+@property (readwrite) int recentIndex;
 
 @end

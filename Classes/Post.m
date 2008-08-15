@@ -21,6 +21,7 @@
 @synthesize children;
 @synthesize depth;
 @synthesize cachedReplyCount;
+@synthesize recentIndex;
 
 - (id)init {
   [super init];
@@ -63,6 +64,23 @@
     Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self];
     if (postObject != nil)
       [children addObject:postObject];
+  }
+  
+  // get the recent sort index
+  if (parent == nil) {
+    int i;
+    NSMutableArray *sortedByRecent = [[NSMutableArray alloc] initWithObjects:self, nil];
+    
+    for (i = 0; i <= cachedReplyCount; i++) {
+      [sortedByRecent addObject:[self postAtIndex:i]];
+    }
+    [sortedByRecent sortUsingSelector:@selector(compare:)];
+    
+    for (i = 0; i <= cachedReplyCount; i++) {
+      [[sortedByRecent objectAtIndex:i] setRecentIndex:i];
+    }
+    
+    [sortedByRecent release];
   }
   
   // Filter post
@@ -163,6 +181,14 @@
 
 - (NSString *)formattedDate {
   return [date descriptionWithCalendarFormat:@"%b %d, %Y %I:%M %p" timeZone:nil locale:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
+}
+
+- (int)compare:(Post *)otherPost {
+  if (postId < otherPost.postId) {
+    return NSOrderedDescending;
+  } else {
+    return NSOrderedAscending;
+  }
 }
 
 @end
