@@ -117,12 +117,14 @@
   NSString *passwordString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
   NSString *bodyString     = [self urlEscape:postContent.text];
   NSString *parentId       = [NSString stringWithFormat:@"%d", parentPost.postId];
-  if ([parentId isEqualTo:parentId]) parentId = @"";
+  if ([parentId isEqualTo:@"0"]) parentId = @"";
   
   
   NSString *postBody = [NSString stringWithFormat:@"body=%@&iuser=%@&ipass=%@&parent=%@&group=%d", bodyString, usernameString, passwordString, parentId, storyId];
   [request setHTTPBody:[postBody dataUsingEncoding: NSASCIIStringEncoding]];
   [request setHTTPMethod:@"POST"];
+  
+  NSLog(postBody);
   
   // Send the request
   NSHTTPURLResponse *response;
