@@ -45,6 +45,8 @@
 		FAA260460E46940B00F0C53C /* tag.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA260450E46940B00F0C53C /* tag.png */; };
 		FAE5535C0E442EEB00228EFB /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */; };
 		FAE553610E442F3200228EFB /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5535F0E442F3200228EFB /* ComposeViewController.m */; };
+		FAF681D70E579B2500C61212 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF681D40E579B2500C61212 /* NSDataAdditions.m */; };
+		FAF681D80E579B2500C61212 /* NSStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF681D50E579B2500C61212 /* NSStringAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +106,10 @@
 		FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
 		FAE5535F0E442F3200228EFB /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		FAE553600E442F3200228EFB /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		FAF681D30E579B2500C61212 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataAdditions.h; path = Classes/NSDataAdditions.h; sourceTree = "<group>"; };
+		FAF681D40E579B2500C61212 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDataAdditions.m; path = Classes/NSDataAdditions.m; sourceTree = "<group>"; };
+		FAF681D50E579B2500C61212 /* NSStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSStringAdditions.m; path = Classes/NSStringAdditions.m; sourceTree = "<group>"; };
+		FAF681D60E579B2500C61212 /* NSStringAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSStringAdditions.h; path = Classes/NSStringAdditions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +159,8 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FA461BA90E4255A300E3654D /* TouchXML */,
+				FAF681690E57966300C61212 /* Base64 */,
 				28A0AAE50D9B0CCF005BE974 /* LatestChatty_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -163,7 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				FA346BE30E4FDF6800B1DF5A /* Images */,
-				FA461BA90E4255A300E3654D /* TouchXML */,
 				FA3D72470E43FCB3002998D3 /* post.html */,
 				28AD735F0D9D9599002E5188 /* MainWindow.xib */,
 				2899E55F0DE3E45000AC0155 /* RootViewController.xib */,
@@ -263,6 +270,17 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		FAF681690E57966300C61212 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				FAF681D30E579B2500C61212 /* NSDataAdditions.h */,
+				FAF681D40E579B2500C61212 /* NSDataAdditions.m */,
+				FAF681D50E579B2500C61212 /* NSStringAdditions.m */,
+				FAF681D60E579B2500C61212 /* NSStringAdditions.h */,
+			);
+			name = Base64;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -357,6 +375,8 @@
 				FAE553610E442F3200228EFB /* ComposeViewController.m in Sources */,
 				FA02CB480E44F8400013981F /* RootPostCellView.m in Sources */,
 				FA55574A0E4E214600A79258 /* ExternalWebViewController.m in Sources */,
+				FAF681D70E579B2500C61212 /* NSDataAdditions.m in Sources */,
+				FAF681D80E579B2500C61212 /* NSStringAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,7 +419,11 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lssl",
+					"-lcrypto",
+					"-lxml2",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos2.0;
 			};
@@ -414,7 +438,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lssl",
+					"-lcrypto",
+					"-lxml2",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos2.0;
 			};
@@ -429,7 +457,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
-				OTHER_LDFLAGS = "-lxml2";
+				OTHER_LDFLAGS = (
+					"-lssl",
+					"-lcrypto",
+					"-lxml2",
+				);
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B5007E2F-8F81-46C2-8917-6445C108AE5C";
 				SDKROOT = iphoneos2.0;
