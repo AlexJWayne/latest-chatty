@@ -117,7 +117,7 @@
   NSString *passwordString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
   NSString *bodyString     = [self urlEscape:postContent.text];
   NSString *parentId       = [NSString stringWithFormat:@"%d", parentPost.postId];
-  if ([parentId isEqualTo:@"0"]) parentId = @"";
+  if ([parentId isEqualToString:@"0"]) parentId = @"";
   
   
   NSString *postBody = [NSString stringWithFormat:@"body=%@&iuser=%@&ipass=%@&parent=%@&group=%d", bodyString, usernameString, passwordString, parentId, storyId];
