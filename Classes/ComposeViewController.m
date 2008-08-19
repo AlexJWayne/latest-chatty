@@ -120,12 +120,12 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker 
         didFinishPickingImage:(UIImage *)image
-                  editingInfo:(NSDictionary *)editingInfo
-{
+                  editingInfo:(NSDictionary *)editingInfo {
+  
   NSLog(@"User picked an image.");
   [picker dismissModalViewControllerAnimated:YES];
   [[picker view] setHidden:YES];
-  NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://shackchatty.com/images"]] autorelease];
+  NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[Feed urlStringWithPath:@"images.xml"]]] autorelease];
   [request setHTTPMethod:@"POST"];
   //Think I'll want to use this for images larger than 800 or 1024 pixels or something, since Base64 encoding makes the data a lot larger.
   //NSData *imageData = [self shrinkImageByHalfAndJPEG:image];
@@ -151,26 +151,27 @@
   
   NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
   NSLog(responseString);
+  NSLog(@"status: %d", statusCode);
 
   // Success! Return to previous view
-  if (statusCode == 200) {
+  if (statusCode == 201) {
     NSLog(@"Got a good response!");
     NSString *filename = @"";
+    
     //Parse new filename from response.
     //There's a comment that has it in the data, we'll use this for now.
     //<!-- filename: file_hre1vo65wybn41borox4.png -->
-    NSRange filenameRangeStart = [responseString rangeOfString:@"<!-- filename: "];
-    if (filenameRangeStart.location != NSNotFound)
-    {
+    NSRange filenameRangeStart = [responseString rangeOfString:@"<success>"];
+    if (filenameRangeStart.location != NSNotFound) {
       int startLocation = filenameRangeStart.location + filenameRangeStart.length;
-      NSRange filenameRangeEnd = [responseString rangeOfString:@"-->" options:NSCaseInsensitiveSearch range:NSMakeRange(startLocation, [responseString length] - startLocation)];
-      if (filenameRangeEnd.location != NSNotFound)
-      {      
+      NSRange filenameRangeEnd = [responseString rangeOfString:@"</success>" options:NSCaseInsensitiveSearch range:NSMakeRange(startLocation, [responseString length] - startLocation)];
+      
+      if (filenameRangeEnd.location != NSNotFound) {      
         filename = [responseString substringWithRange:NSMakeRange(startLocation, filenameRangeEnd.location - startLocation)];
-      }
+      }  
     }
-    if ([filename length] > 0)
-    {
+    
+    if ([filename length] > 0) {
       postContent.text = [[postContent text] stringByAppendingString:[NSString stringWithFormat:@"http://www.shackpics.com/viewer.x?file=%@", filename]];
     }
   }
@@ -179,11 +180,10 @@
   }
 }
 
-- (NSData*)shrinkImageByHalfAndJPEG:(UIImage *)picture
-{
+- (NSData*)shrinkImageByHalfAndJPEG:(UIImage *)picture {
   UIImage *retImage = picture;
-  if ((picture.size.width > 800) || (picture.size.height > 800))
-  {
+  
+  if ((picture.size.width > 800) || (picture.size.height > 800)) {
     CGImageRef imageRef = [picture CGImage];
     size_t newHeight = picture.size.height *.5;
     size_t newWidth = picture.size.width * .5;
