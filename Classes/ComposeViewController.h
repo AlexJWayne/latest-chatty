@@ -18,6 +18,7 @@
   
   Post *parentPost;
   int storyId;
+  UIImagePickerController *imagePickerController;
 }
 
 - (id)initWithStoryId:(int)aStoryId;
@@ -29,4 +30,13 @@
 - (NSString *)urlEscape:(NSString *)string;
 
 - (IBAction)tag:(id)sender;
+- (IBAction)attachImage:(id)sender;
+
+- (void)imagePickerController:(UIImagePickerController *)picker
+        didFinishPickingImage:(UIImage *)image
+                  editingInfo:(NSDictionary *)editingInfo;
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
+- (void)didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
+- (void)willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
+- (NSData *)shrinkImageByHalfAndJPEG:(UIImage *)picture;
 @end
