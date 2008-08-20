@@ -67,7 +67,7 @@
 }
 
 - (IBAction)tag:(id)sender {
-  NSDictionary *tagLookup = [[NSDictionary dictionaryWithObjectsAndKeys:
+  NSDictionary *tagLookup = [NSDictionary dictionaryWithObjectsAndKeys:
                               @"r{}r", @"Red",
                               @"g{}g", @"Green",
                               @"b{}b", @"Blue",
@@ -84,7 +84,7 @@
                               @"-[]-", @"Strike",
                               @"o[]o", @"Spoiler",
                               @"/{{}}/", @"Code",
-                              nil] autorelease];
+                              nil];
   
   NSString *append = [tagLookup valueForKey:((UIButton *)sender).currentTitle];
   
@@ -206,7 +206,7 @@
 - (void)sendPostConfirmed {
   // Create the request
   NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
-  [request setURL:[[NSURL URLWithString:@"http://www.shacknews.com/extras/post_laryn_iphone.x"] autorelease]];
+  [request setURL:[NSURL URLWithString:@"http://www.shacknews.com/extras/post_laryn_iphone.x"]];
   
   // Set request body and HTTP method
   NSString *usernameString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
