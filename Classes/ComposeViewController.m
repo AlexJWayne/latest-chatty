@@ -108,14 +108,35 @@
 }
 
 - (IBAction)attachImage:(id)sender{
+  UIActionSheet *dialog = [[UIActionSheet alloc] initWithTitle:@"Post Picture"
+                                                      delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
+                                             otherButtonTitles:@"New Picture", @"From Library", nil];
+	dialog.actionSheetStyle = UIBarStyleBlackTranslucent;
+	dialog.destructiveButtonIndex = -1;
+	[dialog showInView:self.view];
+	[dialog release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+  switch (buttonIndex) {
+    case 0:
+      //post image from camera. UIImagePickerControllerSourceTypeCamera
+      [self postImage:UIImagePickerControllerSourceTypeCamera];
+      break;
+    case 1:
+      //post image from library. UIImagePickerControllerSourceTypePhotoLibrary
+      [self postImage:UIImagePickerControllerSourceTypePhotoLibrary];
+      break;
+  }
+}
+
+- (void)postImage:(UIImagePickerControllerSourceType)sourceType{
   // Set up the image picker controller and add it to the view
   imagePickerController = [[UIImagePickerController alloc] init];
   imagePickerController.delegate = self;
   [imagePickerController viewWillAppear:YES];
-  //Eventually will add an action sheet here allowing you to pick whether you get the source from the camera or from the library.
-  //imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-  imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-  [self presentModalViewController:imagePickerController animated:YES];
+  imagePickerController.sourceType = sourceType;
+  [self presentModalViewController:imagePickerController animated:YES];  
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker 
@@ -128,72 +149,51 @@
   NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[Feed urlStringWithPath:@"images.xml"]]] autorelease];
   [request setHTTPMethod:@"POST"];
   //Think I'll want to use this for images larger than 800 or 1024 pixels or something, since Base64 encoding makes the data a lot larger.
-  //NSData *imageData = [self shrinkImageByHalfAndJPEG:image];
-  NSData *imageData = UIImagePNGRepresentation(image);
+  NSData *imageData = [self shrinkImageByHalfAndJPEG:image];
+  //NSData *imageData = UIImagePNGRepresentation(image);
   //NSData *imageData = UIImageJPEGRepresentation(image, .85);
+  NSLog(@"Image Data Length: %d", [imageData length]);
   NSString *imageBase64Data = [self urlEscape:[NSString base64StringFromData:imageData length:[imageData length]]];
+  [imageBase64Data autorelease];
+  NSLog(@"Image Data Base 64 Length: %d", [imageBase64Data length]);
   //I want to rewrite this in a function soon too, so we can call it anywhere and get a url encoded string back for username/password AND prompt them for it if it's not in the settings.
   //Sucks ass to type up a post and have forgotten to set your U/P, have to exit and come back to enter it, blah blah.
-  NSString *usernameString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
-  NSString *passwordString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
-  NSString *postBody = [NSString stringWithFormat:@"username=%@&password=%@&filename=iPhoneUpload.png&image=%@", usernameString, passwordString, imageBase64Data];
-  //[imageData release];
-  //[imageBase64Data release];
-  [request setHTTPBody:[postBody dataUsingEncoding:NSASCIIStringEncoding]];
+  NSString *usernameString = [[self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]] autorelease];
+  NSString *passwordString = [[self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]] autorelease];
+   
+  NSString *postBody = [[NSString stringWithFormat:@"username=%@&password=%@&filename=iPhoneUpload.jpg&image=%@", usernameString, passwordString, imageBase64Data] autorelease];
   
-  //NSLog([NSString stringWithFormat:@"Post Body:\r\n%@", postBody]);
+  [request setHTTPBody:[postBody dataUsingEncoding:NSASCIIStringEncoding]];
+  NSLog(@"Post Body: %@", postBody);
   
   // Send the request
+  NSLog(@"Sending image POST.");
   NSHTTPURLResponse *response = nil;
   NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
   
   int statusCode = (int)[response statusCode];
   
-  NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+  NSString *responseString = [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease];
   NSLog(responseString);
-  NSLog(@"status: %d", statusCode);
+  NSLog(@"Image POST response code: %d", statusCode);
 
   // Success! Return to previous view
   if (statusCode == 201) {
-    NSLog(@"Got a good response!");
-    NSString *filename = @"";
+    /*
+     <?xml version="1.0" encoding="UTF-8"?>
+     <success>http://www.shackpics.com/files/iPhoneUpload_z88pztxwpj5ugva66lw8.png</success>
+    */
+    NSError *err=nil;
+    CXMLDocument *doc = [[[CXMLDocument alloc] initWithXMLString:responseString options:0 error:&err] autorelease];
+    CXMLElement *elem = [doc rootElement];
     
-    //Parse new filename from response.
-    //There's a comment that has it in the data, we'll use this for now.
-    //<!-- filename: file_hre1vo65wybn41borox4.png -->
-    NSRange filenameRangeStart = [responseString rangeOfString:@"<success>"];
-    if (filenameRangeStart.location != NSNotFound) {
-      int startLocation = filenameRangeStart.location + filenameRangeStart.length;
-      NSRange filenameRangeEnd = [responseString rangeOfString:@"</success>" options:NSCaseInsensitiveSearch range:NSMakeRange(startLocation, [responseString length] - startLocation)];
-      
-      if (filenameRangeEnd.location != NSNotFound) {      
-        filename = [responseString substringWithRange:NSMakeRange(startLocation, filenameRangeEnd.location - startLocation)];
-      }  
-    }
-    
-    if ([filename length] > 0) {
-      postContent.text = [[postContent text] stringByAppendingString:[NSString stringWithFormat:@"http://www.shackpics.com/viewer.x?file=%@", filename]];
-    }
+    NSString *url = [elem stringValue];
+    NSLog(@"Got a good response!\nURL: %@", url);
+    postContent.text = [[postContent text] stringByAppendingString:url]; 
   }
   else {
     NSLog(@"Didn't get a good response.");
   }
-}
-
-- (NSData*)shrinkImageByHalfAndJPEG:(UIImage *)picture {
-  UIImage *retImage = picture;
-  
-  if ((picture.size.width > 800) || (picture.size.height > 800)) {
-    CGImageRef imageRef = [picture CGImage];
-    size_t newHeight = picture.size.height *.5;
-    size_t newWidth = picture.size.width * .5;
-    CGContextRef bitmap = CGBitmapContextCreate(NULL, newWidth, newHeight, CGImageGetBitsPerComponent(imageRef), newWidth * 4, CGImageGetColorSpace(imageRef), CGImageGetBitmapInfo(imageRef));
-    CGContextDrawImage( bitmap, CGRectMake(0,0,newWidth,newHeight), imageRef );
-    CGContextRelease( bitmap );
-    retImage = [UIImage imageWithCGImage:imageRef];
-    CGImageRelease( imageRef );
-  }
-  return UIImageJPEGRepresentation(retImage, .85);
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -201,6 +201,25 @@
   NSLog(@"User cancelled and didn't pick an image.");
   [picker dismissModalViewControllerAnimated:YES];
   [[picker view] setHidden:YES];
+}
+
+- (NSData*)shrinkImageByHalfAndJPEG:(UIImage *)picture {
+  NSData *retData = nil;
+  
+  if ((picture.size.width > 300) || (picture.size.height > 300)) {
+    CGImageRef imageRef = [picture CGImage];
+    size_t newHeight = picture.size.height *.3;
+    size_t newWidth = picture.size.width * .3;
+    CGContextRef bitmap = CGBitmapContextCreate(NULL, newWidth, newHeight, CGImageGetBitsPerComponent(imageRef), newWidth * 4, CGImageGetColorSpace(imageRef), CGImageGetBitmapInfo(imageRef));
+    CGContextDrawImage( bitmap, CGRectMake(0,0,newWidth,newHeight), imageRef );
+    CGContextRelease( bitmap );
+    retData = UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], .85);
+    CGImageRelease( imageRef );
+  }
+  
+  if (retData == nil) retData = UIImageJPEGRepresentation(picture, .85);
+  [retData autorelease];
+  return retData;
 }
 
 - (void)sendPostConfirmed {
