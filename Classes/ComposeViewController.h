@@ -44,4 +44,6 @@
 
 - (IBAction)paste:(id)sender;
 
+- (void)postImage:(UIImagePickerControllerSourceType)sourceType;
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
 @end
