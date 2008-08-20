@@ -273,5 +273,13 @@
   );
 }
 
+- (IBAction)paste:(id)sender {
+  ZWClipboardItem *item = [[ZWClipboard sharedClipboard] pasteLatestWithMimeType:@"text/plain" error:NULL];
+	NSString *pasteText = [[[NSString alloc] initWithData:item.data encoding:NSUTF8StringEncoding] autorelease];
+  
+  postContent.text = [[postContent text] stringByAppendingString:pasteText];
+  [postContent becomeFirstResponder];
+  [postContent setSelectedRange:NSMakeRange([postContent.text length], 0)];
+}
 
 @end

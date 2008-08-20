@@ -45,6 +45,8 @@
 		FAA260460E46940B00F0C53C /* tag.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA260450E46940B00F0C53C /* tag.png */; };
 		FAE5535C0E442EEB00228EFB /* ComposeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */; };
 		FAE553610E442F3200228EFB /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE5535F0E442F3200228EFB /* ComposeViewController.m */; };
+		FAE8A7B60E5C0C63008952E4 /* ZWClipboard.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE8A7B30E5C0C63008952E4 /* ZWClipboard.m */; };
+		FAE8A7B70E5C0C63008952E4 /* ZWClipboardItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FAE8A7B50E5C0C63008952E4 /* ZWClipboardItem.m */; };
 		FAF681D70E579B2500C61212 /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF681D40E579B2500C61212 /* NSDataAdditions.m */; };
 		FAF681D80E579B2500C61212 /* NSStringAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = FAF681D50E579B2500C61212 /* NSStringAdditions.m */; };
 /* End PBXBuildFile section */
@@ -106,6 +108,10 @@
 		FAE5535B0E442EEB00228EFB /* ComposeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComposeViewController.xib; sourceTree = "<group>"; };
 		FAE5535F0E442F3200228EFB /* ComposeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
 		FAE553600E442F3200228EFB /* ComposeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
+		FAE8A7B20E5C0C63008952E4 /* ZWClipboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWClipboard.h; sourceTree = "<group>"; };
+		FAE8A7B30E5C0C63008952E4 /* ZWClipboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWClipboard.m; sourceTree = "<group>"; };
+		FAE8A7B40E5C0C63008952E4 /* ZWClipboardItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZWClipboardItem.h; sourceTree = "<group>"; };
+		FAE8A7B50E5C0C63008952E4 /* ZWClipboardItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZWClipboardItem.m; sourceTree = "<group>"; };
 		FAF681D30E579B2500C61212 /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSDataAdditions.h; path = Classes/NSDataAdditions.h; sourceTree = "<group>"; };
 		FAF681D40E579B2500C61212 /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSDataAdditions.m; path = Classes/NSDataAdditions.m; sourceTree = "<group>"; };
 		FAF681D50E579B2500C61212 /* NSStringAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSStringAdditions.m; path = Classes/NSStringAdditions.m; sourceTree = "<group>"; };
@@ -159,6 +165,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FAE8A7B10E5C0C63008952E4 /* Clipboard */,
 				FA461BA90E4255A300E3654D /* TouchXML */,
 				FAF681690E57966300C61212 /* Base64 */,
 				28A0AAE50D9B0CCF005BE974 /* LatestChatty_Prefix.pch */,
@@ -270,6 +277,17 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
+		FAE8A7B10E5C0C63008952E4 /* Clipboard */ = {
+			isa = PBXGroup;
+			children = (
+				FAE8A7B20E5C0C63008952E4 /* ZWClipboard.h */,
+				FAE8A7B30E5C0C63008952E4 /* ZWClipboard.m */,
+				FAE8A7B40E5C0C63008952E4 /* ZWClipboardItem.h */,
+				FAE8A7B50E5C0C63008952E4 /* ZWClipboardItem.m */,
+			);
+			name = Clipboard;
+			sourceTree = "<group>";
+		};
 		FAF681690E57966300C61212 /* Base64 */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +395,8 @@
 				FA55574A0E4E214600A79258 /* ExternalWebViewController.m in Sources */,
 				FAF681D70E579B2500C61212 /* NSDataAdditions.m in Sources */,
 				FAF681D80E579B2500C61212 /* NSStringAdditions.m in Sources */,
+				FAE8A7B60E5C0C63008952E4 /* ZWClipboard.m in Sources */,
+				FAE8A7B70E5C0C63008952E4 /* ZWClipboardItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

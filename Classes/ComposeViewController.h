@@ -12,6 +12,8 @@
 #import "RootViewController.h"
 #import "Post.h"
 
+#import "ZWClipboard.h"
+
 @interface ComposeViewController : UIViewController {
   IBOutlet UILabel *parentPreview;
   IBOutlet UITextView *postContent;
@@ -39,4 +41,7 @@
 - (void)didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
 - (void)willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
 - (NSData *)shrinkImageByHalfAndJPEG:(UIImage *)picture;
+
+- (IBAction)paste:(id)sender;
+
 @end
