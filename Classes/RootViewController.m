@@ -14,13 +14,6 @@
 
 
 - (void)viewDidLoad {
-  // Refresh button
-  UIBarButtonItem *refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
-                                                                                 target:self
-                                                                                 action:@selector(refresh:)];
-  self.navigationItem.leftBarButtonItem = refreshButton;
-  
-  
   // Compose button
   UIBarButtonItem *composeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
                                                                                target:self
