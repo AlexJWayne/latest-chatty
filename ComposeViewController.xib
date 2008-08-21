@@ -30,15 +30,15 @@
 					<object class="IBUILabel" id="251430815">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{10, 20}, {150, 33}}</string>
+						<string key="NSFrame">{{10, 20}, {150, 38}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="IBUIText">Parent Post Content</string>
-						<object class="NSFont" key="IBUIFont" id="794779406">
+						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica</string>
-							<double key="NSSize">1.400000e+01</double>
+							<double key="NSSize">1.200000e+01</double>
 							<int key="NSfFlags">16</int>
 						</object>
 						<object class="NSColor" key="IBUITextColor">
@@ -51,8 +51,8 @@
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
-						<float key="IBUIMinimumFontSize">1.400000e+01</float>
-						<int key="IBUINumberOfLines">2</int>
+						<float key="IBUIMinimumFontSize">1.200000e+01</float>
+						<int key="IBUINumberOfLines">3</int>
 					</object>
 					<object class="IBUILabel" id="47782975">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -105,7 +105,11 @@
 							<bytes key="NSWhite">MAA</bytes>
 							<reference key="NSCustomColorSpace" ref="866516882"/>
 						</object>
-						<reference key="IBUIFont" ref="794779406"/>
+						<object class="NSFont" key="IBUIFont" id="794779406">
+							<string key="NSName">Helvetica</string>
+							<double key="NSSize">1.400000e+01</double>
+							<int key="NSfFlags">16</int>
+						</object>
 						<int key="IBUIMarginTop">0</int>
 					</object>
 					<object class="IBUIButton" id="62214411">
@@ -262,60 +266,29 @@
 						<reference key="IBUISelectedBackgroundImage" ref="3582267"/>
 						<reference key="IBUINormalBackgroundImage" ref="3582267"/>
 					</object>
-					<object class="IBUIButton" id="347211525">
+					<object class="IBUIButton" id="470781469">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{163, 7}, {76, 25}}</string>
+						<string key="NSFrame">{{160, 7}, {77, 51}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4yOTU2MjA0NCAwLjM1NDAxNDYxIDAuMzkwNTEwOTUgMAA</bytes>
-						</object>
+						<reference key="IBUIBackgroundColor" ref="880497334"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
-						<object class="NSFont" key="IBUIFont" id="36483311">
-							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">1.500000e+01</double>
-							<int key="NSfFlags">16</int>
-						</object>
-						<int key="IBUIButtonType">1</int>
-						<bool key="IBUIReversesTitleShadowWhenHighlighted">YES</bool>
-						<string key="IBUIHighlightedTitle">Paste</string>
-						<string key="IBUIDisabledTitle">Paste</string>
-						<string key="IBUISelectedTitle">Paste</string>
-						<string key="IBUINormalTitle">Paste</string>
+						<reference key="IBUIFont" ref="794779406"/>
+						<string key="IBUIHighlightedTitle">Insert</string>
+						<string key="IBUIDisabledTitle">Insert</string>
+						<string key="IBUISelectedTitle">Insert</string>
+						<string key="IBUINormalTitle">Insert</string>
 						<reference key="IBUIHighlightedTitleColor" ref="484238296"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
-						</object>
-					</object>
-					<object class="IBUIButton" id="560572818">
-						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{163, 33}, {76, 25}}</string>
-						<reference key="NSSuperview" ref="191373211"/>
-						<object class="NSColor" key="IBUIBackgroundColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4yOTU2MjA0NCAwLjM1NDAxNDYxIDAuMzkwNTEwOTUgMAA</bytes>
-						</object>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<reference key="IBUIFont" ref="36483311"/>
-						<int key="IBUIButtonType">1</int>
-						<string key="IBUIHighlightedTitle">Images</string>
-						<string key="IBUIDisabledTitle">Images</string>
-						<string key="IBUISelectedTitle">Images</string>
-						<string key="IBUINormalTitle">Images</string>
-						<reference key="IBUIHighlightedTitleColor" ref="484238296"/>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
-						</object>
+						<reference key="IBUIDisabledTitleColor" ref="484238296"/>
+						<reference key="IBUISelectedTitleColor" ref="484238296"/>
+						<reference key="IBUINormalTitleColor" ref="484238296"/>
+						<reference key="IBUIHighlightedBackgroundImage" ref="921299431"/>
+						<reference key="IBUIDisabledBackgroundImage" ref="3582267"/>
+						<reference key="IBUISelectedBackgroundImage" ref="3582267"/>
+						<reference key="IBUINormalBackgroundImage" ref="3582267"/>
 					</object>
 					<object class="IBUIButton" id="262600606">
 						<reference key="NSNextResponder" ref="191373211"/>
@@ -849,21 +822,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">paste:</string>
-						<reference key="source" ref="347211525"/>
+						<string key="label">insert:</string>
+						<reference key="source" ref="470781469"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">77</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">attachImage:</string>
-						<reference key="source" ref="560572818"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">81</int>
+					<int key="connectionID">83</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -900,10 +864,9 @@
 							<reference ref="253050734"/>
 							<reference ref="655660427"/>
 							<reference ref="531915532"/>
-							<reference ref="83135498"/>
-							<reference ref="347211525"/>
-							<reference ref="560572818"/>
 							<reference ref="251430815"/>
+							<reference ref="470781469"/>
+							<reference ref="83135498"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -1019,13 +982,8 @@
 						<reference key="parent" ref="191373211"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">76</int>
-						<reference key="object" ref="347211525"/>
-						<reference key="parent" ref="191373211"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">80</int>
-						<reference key="object" ref="560572818"/>
+						<int key="objectID">82</int>
+						<reference key="object" ref="470781469"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
 				</object>
@@ -1058,15 +1016,13 @@
 					<string>58.IBPluginDependency</string>
 					<string>61.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
-					<string>76.IBPluginDependency</string>
-					<string>80.IBPluginDependency</string>
+					<string>82.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>ComposeViewController</string>
 					<string>UIResponder</string>
-					<string>{{488, 345}, {320, 416}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{493, 372}, {320, 416}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1111,7 +1067,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">81</int>
+			<int key="maxID">83</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1123,7 +1079,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>attachImage:</string>
+							<string>insert:</string>
 							<string>paste:</string>
 							<string>sendPost:</string>
 							<string>tag:</string>

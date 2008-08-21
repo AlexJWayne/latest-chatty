@@ -107,10 +107,10 @@
   if (buttonIndex == 1) [self sendPostConfirmed];
 }
 
-- (IBAction)attachImage:(id)sender{
-  UIActionSheet *dialog = [[UIActionSheet alloc] initWithTitle:@"Post Picture"
+- (IBAction)insert:(id)sender{
+  UIActionSheet *dialog = [[UIActionSheet alloc] initWithTitle:@"Insert"
                                                       delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
-                                             otherButtonTitles:@"New Picture", @"From Library", nil];
+                                             otherButtonTitles:@"Picture From Camera", @"Pcture From Library", @"Paste", nil];
 	dialog.actionSheetStyle = UIBarStyleBlackTranslucent;
 	dialog.destructiveButtonIndex = -1;
 	[dialog showInView:self.view];
@@ -126,6 +126,10 @@
     case 1:
       //post image from library. UIImagePickerControllerSourceTypePhotoLibrary
       [self postImage:UIImagePickerControllerSourceTypePhotoLibrary];
+      break;
+    case 2:
+      //Paste from OpenClip
+      [self paste:nil];
       break;
   }
 }

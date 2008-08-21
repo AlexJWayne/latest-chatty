@@ -32,7 +32,7 @@
 - (NSString *)urlEscape:(NSString *)string;
 
 - (IBAction)tag:(id)sender;
-- (IBAction)attachImage:(id)sender;
+- (IBAction)insert:(id)sender;
 
 - (void)imagePickerController:(UIImagePickerController *)picker
         didFinishPickingImage:(UIImage *)image
