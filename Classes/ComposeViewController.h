@@ -40,7 +40,7 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
 - (void)didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
 - (void)willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
-- (NSData *)shrinkImageByHalfAndJPEG:(UIImage *)picture;
+- (NSData *)prepareImage:(UIImage *)picture;
 
 - (IBAction)paste:(id)sender;
 

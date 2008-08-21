@@ -148,43 +148,41 @@
   [[picker view] setHidden:YES];
   NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[Feed urlStringWithPath:@"images.xml"]]] autorelease];
   [request setHTTPMethod:@"POST"];
-  //Think I'll want to use this for images larger than 800 or 1024 pixels or something, since Base64 encoding makes the data a lot larger.
-  NSData *imageData = [self shrinkImageByHalfAndJPEG:image];
-  //NSData *imageData = UIImagePNGRepresentation(image);
-  //NSData *imageData = UIImageJPEGRepresentation(image, .85);
+  
+  // Prepare Data
+  NSData *imageData = [self prepareImage:image];
   NSLog(@"Image Data Length: %d", [imageData length]);
   NSString *imageBase64Data = [self urlEscape:[NSString base64StringFromData:imageData length:[imageData length]]];
   [imageBase64Data autorelease];
   NSLog(@"Image Data Base 64 Length: %d", [imageBase64Data length]);
-  //I want to rewrite this in a function soon too, so we can call it anywhere and get a url encoded string back for username/password AND prompt them for it if it's not in the settings.
-  //Sucks ass to type up a post and have forgotten to set your U/P, have to exit and come back to enter it, blah blah.
-  NSString *usernameString = [[self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]] autorelease];
-  NSString *passwordString = [[self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]] autorelease];
-   
-  NSString *postBody = [[NSString stringWithFormat:@"username=%@&password=%@&filename=iPhoneUpload.jpg&image=%@", usernameString, passwordString, imageBase64Data] autorelease];
   
+  // Setup post body
+  NSString *usernameString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
+  NSString *passwordString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
+  NSString *postBody = [NSString stringWithFormat:@"username=%@&password=%@&filename=iPhoneUpload.jpg&image=%@", usernameString, passwordString, imageBase64Data];
   [request setHTTPBody:[postBody dataUsingEncoding:NSASCIIStringEncoding]];
-  NSLog(@"Post Body: %@", postBody);
   
   // Send the request
   NSLog(@"Sending image POST.");
   NSHTTPURLResponse *response = nil;
   NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
   
-  int statusCode = (int)[response statusCode];
   
+  // Process response
+  int statusCode = (int)[response statusCode];
   NSString *responseString = [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease];
   NSLog(responseString);
   NSLog(@"Image POST response code: %d", statusCode);
-
+  
+  
   // Success! Return to previous view
   if (statusCode == 201) {
     /*
      <?xml version="1.0" encoding="UTF-8"?>
-     <success>http://www.shackpics.com/files/iPhoneUpload_z88pztxwpj5ugva66lw8.png</success>
+     <success>http://www.shackpics.com/files/image_filename.jpg</success>
     */
     NSError *err=nil;
-    CXMLDocument *doc = [[[CXMLDocument alloc] initWithXMLString:responseString options:0 error:&err] autorelease];
+    CXMLDocument *doc = [[CXMLDocument alloc] initWithXMLString:responseString options:0 error:&err];
     CXMLElement *elem = [doc rootElement];
     
     NSString *url = [elem stringValue];
@@ -196,29 +194,27 @@
   }
 }
 
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
   NSLog(@"User cancelled and didn't pick an image.");
   [picker dismissModalViewControllerAnimated:YES];
   [[picker view] setHidden:YES];
 }
 
-- (NSData*)shrinkImageByHalfAndJPEG:(UIImage *)picture {
+- (NSData*)prepareImage:(UIImage *)picture {
   NSData *retData = nil;
   
-  if ((picture.size.width > 300) || (picture.size.height > 300)) {
-    CGImageRef imageRef = [picture CGImage];
-    size_t newHeight = picture.size.height *.3;
-    size_t newWidth = picture.size.width * .3;
-    CGContextRef bitmap = CGBitmapContextCreate(NULL, newWidth, newHeight, CGImageGetBitsPerComponent(imageRef), newWidth * 4, CGImageGetColorSpace(imageRef), CGImageGetBitmapInfo(imageRef));
-    CGContextDrawImage( bitmap, CGRectMake(0,0,newWidth,newHeight), imageRef );
-    CGContextRelease( bitmap );
-    retData = UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], .85);
-    CGImageRelease( imageRef );
-  }
+//  if ((picture.size.width > 300) || (picture.size.height > 300)) {
+//    CGImageRef imageRef = [picture CGImage];
+//    size_t newHeight = picture.size.height *.3;
+//    size_t newWidth = picture.size.width * .3;
+//    CGContextRef bitmap = CGBitmapContextCreate(NULL, newWidth, newHeight, CGImageGetBitsPerComponent(imageRef), newWidth * 4, CGImageGetColorSpace(imageRef), CGImageGetBitmapInfo(imageRef));
+//    CGContextDrawImage( bitmap, CGRectMake(0,0,newWidth,newHeight), imageRef );
+//    CGContextRelease( bitmap );
+//    retData = UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], .85);
+//    CGImageRelease( imageRef );
+//  }
   
-  if (retData == nil) retData = UIImageJPEGRepresentation(picture, .85);
-  [retData autorelease];
+  if (retData == nil) retData = UIImageJPEGRepresentation(picture, 0.7);
   return retData;
 }
 
