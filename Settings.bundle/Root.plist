@@ -52,7 +52,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Filters</string>
+			<string>Shown Post Categories</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>
