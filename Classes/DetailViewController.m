@@ -61,6 +61,16 @@
 
 
 // UITableViewDelegate methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+  return 1;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+  UIView *headerView = [[[UIView alloc] init] autorelease];
+  headerView.backgroundColor = [UIColor colorWithWhite:0.25 alpha:1.0];
+  return headerView;
+}
+
 - (NSInteger)tableView:(UITableView *)aTableView numberOfRowsInSection:(NSInteger)section {
   return [currentRoot replyCount] + 1;
 }
