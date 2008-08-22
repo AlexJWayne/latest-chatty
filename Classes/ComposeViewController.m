@@ -146,6 +146,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker 
         didFinishPickingImage:(UIImage *)image
                   editingInfo:(NSDictionary *)editingInfo {
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
   
   NSLog(@"User picked an image.");
   [picker dismissModalViewControllerAnimated:YES];
@@ -159,6 +160,10 @@
   NSString *imageBase64Data = [self urlEscape:[NSString base64StringFromData:imageData length:[imageData length]]];
   [imageBase64Data autorelease];
   NSLog(@"Image Data Base 64 Length: %d", [imageBase64Data length]);
+  
+  // Update preview
+  imagePreview.image = [UIImage imageWithData:imageData];
+  imagePreview.alpha = 1.0;
   
   // Setup post body
   NSString *usernameString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
@@ -192,10 +197,21 @@
     NSString *url = [elem stringValue];
     NSLog(@"Got a good response!\nURL: %@", url);
     postContent.text = [[postContent text] stringByAppendingString:url]; 
+    
+    // Animate preview
+    [UIView beginAnimations:@"FadeImage" context:nil];
+    [UIView setAnimationDelay:3.0];
+    [UIView setAnimationDuration:1.0];
+    imagePreview.alpha = 0.0;
+    [UIView commitAnimations];
+    NSLog(@"Animated!");
+    
   }
   else {
     NSLog(@"Didn't get a good response.");
   }
+  
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
@@ -211,7 +227,7 @@
   if ((picture.size.width > 640.0) || (picture.size.height > 640.0)) {
     // calculate scale factor 
     float maxDimension = picture.size.width > picture.size.height ? picture.size.width : picture.size.height;
-    float scaleFactor = 640.0 / (float)maxDimension;
+    float scaleFactor = 640.0 / maxDimension;
     
     // Create a new image as a resized version of the provided image
     CGImageRef imageRef = [picture CGImage];

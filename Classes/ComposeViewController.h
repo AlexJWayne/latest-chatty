@@ -17,6 +17,7 @@
 @interface ComposeViewController : UIViewController {
   IBOutlet UILabel *parentPreview;
   IBOutlet UITextView *postContent;
+  IBOutlet UIImageView *imagePreview;
   
   Post *parentPost;
   int storyId;
