@@ -205,20 +205,33 @@
 }
 
 - (NSData*)prepareImage:(UIImage *)picture {
-  NSData *retData = nil;
+  NSData *retData;
   
-//  if ((picture.size.width > 300) || (picture.size.height > 300)) {
-//    CGImageRef imageRef = [picture CGImage];
-//    size_t newHeight = picture.size.height *.3;
-//    size_t newWidth = picture.size.width * .3;
-//    CGContextRef bitmap = CGBitmapContextCreate(NULL, newWidth, newHeight, CGImageGetBitsPerComponent(imageRef), newWidth * 4, CGImageGetColorSpace(imageRef), CGImageGetBitmapInfo(imageRef));
-//    CGContextDrawImage( bitmap, CGRectMake(0,0,newWidth,newHeight), imageRef );
-//    CGContextRelease( bitmap );
-//    retData = UIImageJPEGRepresentation([UIImage imageWithCGImage:imageRef], .85);
-//    CGImageRelease( imageRef );
-//  }
+  // Resize the image if it's too big
+  if ((picture.size.width > 640.0) || (picture.size.height > 640.0)) {
+    // calculate scale factor 
+    float maxDimension = picture.size.width > picture.size.height ? picture.size.width : picture.size.height;
+    float scaleFactor = 640.0 / (float)maxDimension;
+    
+    // Create a new image as a resized version of the provided image
+    CGImageRef imageRef = [picture CGImage];
+    CGRect newRect = CGRectMake(0, 0, picture.size.width*scaleFactor, picture.size.height*scaleFactor);
+    
+    CGContextRef context = CGBitmapContextCreate(NULL, newRect.size.width, newRect.size.height,
+                                                 CGImageGetBitsPerComponent(imageRef), newRect.size.width*4,
+                                                 CGImageGetColorSpace(imageRef), CGImageGetBitmapInfo(imageRef));
+    CGContextDrawImage(context, newRect, imageRef);
+    CGImageRef newImageRef = CGBitmapContextCreateImage(context);
+    
+    retData = UIImageJPEGRepresentation([UIImage imageWithCGImage:newImageRef], 0.7);
+    CGImageRelease(newImageRef);
+    CGContextRelease(context);
+    
+  // No resize needed, just convet to jpeg data
+  } else {
+    retData = UIImageJPEGRepresentation(picture, 0.7);
+  }
   
-  if (retData == nil) retData = UIImageJPEGRepresentation(picture, 0.7);
   return retData;
 }
 
