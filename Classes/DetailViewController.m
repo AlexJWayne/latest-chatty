@@ -137,7 +137,7 @@
 - (void)showPost:(Post *)post {
   currentPost = post;
   [postView loadHTMLString:[[currentPost html] stringByReplacingOccurrencesOfString:@"target=\"_blank\"" withString:@""]
-                   baseURL:[NSURL URLWithString:@"http://thread-detail.shacknews.com/"]];
+                   baseURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.shacknews.com/laryn.x?id=%d", storyId]]];
 }
 
 - (void)updateViews {

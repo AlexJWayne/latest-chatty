@@ -18,6 +18,7 @@
 		FA02CA310E44C1F90013981F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = FA02CA300E44C1F90013981F /* Settings.bundle */; };
 		FA02CB2A0E44F1000013981F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FA02CB290E44F1000013981F /* Default.png */; };
 		FA02CB480E44F8400013981F /* RootPostCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA02CB470E44F8400013981F /* RootPostCellView.m */; };
+		FA2E59630E5EAD1700937274 /* DragonDrop.png in Resources */ = {isa = PBXBuildFile; fileRef = FA2E59620E5EAD1700937274 /* DragonDrop.png */; };
 		FA346BE90E4FDF8C00B1DF5A /* Button.png in Resources */ = {isa = PBXBuildFile; fileRef = FA346BE80E4FDF8C00B1DF5A /* Button.png */; };
 		FA346BF30E4FEA2900B1DF5A /* ButtonPushed.png in Resources */ = {isa = PBXBuildFile; fileRef = FA346BF20E4FEA2900B1DF5A /* ButtonPushed.png */; };
 		FA346C060E4FFA0F00B1DF5A /* ButtonContentSpoiler.png in Resources */ = {isa = PBXBuildFile; fileRef = FA346C050E4FFA0F00B1DF5A /* ButtonContentSpoiler.png */; };
@@ -69,6 +70,7 @@
 		FA02CB290E44F1000013981F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Assets/Default.png; sourceTree = "<group>"; };
 		FA02CB460E44F8400013981F /* RootPostCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootPostCellView.h; sourceTree = "<group>"; };
 		FA02CB470E44F8400013981F /* RootPostCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootPostCellView.m; sourceTree = "<group>"; };
+		FA2E59620E5EAD1700937274 /* DragonDrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DragonDrop.png; path = Assets/DragonDrop.png; sourceTree = "<group>"; };
 		FA346BE80E4FDF8C00B1DF5A /* Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Button.png; path = Assets/Button.png; sourceTree = "<group>"; };
 		FA346BF20E4FEA2900B1DF5A /* ButtonPushed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonPushed.png; path = Assets/ButtonPushed.png; sourceTree = "<group>"; };
 		FA346C050E4FFA0F00B1DF5A /* ButtonContentSpoiler.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ButtonContentSpoiler.png; path = Assets/ButtonContentSpoiler.png; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		FA346BE30E4FDF6800B1DF5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FA2E59620E5EAD1700937274 /* DragonDrop.png */,
 				FA346C7F0E500DB100B1DF5A /* NavButtonTags.png */,
 				FA346C100E4FFDB500B1DF5A /* ButtonSend.png */,
 				FA346C0E0E4FFCA800B1DF5A /* ButtonCode.png */,
@@ -368,6 +371,7 @@
 				FA346C0F0E4FFCA800B1DF5A /* ButtonCode.png in Resources */,
 				FA346C110E4FFDB500B1DF5A /* ButtonSend.png in Resources */,
 				FA346C800E500DB100B1DF5A /* NavButtonTags.png in Resources */,
+				FA2E59630E5EAD1700937274 /* DragonDrop.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

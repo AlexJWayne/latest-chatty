@@ -12,11 +12,13 @@
 @interface ExternalWebViewController : UIViewController {
   IBOutlet UIWebView *webView;
   
-  NSURLRequest *initialRequest;
+  NSMutableURLRequest *initialRequest;
 }
 
 - (id)initWithRequest:(NSURLRequest *)request;
 
 - (IBAction)openInSafari:(id)sender;
+- (IBAction)dragonDrop:(id)sender;
+
 
 @end

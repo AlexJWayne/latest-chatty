@@ -20,7 +20,7 @@
 
 - (id)initWithRequest:(NSURLRequest *)request {
   [self init];
-  initialRequest = [request retain];
+  initialRequest = (NSMutableURLRequest *)[request retain];
   return self;
 }
 
@@ -34,7 +34,6 @@
 
 - (void)viewDidLoad {
   [webView loadRequest:initialRequest];
-  [initialRequest release];
 }
 
 
@@ -52,6 +51,7 @@
 
 - (void)dealloc {
   [webView release];
+  [initialRequest release];
 	[super dealloc];
 }
 
@@ -59,6 +59,19 @@
 
 - (IBAction)openInSafari:(id)sender {
   [[UIApplication sharedApplication] openURL:[webView.request URL]];
+}
+
+- (IBAction)dragonDrop:(id)sender {
+  [initialRequest setValue:@"" forHTTPHeaderField:@"Referer"];
+  [webView loadRequest:initialRequest];
+}
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 
