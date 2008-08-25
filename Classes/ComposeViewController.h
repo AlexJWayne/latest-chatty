@@ -11,10 +11,12 @@
 #import "DetailViewController.h"
 #import "RootViewController.h"
 #import "Post.h"
+#import "Image.h"
 
 #import "ZWClipboard.h"
+#import "NSStringAdditions.h"
 
-@interface ComposeViewController : UIViewController {
+@interface ComposeViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
   IBOutlet UILabel *parentPreview;
   IBOutlet UITextView *postContent;
   IBOutlet UIImageView *imagePreview;
@@ -30,7 +32,6 @@
 - (IBAction)toggleKeyboard:(id)sender;
 - (IBAction)sendPost:(id)sender;
 - (void)sendPostConfirmed;
-- (NSString *)urlEscape:(NSString *)string;
 
 - (IBAction)tag:(id)sender;
 - (IBAction)insert:(id)sender;
@@ -39,9 +40,6 @@
         didFinishPickingImage:(UIImage *)image
                   editingInfo:(NSDictionary *)editingInfo;
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
-- (void)didShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
-- (void)willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
-- (NSData *)prepareImage:(UIImage *)picture;
 
 - (IBAction)paste:(id)sender;
 

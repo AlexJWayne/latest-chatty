@@ -7,7 +7,6 @@
 //
 
 #import "ComposeViewController.h"
-#import "NSStringAdditions.h"
 
 @implementation ComposeViewController
 
@@ -144,59 +143,27 @@
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker 
-        didFinishPickingImage:(UIImage *)image
+        didFinishPickingImage:(UIImage *)chosenImage
                   editingInfo:(NSDictionary *)editingInfo {
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
   
   NSLog(@"User picked an image.");
   [picker dismissModalViewControllerAnimated:YES];
   [[picker view] setHidden:YES];
-  NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[Feed urlStringWithPath:@"images.xml"]]] autorelease];
-  [request setHTTPMethod:@"POST"];
-  
-  // Prepare Data
-  NSData *imageData = [self prepareImage:image];
-  NSLog(@"Image Data Length: %d", [imageData length]);
-  NSString *imageBase64Data = [self urlEscape:[NSString base64StringFromData:imageData length:[imageData length]]];
-  [imageBase64Data autorelease];
-  NSLog(@"Image Data Base 64 Length: %d", [imageBase64Data length]);
+    
+  // Upload image
+  Image *image = [[Image alloc] initWithImage:chosenImage];
+  NSString *imageURL = [image post];
+  [image release];
   
   // Update preview
-  imagePreview.image = [UIImage imageWithData:imageData];
+  imagePreview.image = chosenImage;
   imagePreview.alpha = 1.0;
   
-  // Setup post body
-  NSString *usernameString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
-  NSString *passwordString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
-  NSString *postBody = [NSString stringWithFormat:@"username=%@&password=%@&filename=iPhoneUpload.jpg&image=%@", usernameString, passwordString, imageBase64Data];
-  [request setHTTPBody:[postBody dataUsingEncoding:NSASCIIStringEncoding]];
-  
-  // Send the request
-  NSLog(@"Sending image POST.");
-  NSHTTPURLResponse *response = nil;
-  NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-  
-  
-  // Process response
-  int statusCode = (int)[response statusCode];
-  NSString *responseString = [[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding] autorelease];
-  NSLog(responseString);
-  NSLog(@"Image POST response code: %d", statusCode);
-  
-  
   // Success! Return to previous view
-  if (statusCode == 201) {
-    /*
-     <?xml version="1.0" encoding="UTF-8"?>
-     <success>http://www.shackpics.com/files/image_filename.jpg</success>
-    */
-    NSError *err=nil;
-    CXMLDocument *doc = [[CXMLDocument alloc] initWithXMLString:responseString options:0 error:&err];
-    CXMLElement *elem = [doc rootElement];
-    
-    NSString *url = [elem stringValue];
-    NSLog(@"Got a good response!\nURL: %@", url);
-    postContent.text = [[postContent text] stringByAppendingString:url]; 
+  if (imageURL != nil) {
+    NSLog(@"Got a good response!\nURL: %@", imageURL);
+    postContent.text = [[postContent text] stringByAppendingString:imageURL]; 
     
     // Animate preview
     [UIView beginAnimations:@"FadeImage" context:nil];
@@ -204,7 +171,6 @@
     [UIView setAnimationDuration:1.0];
     imagePreview.alpha = 0.0;
     [UIView commitAnimations];
-    NSLog(@"Animated!");
     
   }
   else {
@@ -220,46 +186,15 @@
   [[picker view] setHidden:YES];
 }
 
-- (NSData*)prepareImage:(UIImage *)picture {
-  NSData *retData;
-  
-  // Resize the image if it's too big
-  if ((picture.size.width > 640.0) || (picture.size.height > 640.0)) {
-    // calculate scale factor 
-    float maxDimension = picture.size.width > picture.size.height ? picture.size.width : picture.size.height;
-    float scaleFactor = 640.0 / maxDimension;
-    
-    // Create a new image as a resized version of the provided image
-    CGImageRef imageRef = [picture CGImage];
-    CGRect newRect = CGRectMake(0, 0, picture.size.width*scaleFactor, picture.size.height*scaleFactor);
-    
-    CGContextRef context = CGBitmapContextCreate(NULL, newRect.size.width, newRect.size.height,
-                                                 CGImageGetBitsPerComponent(imageRef), newRect.size.width*4,
-                                                 CGImageGetColorSpace(imageRef), CGImageGetBitmapInfo(imageRef));
-    CGContextDrawImage(context, newRect, imageRef);
-    CGImageRef newImageRef = CGBitmapContextCreateImage(context);
-    
-    retData = UIImageJPEGRepresentation([UIImage imageWithCGImage:newImageRef], 0.7);
-    CGImageRelease(newImageRef);
-    CGContextRelease(context);
-    
-  // No resize needed, just convet to jpeg data
-  } else {
-    retData = UIImageJPEGRepresentation(picture, 0.7);
-  }
-  
-  return retData;
-}
-
 - (void)sendPostConfirmed {
   // Create the request
   NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
   [request setURL:[NSURL URLWithString:@"http://www.shacknews.com/extras/post_laryn_iphone.x"]];
   
   // Set request body and HTTP method
-  NSString *usernameString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
-  NSString *passwordString = [self urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
-  NSString *bodyString     = [self urlEscape:postContent.text];
+  NSString *usernameString = [LatestChattyAppDelegate urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]];
+  NSString *passwordString = [LatestChattyAppDelegate urlEscape:[[NSUserDefaults standardUserDefaults] stringForKey:@"password_preference"]];
+  NSString *bodyString     = [LatestChattyAppDelegate urlEscape:postContent.text];
   NSString *parentId       = [NSString stringWithFormat:@"%d", parentPost.postId];
   if ([parentId isEqualToString:@"0"]) parentId = @"";
   
@@ -309,16 +244,6 @@
     
   }
   
-}
-
-- (NSString *)urlEscape:(NSString *)string {
-  return (NSString *)CFURLCreateStringByAddingPercentEscapes(
-    NULL,
-    (CFStringRef)string,
-    NULL,
-    (CFStringRef)@";/?:@&=+$,",
-    kCFStringEncodingUTF8
-  );
 }
 
 - (IBAction)paste:(id)sender {

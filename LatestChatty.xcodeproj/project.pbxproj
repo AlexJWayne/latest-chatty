@@ -41,6 +41,7 @@
 		FA461BCB0E42568900E3654D /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA461BCA0E42568900E3654D /* DetailViewController.xib */; };
 		FA55573C0E4E1F7700A79258 /* ExternalWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA55573B0E4E1F7700A79258 /* ExternalWebViewController.xib */; };
 		FA55574A0E4E214600A79258 /* ExternalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5557490E4E214600A79258 /* ExternalWebViewController.m */; };
+		FA8EBF860E6343D2009B657C /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8EBF850E6343D2009B657C /* Image.m */; };
 		FAA25FB70E4688F000F0C53C /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA25FB50E4688EF00F0C53C /* left.png */; };
 		FAA25FB80E4688F000F0C53C /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA25FB60E4688F000F0C53C /* right.png */; };
 		FAA260460E46940B00F0C53C /* tag.png in Resources */ = {isa = PBXBuildFile; fileRef = FAA260450E46940B00F0C53C /* tag.png */; };
@@ -104,6 +105,8 @@
 		FA55573B0E4E1F7700A79258 /* ExternalWebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExternalWebViewController.xib; sourceTree = "<group>"; };
 		FA5557480E4E214600A79258 /* ExternalWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalWebViewController.h; sourceTree = "<group>"; };
 		FA5557490E4E214600A79258 /* ExternalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalWebViewController.m; sourceTree = "<group>"; };
+		FA8EBF840E6343D2009B657C /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		FA8EBF850E6343D2009B657C /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		FAA25FB50E4688EF00F0C53C /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = left.png; path = Assets/left.png; sourceTree = "<group>"; };
 		FAA25FB60E4688F000F0C53C /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = right.png; path = Assets/right.png; sourceTree = "<group>"; };
 		FAA260450E46940B00F0C53C /* tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tag.png; path = Assets/tag.png; sourceTree = "<group>"; };
@@ -259,6 +262,8 @@
 				FA461BBE0E4255B500E3654D /* Feed.m */,
 				FA461BBF0E4255B500E3654D /* Post.h */,
 				FA461BC00E4255B500E3654D /* Post.m */,
+				FA8EBF840E6343D2009B657C /* Image.h */,
+				FA8EBF850E6343D2009B657C /* Image.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -401,6 +406,7 @@
 				FAF681D80E579B2500C61212 /* NSStringAdditions.m in Sources */,
 				FAE8A7B60E5C0C63008952E4 /* ZWClipboard.m in Sources */,
 				FAE8A7B70E5C0C63008952E4 /* ZWClipboardItem.m in Sources */,
+				FA8EBF860E6343D2009B657C /* Image.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

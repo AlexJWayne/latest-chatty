@@ -82,5 +82,14 @@
   [alert release];
 }
 
++ (NSString *)urlEscape:(NSString *)string {
+  return (NSString *)CFURLCreateStringByAddingPercentEscapes(
+                      NULL,
+                      (CFStringRef)string,
+                      NULL,
+                      (CFStringRef)@";/?:@&=+$,",
+                      kCFStringEncodingUTF8);
+}
+
 
 @end

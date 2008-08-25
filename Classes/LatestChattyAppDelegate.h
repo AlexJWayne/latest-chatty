@@ -15,6 +15,7 @@
 }
 
 + (void)showErrorAlertNamed:(NSString *)name;
++ (NSString *)urlEscape:(NSString *)string;
 
 @property (nonatomic, retain) UIWindow *window;
 @property (nonatomic, retain) UINavigationController *navigationController;
