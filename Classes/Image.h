@@ -20,5 +20,5 @@
 - (NSData *)process;
 - (NSString *)base64String;
 - (NSString *)post;
-
+- (UIImage *)scaleAndRotateImage;
 @end

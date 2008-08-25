@@ -19,7 +19,6 @@
 @interface ComposeViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
   IBOutlet UILabel *parentPreview;
   IBOutlet UITextView *postContent;
-  IBOutlet UIImageView *imagePreview;
   
   Post *parentPost;
   int storyId;
@@ -36,9 +35,7 @@
 - (IBAction)tag:(id)sender;
 - (IBAction)insert:(id)sender;
 
-- (void)imagePickerController:(UIImagePickerController *)picker
-        didFinishPickingImage:(UIImage *)image
-                  editingInfo:(NSDictionary *)editingInfo;
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)chosenImage editingInfo:(NSDictionary *)editingInfo;
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
 
 - (IBAction)paste:(id)sender;

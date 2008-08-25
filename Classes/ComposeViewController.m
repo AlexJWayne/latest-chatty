@@ -109,7 +109,7 @@
 - (IBAction)insert:(id)sender{
   UIActionSheet *dialog = [[UIActionSheet alloc] initWithTitle:@"Insert"
                                                       delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
-                                             otherButtonTitles:@"Picture From Camera", @"Pcture From Library", @"Paste", nil];
+                                             otherButtonTitles:@"Picture From Camera", @"Picture From Library", @"Paste", nil];
 	dialog.actionSheetStyle = UIBarStyleBlackTranslucent;
 	dialog.destructiveButtonIndex = -1;
 	[dialog showInView:self.view];
@@ -120,11 +120,20 @@
   switch (buttonIndex) {
     case 0:
       //post image from camera. UIImagePickerControllerSourceTypeCamera
-      [self postImage:UIImagePickerControllerSourceTypeCamera];
+      if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+        [self postImage:UIImagePickerControllerSourceTypeCamera];  
+      } else {
+        [LatestChattyAppDelegate showErrorAlertNamed:@"No Camera"];
+      }
       break;
     case 1:
       //post image from library. UIImagePickerControllerSourceTypePhotoLibrary
-      [self postImage:UIImagePickerControllerSourceTypePhotoLibrary];
+      if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
+        [self postImage:UIImagePickerControllerSourceTypePhotoLibrary];
+      } else {
+        [LatestChattyAppDelegate showErrorAlertNamed:@"Empty Photo Library"];
+      }
+      
       break;
     case 2:
       //Paste from OpenClip
@@ -142,38 +151,22 @@
   [self presentModalViewController:imagePickerController animated:YES];  
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker 
-        didFinishPickingImage:(UIImage *)chosenImage
-                  editingInfo:(NSDictionary *)editingInfo {
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)chosenImage editingInfo:(NSDictionary *)editingInfo {
   [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
   
   NSLog(@"User picked an image.");
   [picker dismissModalViewControllerAnimated:YES];
-  [[picker view] setHidden:YES];
     
   // Upload image
   Image *image = [[Image alloc] initWithImage:chosenImage];
   NSString *imageURL = [image post];
   [image release];
   
-  // Update preview
-  imagePreview.image = chosenImage;
-  imagePreview.alpha = 1.0;
-  
   // Success! Return to previous view
   if (imageURL != nil) {
     NSLog(@"Got a good response!\nURL: %@", imageURL);
-    postContent.text = [[postContent text] stringByAppendingString:imageURL]; 
-    
-    // Animate preview
-    [UIView beginAnimations:@"FadeImage" context:nil];
-    [UIView setAnimationDelay:3.0];
-    [UIView setAnimationDuration:1.0];
-    imagePreview.alpha = 0.0;
-    [UIView commitAnimations];
-    
-  }
-  else {
+    postContent.text = [[postContent text] stringByAppendingString:imageURL];
+  } else {
     NSLog(@"Didn't get a good response.");
   }
   
@@ -183,7 +176,6 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
   NSLog(@"User cancelled and didn't pick an image.");
   [picker dismissModalViewControllerAnimated:YES];
-  [[picker view] setHidden:YES];
 }
 
 - (void)sendPostConfirmed {

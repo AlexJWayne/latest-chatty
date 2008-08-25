@@ -44,8 +44,9 @@
 }
 
 
+// Todo refactor this to be more DRY
 + (void)showErrorAlertNamed:(NSString *)name {
-  NSLog(name);
+  NSLog(@"Showing Error named: %@", name);
   
   UIAlertView *alert = [UIAlertView alloc];
   
@@ -66,6 +67,20 @@
   } else if ([name isEqualToString:@"Post too Short"]) {
     [alert initWithTitle:name
                  message:@"Any post less than 5 characters can't be worth reading, can it?"
+                delegate:nil
+       cancelButtonTitle:@"OK"
+       otherButtonTitles:nil];
+    
+  } else if ([name isEqualToString:@"No Camera"]) {
+    [alert initWithTitle:name
+                 message:@"Sorry, I won't be able to take a picture.  Your device does not have a camera."
+                delegate:nil
+       cancelButtonTitle:@"OK"
+       otherButtonTitles:nil];
+    
+  } else if ([name isEqualToString:@"Empty Photo Library"]) {
+    [alert initWithTitle:name
+                 message:@"You have no photos in library.  How am I supposed to post from an empty gallery, huh?"
                 delegate:nil
        cancelButtonTitle:@"OK"
        otherButtonTitles:nil];
