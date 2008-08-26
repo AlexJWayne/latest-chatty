@@ -43,6 +43,17 @@
 	[sendButton release];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"hide_post_warning"] != YES) {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Important!"
+                                                    message:@"This app is just one portal to a much larger community. If you are new here, tap \"Rules\" to read up on what to do and what now to do. Improper conduct may lead to unpleasant experiences and getting banned by community moderators.\n\n Lastly, use the text formatting tags sparingly. Please."
+                                                   delegate:self
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:@"Rules", @"Hide", nil];
+    [alert show];
+    [alert release];    
+  }
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
@@ -103,7 +114,19 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-  if (buttonIndex == 1) [self sendPostConfirmed];
+  if ([alertView.title isEqualToString:@"Submit Post"]) {
+    // Send post alert
+    if (buttonIndex == 1) [self sendPostConfirmed];
+  } else {
+    // Noob help alert
+    if (buttonIndex == 1) {
+      NSURLRequest *rulesPageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.shacknews.com/extras/guidelines.x"]];
+      ExternalWebViewController *controller = [[ExternalWebViewController alloc] initWithRequest:rulesPageRequest];
+      [[self navigationController] pushViewController:controller animated:YES];
+    } else if (buttonIndex == 2) {
+      [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hide_post_warning"];
+    }
+  }
 }
 
 - (IBAction)insert:(id)sender{
