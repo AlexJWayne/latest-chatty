@@ -13,7 +13,6 @@
 #import "Post.h"
 #import "Image.h"
 
-#import "ZWClipboard.h"
 #import "NSStringAdditions.h"
 
 @interface ComposeViewController : UIViewController <UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate> {
@@ -37,8 +36,6 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)chosenImage editingInfo:(NSDictionary *)editingInfo;
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker;
-
-- (IBAction)paste:(id)sender;
 
 - (void)postImage:(UIImagePickerControllerSourceType)sourceType;
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;

@@ -131,9 +131,9 @@
 }
 
 - (IBAction)insert:(id)sender{
-  UIActionSheet *dialog = [[UIActionSheet alloc] initWithTitle:@"Insert"
+  UIActionSheet *dialog = [[UIActionSheet alloc] initWithTitle:@"Insert Image"
                                                       delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil
-                                             otherButtonTitles:@"Picture From Camera", @"Picture From Library", @"Paste", nil];
+                                             otherButtonTitles:@"Camera", @"Library", nil];
 	dialog.actionSheetStyle = UIBarStyleBlackTranslucent;
 	dialog.destructiveButtonIndex = -1;
 	[dialog showInView:self.view];
@@ -157,11 +157,6 @@
       } else {
         [LatestChattyAppDelegate showErrorAlertNamed:@"Empty Photo Library"];
       }
-      
-      break;
-    case 2:
-      //Paste from OpenClip
-      [self paste:nil];
       break;
   }
 }
@@ -261,14 +256,4 @@
   }
   
 }
-
-- (IBAction)paste:(id)sender {
-  ZWClipboardItem *item = [[ZWClipboard sharedClipboard] pasteLatestWithMimeType:@"text/plain" error:NULL];
-	NSString *pasteText = [[[NSString alloc] initWithData:item.data encoding:NSUTF8StringEncoding] autorelease];
-  
-  postContent.text = [[postContent text] stringByAppendingString:pasteText];
-  [postContent becomeFirstResponder];
-  [postContent setSelectedRange:NSMakeRange([postContent.text length], 0)];
-}
-
 @end

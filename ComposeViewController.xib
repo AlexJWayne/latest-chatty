@@ -277,10 +277,10 @@
 						<int key="IBUIContentHorizontalAlignment">0</int>
 						<int key="IBUIContentVerticalAlignment">0</int>
 						<reference key="IBUIFont" ref="794779406"/>
-						<string key="IBUIHighlightedTitle">Insert</string>
-						<string key="IBUIDisabledTitle">Insert</string>
-						<string key="IBUISelectedTitle">Insert</string>
-						<string key="IBUINormalTitle">Insert</string>
+						<string key="IBUIHighlightedTitle">Image</string>
+						<string key="IBUIDisabledTitle">Image</string>
+						<string key="IBUISelectedTitle">Image</string>
+						<string key="IBUINormalTitle">Image</string>
 						<reference key="IBUIHighlightedTitleColor" ref="484238296"/>
 						<reference key="IBUIDisabledTitleColor" ref="484238296"/>
 						<reference key="IBUISelectedTitleColor" ref="484238296"/>
@@ -1080,7 +1080,6 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>insert:</string>
-							<string>paste:</string>
 							<string>sendPost:</string>
 							<string>tag:</string>
 							<string>toggleKeyboard:</string>
@@ -1091,20 +1090,17 @@
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
-							<string>id</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>imagePreview</string>
 							<string>parentPreview</string>
 							<string>postContent</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UITextView</string>
 						</object>
