@@ -11,9 +11,10 @@
 #import "JFNewsPostCell.h"
 
 @interface RSSReader : NSObject {
-	CXMLDocument* feed;
-	NSMutableArray* newsPosts;
+	CXMLDocument *feed;
+	NSMutableArray *newsPosts;
 }
 
 -(NSArray*)getNewsPosts;
+
 @end

@@ -40,6 +40,7 @@
 		FA3D725A0E43FCC0002998D3 /* CXMLNode_PrivateExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3D72510E43FCC0002998D3 /* CXMLNode_PrivateExtensions.m */; };
 		FA3D725B0E43FCC0002998D3 /* CXMLNode_XPathExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3D72530E43FCC0002998D3 /* CXMLNode_XPathExtensions.m */; };
 		FA3D725C0E43FCC0002998D3 /* CXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3D72550E43FCC0002998D3 /* CXMLNode.m */; };
+		FA4156FF0E653F1D00E59903 /* ChatIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = FA4156FE0E653F1D00E59903 /* ChatIcon.png */; };
 		FA461BC10E4255B500E3654D /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = FA461BBE0E4255B500E3654D /* Feed.m */; };
 		FA461BC20E4255B500E3654D /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = FA461BC00E4255B500E3654D /* Post.m */; };
 		FA461BC80E42561900E3654D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA461BC70E42561900E3654D /* DetailViewController.m */; };
@@ -109,6 +110,7 @@
 		FA3D72540E43FCC0002998D3 /* CXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXMLNode.h; path = TouchXML/CXMLNode.h; sourceTree = "<group>"; };
 		FA3D72550E43FCC0002998D3 /* CXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXMLNode.m; path = TouchXML/CXMLNode.m; sourceTree = "<group>"; };
 		FA3D72560E43FCC0002998D3 /* TouchXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchXML.h; path = TouchXML/TouchXML.h; sourceTree = "<group>"; };
+		FA4156FE0E653F1D00E59903 /* ChatIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ChatIcon.png; path = Assets/ChatIcon.png; sourceTree = "<group>"; };
 		FA461BBD0E4255B500E3654D /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Feed.h; sourceTree = "<group>"; };
 		FA461BBE0E4255B500E3654D /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Feed.m; sourceTree = "<group>"; };
 		FA461BBF0E4255B500E3654D /* Post.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
@@ -224,14 +226,6 @@
 		59F766220E65001A0022FE0C /* NewsAdditions */ = {
 			isa = PBXGroup;
 			children = (
-				59F7662A0E6500970022FE0C /* JFNewsPostCell.h */,
-				59F7662B0E6500970022FE0C /* NewsPost.m */,
-				59F7662C0E6500970022FE0C /* JFNewsPostCell.m */,
-				59F7662D0E6500970022FE0C /* RSSReader.h */,
-				59F7662E0E6500970022FE0C /* RootViewController.m */,
-				59F7662F0E6500970022FE0C /* RSSReader.m */,
-				59F766310E6500970022FE0C /* RootViewController.h */,
-				59F766320E6500970022FE0C /* NewsPost.h */,
 			);
 			name = NewsAdditions;
 			sourceTree = "<group>";
@@ -239,6 +233,8 @@
 		FA02CB450E44F81B0013981F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				59F7662A0E6500970022FE0C /* JFNewsPostCell.h */,
+				59F7662C0E6500970022FE0C /* JFNewsPostCell.m */,
 				FA02CB460E44F8400013981F /* RootPostCellView.h */,
 				FA02CB470E44F8400013981F /* RootPostCellView.m */,
 			);
@@ -248,6 +244,7 @@
 		FA346BE30E4FDF6800B1DF5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				FA4156FE0E653F1D00E59903 /* ChatIcon.png */,
 				FA2E59620E5EAD1700937274 /* DragonDrop.png */,
 				FA346C7F0E500DB100B1DF5A /* NavButtonTags.png */,
 				FA346C100E4FFDB500B1DF5A /* ButtonSend.png */,
@@ -295,6 +292,10 @@
 				FA461BC00E4255B500E3654D /* Post.m */,
 				FA8EBF840E6343D2009B657C /* Image.h */,
 				FA8EBF850E6343D2009B657C /* Image.m */,
+				59F7662D0E6500970022FE0C /* RSSReader.h */,
+				59F7662F0E6500970022FE0C /* RSSReader.m */,
+				59F766320E6500970022FE0C /* NewsPost.h */,
+				59F7662B0E6500970022FE0C /* NewsPost.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -304,6 +305,8 @@
 			children = (
 				1D3623240D0F684500981E51 /* LatestChattyAppDelegate.h */,
 				1D3623250D0F684500981E51 /* LatestChattyAppDelegate.m */,
+				59F766310E6500970022FE0C /* RootViewController.h */,
+				59F7662E0E6500970022FE0C /* RootViewController.m */,
 				28C286DF0D94DF7D0034E888 /* ChattyViewController.h */,
 				28C286E00D94DF7D0034E888 /* ChattyViewController.m */,
 				FA461BC60E42561900E3654D /* DetailViewController.h */,
@@ -409,6 +412,7 @@
 				FA346C800E500DB100B1DF5A /* NavButtonTags.png in Resources */,
 				FA2E59630E5EAD1700937274 /* DragonDrop.png in Resources */,
 				59F7663B0E6501020022FE0C /* RootViewController.xib in Resources */,
+				FA4156FF0E653F1D00E59903 /* ChatIcon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,50 +22,40 @@
 	posts = [theReader getNewsPosts];
 	
 	//hop to LC.x
-	if([[NSUserDefaults standardUserDefaults] boolForKey:@"lc_startup"]){
+	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"startup_destination"] isEqualToString:@"chatty"]){
 		[self latestChatty:self];
 	}
-	//NSLog(@"posts count %i", [posts count] );
 }
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return 80.0;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return 76.0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	//NSLog(@"posts count %i", [posts count] );
 	return [posts count];
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	//NSLog(@"wtf?");
-	static NSString *MyIdentifier = @"NPIdentifer";
-	
-	JFNewsPostCell* cell = (JFNewsPostCell*)[tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+- (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	JFNewsPostCell* cell = (JFNewsPostCell*)[tableView dequeueReusableCellWithIdentifier:@"storyCell"];
 	if (cell == nil) {
-		cell = [[[JFNewsPostCell alloc] initWithFrame:CGRectMake( 0,0,320, 200) reuseIdentifier:MyIdentifier] autorelease];
+		cell = [[[JFNewsPostCell alloc] initWithFrame:CGRectMake(0, 0, 320, 200) reuseIdentifier:@"storyCell"] autorelease];
 	}
 	// Set up the cell
 	//NSLog(@"setting up with title: %@", [[posts objectAtIndex:indexPath.row] title] );
 	//cell.text = [[posts objectAtIndex:indexPath.row] title];
-	[cell setColor:indexPath.row%2];
+	[cell setColor:indexPath.row % 2];
 	[cell buildCellForPost:[posts objectAtIndex:indexPath.row]];
 	return cell;
 }
 
 
- - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	 // Navigation logic
-	 //ok here we go
-	 //if( postView ) [postView release];
+ - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	 postView = [[ExternalWebViewController alloc] initWithNewsPost:[posts objectAtIndex:indexPath.row]];
-	 //else [postView updateForPost:[posts objectAtIndex:indexPath.row]];
 	 [[self navigationController] pushViewController:postView animated:YES];
 	 [postView release];
 	 [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -150,17 +140,18 @@
 	[super dealloc];
 }
 
--(IBAction) refresh:(id)sender
-{
-	NSLog(@"sup.");
+- (IBAction)refresh:(id)sender {
+	NSLog(@"Refreshing...");
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	posts = [theReader getNewsPosts];
+  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	[tableView reloadData];
+  NSLog(@"Done.");
 }
 
--(IBAction)latestChatty:(id)sender
-{
-	if( !chattyView ) chattyView = [[ChattyViewController alloc] initWithChattyId:0];
-	if( sender == self ) [[self navigationController] pushViewController:chattyView animated:NO];
+- (IBAction)latestChatty:(id)sender {
+	if (!chattyView) chattyView = [[ChattyViewController alloc] initWithChattyId:0];
+	if (sender == self) [[self navigationController] pushViewController:chattyView animated:NO];
 	else [[self navigationController] pushViewController:chattyView animated:YES];
 	[chattyView release];
 }

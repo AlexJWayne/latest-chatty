@@ -58,10 +58,13 @@
 					<object class="IBUIViewController" id="619226028">
 						<object class="IBUINavigationItem" key="IBUINavigationItem" id="394667715">
 							<reference key="IBUINavigationBar"/>
-							<string key="IBUITitle">ShackNews</string>
+							<string key="IBUITitle">Stories</string>
 							<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="177403625">
-								<string key="IBUITitle">LatestChatty</string>
-								<int key="IBUIStyle">1</int>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">ChatIcon.png</string>
+								</object>
+								<int key="IBUIStyle">2</int>
 							</object>
 						</object>
 						<reference key="IBUIParentViewController" ref="701001926"/>

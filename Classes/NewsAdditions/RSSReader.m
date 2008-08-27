@@ -12,8 +12,8 @@
 @implementation RSSReader
 
 NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
--(id)init
-{	
+
+- (id)init {
 	NSURLRequest* chRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:shackURL] cachePolicy: NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
 	NSError* theError;
 	NSData* response = [NSURLConnection sendSynchronousRequest:chRequest returningResponse:nil error:&theError];
@@ -22,50 +22,43 @@ NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 	return self;
 }
 
--(NSArray*)getNewsPosts
-{
+- (NSArray*)getNewsPosts {
 	//before we do anything let's release the data
-	if(newsPosts != nil ){
-		[newsPosts release];
-	}
+	if (newsPosts != nil) [newsPosts release];
 	newsPosts = [[NSMutableArray alloc] init];
-	
 	
 	CXMLElement* root = [feed rootElement];
 	//NSLog(@"root:%@, childCount: %i", [root XMLString], [root childCount]);
 	NSArray* items = [root elementsForName:@"item"];
 	int i,j;
 	NewsPost* post;
-	if( [items count] > 0 ){
-		for( i = 0; i < [items count]; i++ ){
+	if ([items count] > 0){
+		for (i = 0; i < [items count]; i++) {
 			CXMLElement* parent = [items objectAtIndex:i];
 			post = [[NewsPost alloc] init];
-			post.link=[[(CXMLElement*)parent attributeForName:(@"about")] stringValue];
+			post.link = [[(CXMLElement*)parent attributeForName:(@"about")] stringValue];
 			NSArray* children = [parent children];
-			for( j = 0; j < [children count]; j++ ){
+			for(j = 0; j < [children count]; j++) {
 				CXMLNode* temp = [children objectAtIndex:j];
-				if( [[temp name] isEqualToString:@"title"] ){
+				if ([[temp name] isEqualToString:@"title"]) {
 					post.title = [temp stringValue];
 				}
-				else if( [[temp name] isEqualToString:@"description"] ){
+				else if ([[temp name] isEqualToString:@"description"]) {
 					post.description = [temp stringValue];
 				}
-				else if( [[temp name] isEqualToString:@"date"] ){
+				else if ([[temp name] isEqualToString:@"date"]){
 					NSDateFormatter* format = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%dT%H:%M%z" allowNaturalLanguage:NO];
 					NSDate* date = [format dateFromString:[temp stringValue]];
 					[format release];
 					format = [[NSDateFormatter alloc] initWithDateFormat:@"%b %d, %Y %I:%M %p" allowNaturalLanguage:NO];
-					//NSLog( @"%f", [date timeIntervalSince1970]);
-					//NSLog(@"%@", [format stringFromDate:date] );
 					post.date = [format stringFromDate:date];
 					[format release];
 				}
 			}
 			[newsPosts addObject:post];
 			[post release];
-			 }
+    }
 	}
-	//items = [root nodesForXPath:@"RDF/item" error:nil];
 	return newsPosts;
 }
 @end

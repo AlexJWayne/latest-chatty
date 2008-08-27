@@ -57,14 +57,24 @@
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
-			<key>Title</key>
-			<string>LC.x on Startup</string>
+			<key>Values</key>
+			<array>
+				<string>chatty</string>
+				<string>stories</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Latest Chatty</string>
+				<string>News Stories</string>
+			</array>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Destination</string>
 			<key>Key</key>
-			<string>lc_startup</string>
+			<string>startup_destination</string>
 			<key>DefaultValue</key>
-			<false/>
+			<string>stories</string>
 		</dict>
 		<dict>
 			<key>Title</key>

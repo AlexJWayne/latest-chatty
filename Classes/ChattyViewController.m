@@ -13,11 +13,9 @@
 @implementation ChattyViewController
 
 
--(id) initWithChattyId:(int)chatIdNum
-{
-	chatId = chatIdNum;
+- (id)initWithChattyId:(int)aChatId {
+	chatId = aChatId;
 	self = [self initWithNibName:@"ChattyViewController" bundle:[NSBundle mainBundle]];
-	//[super init];
 	return self;
 }
 

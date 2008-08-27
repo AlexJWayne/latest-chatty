@@ -30,16 +30,15 @@
  }
  */
 
-- (id)initWithNewsPost:(NewsPost*)post
-{
-	self = [self initWithRequest: [NSURLRequest requestWithURL:[NSURL URLWithString:post.link]]];
+- (id)initWithNewsPost:(NewsPost*)post {
+	self = [self initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:post.link]]];
 	self.title = post.title;
 	thePost = post;
 	return self;
 }
 
 - (void)viewDidLoad {
-	if( thePost ){ 
+	if (thePost) {
 		//remove dragondrop and add chat
 		[dragonDropButton setEnabled:NO];
 		self.navigationItem.rightBarButtonItem = chatButton;
@@ -66,13 +65,12 @@
 	[super dealloc];
 }
 
-- (IBAction)chat:(id)sender
-{
+- (IBAction)chat:(id)sender {
 	//need thePost - link
-	NSString* link = [thePost link];
-	NSArray* comps = [link componentsSeparatedByString:@"/"];
+	NSString *link = [thePost link];
+	NSArray *comps = [link componentsSeparatedByString:@"/"];
 	int story = [[comps objectAtIndex:([comps count]-1)] intValue];
-	if( chattyView ) [chattyView release];
+	if (chattyView) [chattyView release];
 	chattyView = [[ChattyViewController alloc] initWithChattyId:story];
 	//else [chattyView updateWithStoryId:story];
 	[[self navigationController] pushViewController:chattyView animated:YES];
