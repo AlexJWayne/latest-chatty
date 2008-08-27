@@ -58,7 +58,6 @@
 	 postView = [[ExternalWebViewController alloc] initWithNewsPost:[posts objectAtIndex:indexPath.row]];
 	 [[self navigationController] pushViewController:postView animated:YES];
 	 [postView release];
-	 [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
@@ -107,6 +106,7 @@
 //}
 
 - (void)viewWillAppear:(BOOL)animated {
+  [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 	[super viewWillAppear:animated];
 }
 

@@ -78,7 +78,7 @@
 		</dict>
 		<dict>
 			<key>Title</key>
-			<string>Shown Post Categories</string>
+			<string>Post Categories</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

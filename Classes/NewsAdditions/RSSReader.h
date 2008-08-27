@@ -13,6 +13,7 @@
 @interface RSSReader : NSObject {
 	CXMLDocument *feed;
 	NSMutableArray *newsPosts;
+  NewsPost *newsPost;
 }
 
 -(NSArray*)getNewsPosts;
