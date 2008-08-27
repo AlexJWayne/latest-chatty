@@ -7,18 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "NewsPost.h"
+#import "ChattyViewController.h"
 
 @interface ExternalWebViewController : UIViewController {
-  IBOutlet UIWebView *webView;
-  
-  NSMutableURLRequest *initialRequest;
+	IBOutlet UIWebView *webView;
+	IBOutlet UIBarButtonItem* chatButton;
+	IBOutlet UIBarButtonItem* dragonDropButton;
+	NSMutableURLRequest *initialRequest;
+	NewsPost* thePost;
+	//ChattyViewController* chattyView;
+	id chattyView;
 }
 
 - (id)initWithRequest:(NSURLRequest *)request;
-
+- (id)initWithNewsPost:(NewsPost*)post;
 - (IBAction)openInSafari:(id)sender;
 - (IBAction)dragonDrop:(id)sender;
-
+- (IBAction)chat:(id)sender;
 
 @end

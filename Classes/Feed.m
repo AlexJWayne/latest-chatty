@@ -44,7 +44,7 @@
 
 // Get a feed for a specific storyId
 - (id)initWithStoryId:(int)aStoryId delegate:(id)aDelegate {
-  return [self initWithUrl:[Feed urlStringWithPath:[NSString stringWithFormat:@"%d.xml", storyId]] delegate:aDelegate];
+  return [self initWithUrl:[Feed urlStringWithPath:[NSString stringWithFormat:@"%d.xml", aStoryId]] delegate:aDelegate];
 }
 
 - (void)addPostsInFeedWithUrl:(NSString *)urlString {
@@ -56,9 +56,17 @@
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-  [self addPostsInFeedWithString:[[NSString alloc] initWithData:partialData encoding:NSASCIIStringEncoding]];
-  [delegate feedDidFinishLoading];
-  [partialData release];
+
+	/* FIXME: for some reason, I can't run this in release/distribution 
+	 * build. The app fails right here -- can't make a NSString out
+	 * of the data coming out of the URL download. I'll fix it sometime.
+	 *	Oh, this is in the simulator.
+	 */
+	
+	NSString* test = [[NSString alloc] initWithData:partialData encoding:NSASCIIStringEncoding];
+	[self addPostsInFeedWithString:test];
+	[delegate feedDidFinishLoading];
+	[partialData release];
   partialData = [[NSMutableData alloc] init];
 }
 

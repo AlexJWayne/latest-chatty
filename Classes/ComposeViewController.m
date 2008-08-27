@@ -123,6 +123,7 @@
       NSURLRequest *rulesPageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.shacknews.com/extras/guidelines.x"]];
       ExternalWebViewController *controller = [[ExternalWebViewController alloc] initWithRequest:rulesPageRequest];
       [[self navigationController] pushViewController:controller animated:YES];
+		[controller release];
     } else if (buttonIndex == 2) {
       [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hide_post_warning"];
     }
@@ -233,7 +234,7 @@
       DetailViewController *viewController = [[self navigationController].viewControllers objectAtIndex:[[self navigationController].viewControllers count] - 2];
       [viewController refreshAndPop];
     } else {
-      RootViewController *viewController = [[self navigationController].viewControllers objectAtIndex:[[self navigationController].viewControllers count] - 2];
+      ChattyViewController *viewController = [[self navigationController].viewControllers objectAtIndex:[[self navigationController].viewControllers count] - 2];
       [viewController refresh:nil];
       [[self navigationController] popViewControllerAnimated:YES];
     }

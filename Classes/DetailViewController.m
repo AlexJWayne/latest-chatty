@@ -128,7 +128,8 @@
   if (navigationType == UIWebViewNavigationTypeLinkClicked) {
     ExternalWebViewController *controller = [[ExternalWebViewController alloc] initWithRequest:request];
     [[self navigationController] pushViewController:controller animated:YES];
-    return NO;
+	[controller release];
+	return NO;
   }
   
   return YES;

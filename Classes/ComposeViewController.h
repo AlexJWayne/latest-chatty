@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LatestChattyAppDelegate.h"
 #import "DetailViewController.h"
-#import "RootViewController.h"
+#import "ChattyViewController.h"
 #import "Post.h"
 #import "Image.h"
 

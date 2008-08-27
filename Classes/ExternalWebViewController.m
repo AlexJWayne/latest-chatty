@@ -19,21 +19,32 @@
 }
 
 - (id)initWithRequest:(NSURLRequest *)request {
-  [self init];
-  initialRequest = (NSMutableURLRequest *)[request retain];
-  return self;
+	[self init];
+	initialRequest = (NSMutableURLRequest *)[request retain];
+	return self;
 }
 
 /*
  Implement loadView if you want to create a view hierarchy programmatically
-- (void)loadView {
-}
+ - (void)loadView {
+ }
  */
 
-
+- (id)initWithNewsPost:(NewsPost*)post
+{
+	self = [self initWithRequest: [NSURLRequest requestWithURL:[NSURL URLWithString:post.link]]];
+	self.title = post.title;
+	thePost = post;
+	return self;
+}
 
 - (void)viewDidLoad {
-  [webView loadRequest:initialRequest];
+	if( thePost ){ 
+		//remove dragondrop and add chat
+		[dragonDropButton setEnabled:NO];
+		self.navigationItem.rightBarButtonItem = chatButton;
+	}
+	[webView loadRequest:initialRequest];
 }
 
 
@@ -50,29 +61,43 @@
 
 
 - (void)dealloc {
-  [webView release];
-  [initialRequest release];
+	[webView release];
+	[initialRequest release];
 	[super dealloc];
 }
 
-
+- (IBAction)chat:(id)sender
+{
+	//need thePost - link
+	NSString* link = [thePost link];
+	NSArray* comps = [link componentsSeparatedByString:@"/"];
+	int story = [[comps objectAtIndex:([comps count]-1)] intValue];
+	if( chattyView ) [chattyView release];
+	chattyView = [[ChattyViewController alloc] initWithChattyId:story];
+	//else [chattyView updateWithStoryId:story];
+	[[self navigationController] pushViewController:chattyView animated:YES];
+	[chattyView release];
+}
 
 - (IBAction)openInSafari:(id)sender {
-  [[UIApplication sharedApplication] openURL:[webView.request URL]];
+	[[UIApplication sharedApplication] openURL:[webView.request URL]];
 }
 
 - (IBAction)dragonDrop:(id)sender {
-  [initialRequest setValue:@"" forHTTPHeaderField:@"Referer"];
-  [webView loadRequest:initialRequest];
+	[initialRequest setValue:@"" forHTTPHeaderField:@"Referer"];
+	[webView loadRequest:initialRequest];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[webView stopLoading];
+}
 
 @end

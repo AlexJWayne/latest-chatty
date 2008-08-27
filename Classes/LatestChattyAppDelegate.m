@@ -7,7 +7,7 @@
 //
 
 #import "LatestChattyAppDelegate.h"
-#import "RootViewController.h"
+#import "ChattyViewController.h"
 
 
 @implementation LatestChattyAppDelegate

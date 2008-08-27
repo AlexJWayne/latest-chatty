@@ -52,6 +52,22 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string>Startup</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Title</key>
+			<string>LC.x on Startup</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Key</key>
+			<string>lc_startup</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string>Shown Post Categories</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
