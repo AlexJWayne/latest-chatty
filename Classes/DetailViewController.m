@@ -101,8 +101,6 @@
     cell.font = [UIFont systemFontOfSize:14.0];
   }
   
-  
-  
   // Set preview text
   cell.text = [post preview];
   
@@ -128,8 +126,8 @@
   if (navigationType == UIWebViewNavigationTypeLinkClicked) {
     ExternalWebViewController *controller = [[ExternalWebViewController alloc] initWithRequest:request];
     [[self navigationController] pushViewController:controller animated:YES];
-	[controller release];
-	return NO;
+    [controller release];
+    return NO;
   }
   
   return YES;

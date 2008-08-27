@@ -46,13 +46,11 @@ NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 				else if ([[temp name] isEqualToString:@"description"]) {
 					post.description = [temp stringValue];
 				}
-				else if ([[temp name] isEqualToString:@"date"]){
-					NSDateFormatter* format = [[NSDateFormatter alloc] initWithDateFormat:@"%Y-%m-%dT%H:%M%z" allowNaturalLanguage:NO];
-					NSDate* date = [format dateFromString:[temp stringValue]];
-					[format release];
-					format = [[NSDateFormatter alloc] initWithDateFormat:@"%b %d, %Y %I:%M %p" allowNaturalLanguage:NO];
-					post.date = [format stringFromDate:date];
-					[format release];
+				else if ([[temp name] isEqualToString:@"date"]) {
+          NSString *dateString = [[[temp stringValue] stringByReplacingOccurrencesOfString:@"T" withString:@" "] stringByReplacingOccurrencesOfString:@"-06:00" withString:@":00 -0600"];
+          NSDate *date = [NSDate dateWithString:dateString];
+          NSLog(dateString);
+					post.date = [date descriptionWithCalendarFormat:@"%b %d, %Y %I:%M %p" timeZone:nil locale:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
 				}
 			}
 			[newsPosts addObject:post];
