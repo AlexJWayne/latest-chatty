@@ -150,7 +150,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				59F766220E65001A0022FE0C /* NewsAdditions */,
 				FA02CB450E44F81B0013981F /* Views */,
 				FA461BC50E4255C200E3654D /* Controllers */,
 				FA461BC40E4255BC00E3654D /* Models */,
@@ -214,13 +213,6 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		59F766220E65001A0022FE0C /* NewsAdditions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = NewsAdditions;
 			sourceTree = "<group>";
 		};
 		FA02CB450E44F81B0013981F /* Views */ = {

@@ -249,6 +249,11 @@
   } else if ([responseBody rangeOfString:@"Please post something with more than 5 characters"].location != NSNotFound) {
     [LatestChattyAppDelegate showErrorAlertNamed:@"Post too Short"];
     
+  // Banned
+  } else if ([responseBody rangeOfString:@"You have been banned"].location != NSNotFound) {
+    [LatestChattyAppDelegate showErrorAlertNamed:@"Banned"];
+    
+    
   // Something unexpected happened, display alert
   } else {
     [LatestChattyAppDelegate showErrorAlertNamed:@"Unhandled Error"];
