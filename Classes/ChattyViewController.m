@@ -89,7 +89,7 @@
 
 - (void)feedDidFinishLoading {
 	[tableView reloadData];
-	if (feed.lastPageLoaded == 1) {
+	if (feed.lastPageLoaded == 1 && ([tableView.visibleCells count] != 0) ) {
 		[tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 	}
 	[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
