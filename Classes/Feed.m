@@ -52,6 +52,7 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
+	if( !partialData ) partialData = [[NSMutableData alloc] init];
   [partialData appendData:data];
 }
 
@@ -68,6 +69,7 @@
 	[test release];
 	[delegate feedDidFinishLoading];
 	[partialData release];
+	partialData = nil;
 	//partialData = [[NSMutableData alloc] init];
 }
 - (void)abortLoadIfInProgress
