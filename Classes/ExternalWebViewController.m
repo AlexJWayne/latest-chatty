@@ -58,8 +58,8 @@
 	// Release anything that's not essential, such as cached data
 }
 
-
 - (void)dealloc {
+	//NSLog(@"DEALLOCEX!");
 	[webView release];
 	[initialRequest release];
 	[super dealloc];
@@ -70,11 +70,13 @@
 	NSString *link = [thePost link];
 	NSArray *comps = [link componentsSeparatedByString:@"/"];
 	int story = [[comps objectAtIndex:([comps count]-1)] intValue];
-	if (chattyView) [chattyView release];
+	//if (chattyView) [chattyView release];
 	chattyView = [[ChattyViewController alloc] initWithChattyId:story];
 	//else [chattyView updateWithStoryId:story];
 	[[self navigationController] pushViewController:chattyView animated:YES];
 	[chattyView release];
+	[chattyView release];
+	chattyView = nil;
 }
 
 - (IBAction)openInSafari:(id)sender {

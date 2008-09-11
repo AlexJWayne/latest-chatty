@@ -146,9 +146,9 @@
 - (void)setStriped:(BOOL)isStriped {
   striped = isStriped;
   if (striped) {
-    [self.backgroundView setBackgroundColor:[UIColor colorWithWhite:1.0 alpha:0.05]];
+    [self.backgroundView setBackgroundColor:[UIColor colorWithWhite:.231 alpha:1.0]];
   } else {
-    [self.backgroundView setBackgroundColor:[UIColor clearColor]];
+    [self.backgroundView setBackgroundColor:[UIColor colorWithWhite:.196 alpha:1.0]];
   }
 }
 

@@ -26,8 +26,8 @@
 
 - (void)buildCellForPost:(NewsPost *)post {
 	UIView* cell = self.contentView;
-	if (color) cell.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.05];
-	else cell.backgroundColor = [UIColor clearColor];
+	if (color) cell.backgroundColor = [UIColor colorWithWhite:.231 alpha:1.0];
+	else cell.backgroundColor = [UIColor colorWithWhite:.196 alpha:1.0];
 	
 	date.frame            = CGRectMake(5, 5, 310, 12);
 	date.textColor        = [UIColor colorWithWhite:0.39 alpha:1.0];

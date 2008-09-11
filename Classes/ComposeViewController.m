@@ -259,6 +259,9 @@
     [LatestChattyAppDelegate showErrorAlertNamed:@"Unhandled Error"];
     
   }
-  
+	[responseBody release];
+	//CFURL does a CFRetain, we need to CFRelease (or regular since they're Toll-Free)
+	[usernameString release];
+	[passwordString release];
 }
 @end

@@ -48,7 +48,7 @@
 }
 
 - (void)addPostsInFeedWithUrl:(NSString *)urlString {
-  [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self];
+  download = [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -62,31 +62,35 @@
 	 * of the data coming out of the URL download. I'll fix it sometime.
 	 *	Oh, this is in the simulator.
 	 */
-	
+	download = nil;
 	NSString* test = [[NSString alloc] initWithData:partialData encoding:NSASCIIStringEncoding];
 	[self addPostsInFeedWithString:test];
+	[test release];
 	[delegate feedDidFinishLoading];
 	[partialData release];
-  partialData = [[NSMutableData alloc] init];
+	//partialData = [[NSMutableData alloc] init];
 }
-
+- (void)abortLoadIfInProgress
+{
+	if( download ) [download cancel];
+}
 - (void)addPostsInFeedWithString:(NSString *)dataString {
-  // Parse XML
-  NSError *err=nil;
-  xml = [[CXMLDocument alloc] initWithXMLString:dataString options:1 error:&err];
-  
-  // Parse response into post objects
-  NSArray *postElements = [[xml rootElement] nodesForXPath:@"comment" error:nil];
-  for (CXMLElement *postXml in [postElements objectEnumerator]) {
-    Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:nil];
-    if (postObject != nil)
-      [posts addObject:postObject];
-  }
-  
-  storyId         = [[[[xml rootElement] attributeForName:@"story_id"]    stringValue] intValue];
-  storyName       =  [[[xml rootElement] attributeForName:@"story_name"]  stringValue];
-  lastPageLoaded  = [[[[xml rootElement] attributeForName:@"page"]        stringValue] intValue];
-  lastPage        = [[[[xml rootElement] attributeForName:@"last_page"]   stringValue] intValue];
+	// Parse XML
+	NSError *err=nil;
+	xml = [[CXMLDocument alloc] initWithXMLString:dataString options:1 error:&err];
+	// Parse response into post objects
+	NSArray *postElements = [[xml rootElement] nodesForXPath:@"comment" error:nil];
+	for (CXMLElement *postXml in [postElements objectEnumerator]) {
+		Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:nil];
+		if (postObject != nil)
+			[posts addObject:postObject];
+		[postObject release];
+	}
+	
+	storyId         = [[[[xml rootElement] attributeForName:@"story_id"]    stringValue] intValue];
+	storyName       =  [[[xml rootElement] attributeForName:@"story_name"]  stringValue];
+	lastPageLoaded  = [[[[xml rootElement] attributeForName:@"page"]        stringValue] intValue];
+	lastPage        = [[[[xml rootElement] attributeForName:@"last_page"]   stringValue] intValue];
 }
 
 

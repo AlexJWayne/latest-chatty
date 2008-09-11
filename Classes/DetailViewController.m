@@ -76,7 +76,8 @@
 }
 
 - (NSInteger)tableView:(UITableView *)aTableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath {
-  return [currentRoot postAtIndex:indexPath.row].depth - currentRoot.depth;
+	
+	return [currentRoot postAtIndex:indexPath.row].depth - currentRoot.depth;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)aTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

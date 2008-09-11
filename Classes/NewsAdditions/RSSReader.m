@@ -47,16 +47,23 @@ NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 					post.description = [temp stringValue];
 				}
 				else if ([[temp name] isEqualToString:@"date"]) {
-          NSString *dateString = [[[temp stringValue] stringByReplacingOccurrencesOfString:@"T" withString:@" "] stringByReplacingOccurrencesOfString:@"-06:00" withString:@":00 -0600"];
-          NSDate *date = [NSDate dateWithString:dateString];
-          NSLog(dateString);
+					NSString *dateString = [[[temp stringValue] stringByReplacingOccurrencesOfString:@"T" withString:@" "] stringByReplacingOccurrencesOfString:@"-06:00" withString:@":00 -0600"];
+					NSDate *date = [NSDate dateWithString:dateString];
+					NSLog(dateString);
 					post.date = [date descriptionWithCalendarFormat:@"%b %d, %Y %I:%M %p" timeZone:nil locale:[[NSUserDefaults standardUserDefaults] dictionaryRepresentation]];
 				}
 			}
 			[newsPosts addObject:post];
 			[post release];
-    }
+		}
 	}
 	return newsPosts;
+}
+-(void) dealloc
+{
+	[feed release];
+	//[newsPosts release];
+	
+	[super dealloc];
 }
 @end

@@ -21,6 +21,7 @@
   NSString *storyName;
   int lastPageLoaded;
   int lastPage;
+	NSURLConnection* download;
 }
 
 + (NSString *)urlStringWithPath:(NSString *)path;
@@ -31,6 +32,7 @@
 - (void)addPostsInFeedWithUrl:(NSString *)urlString;
 - (void)addPostsInFeedWithString:(NSString *)dataString;
 
+- (void)abortLoadIfInProgress;
 - (void)loadNextPage;
 - (BOOL)hasMorePages;
 

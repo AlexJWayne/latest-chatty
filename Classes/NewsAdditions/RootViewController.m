@@ -128,7 +128,6 @@
 
 
 - (void)didReceiveMemoryWarning {
-	[chattyView release];
 	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
 	// Release anything that's not essential, such as cached data
 }
@@ -150,10 +149,19 @@
 }
 
 - (IBAction)latestChatty:(id)sender {
-	if (!chattyView) chattyView = [[ChattyViewController alloc] initWithChattyId:0];
-	if (sender == self) [[self navigationController] pushViewController:chattyView animated:NO];
-	else [[self navigationController] pushViewController:chattyView animated:YES];
-	[chattyView release];
+	//NSLog(@"%i", [chattyView retainCount] );
+
+	if (!chattyView ){
+		chattyView = [[ChattyViewController alloc] initWithChattyId:0];
+	}
+	if (sender == self){ [[self navigationController] pushViewController:chattyView animated:NO];
+	}
+	else{ [[self navigationController] pushViewController:chattyView animated:YES];
+	}
+	//NSLog(@"%i", [chattyView retainCount] );
+	while( [chattyView retainCount] != 1 ) [chattyView release];
+	chattyView = nil;
+	//[chattyView release];
 }
 
 @end

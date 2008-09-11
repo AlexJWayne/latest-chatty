@@ -72,6 +72,8 @@
 	if (indexPath.row < [[feed posts] count]) {
 		RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
 		[cell setLoading:YES];
+		//we'll be fucked up if it's loading still; on a refresh
+		if(feed) [feed abortLoadIfInProgress];
 		Post *rootPost = [[feed posts] objectAtIndex:indexPath.row];
 		[[Post alloc] initWithThreadId:rootPost.postId delegate:self];
 		
@@ -123,6 +125,8 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+	//abort a possible load in progress
+	if(feed) [feed abortLoadIfInProgress];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -143,6 +147,7 @@
 
 
 - (void)dealloc {
+	//NSLog(@"DEALLOC");
 	[feed release];
 	[super dealloc];
 }
@@ -157,8 +162,6 @@
 	else{
 		feed = [[Feed alloc] initWithStoryId:chatId delegate:self];
 	}
-	
-	
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
