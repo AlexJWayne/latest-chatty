@@ -198,6 +198,10 @@
 }
 
 - (void)sendPostConfirmed {
+  // Hide the keyboard right away.
+  // Hopefully this gets rid of the keyboard staying after posting.
+  [postContent resignFirstResponder];
+  
   // Create the request
   NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
   [request setURL:[NSURL URLWithString:@"http://www.shacknews.com/extras/post_laryn_iphone.x"]];
@@ -214,14 +218,14 @@
   [request setHTTPBody:[postBody dataUsingEncoding: NSASCIIStringEncoding]];
   [request setHTTPMethod:@"POST"];
   
-  NSLog(postBody);
+  //NSLog(postBody);
   
   // Send the request
   NSHTTPURLResponse *response;
   NSString *responseBody = [[NSString alloc] initWithData:[NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil]
                                                  encoding:NSASCIIStringEncoding];
   
-  NSLog(responseBody);
+  //NSLog(responseBody);
   
   // Success! Return to previous view
   if ([responseBody rangeOfString:@"navigate_page_no_history"].location != NSNotFound) {

@@ -77,13 +77,18 @@
 	if( download ) [download cancel];
 }
 - (void)addPostsInFeedWithString:(NSString *)dataString {
+  NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+  [formatter setDateFormat:@"Dyyyy"];
+  NSString* postCountFile = [NSString stringWithFormat:@"/%@/%@.postcount", NSTemporaryDirectory(), [formatter stringFromDate:[NSDate date]]];
+  NSMutableDictionary* postCounts = [[NSMutableDictionary dictionaryWithContentsOfFile:postCountFile] autorelease];
+  if(postCounts == nil) postCounts = [[[NSMutableDictionary alloc] init] autorelease];
 	// Parse XML
 	NSError *err=nil;
 	xml = [[CXMLDocument alloc] initWithXMLString:dataString options:1 error:&err];
 	// Parse response into post objects
 	NSArray *postElements = [[xml rootElement] nodesForXPath:@"comment" error:nil];
 	for (CXMLElement *postXml in [postElements objectEnumerator]) {
-		Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:nil];
+		Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:nil lastRefreshDict:postCounts];
 		if (postObject != nil)
 			[posts addObject:postObject];
 		[postObject release];
@@ -93,6 +98,10 @@
 	storyName       =  [[[xml rootElement] attributeForName:@"story_name"]  stringValue];
 	lastPageLoaded  = [[[[xml rootElement] attributeForName:@"page"]        stringValue] intValue];
 	lastPage        = [[[[xml rootElement] attributeForName:@"last_page"]   stringValue] intValue];
+  
+  [postCounts description];
+  
+  [postCounts writeToFile:postCountFile atomically:NO];
 }
 
 

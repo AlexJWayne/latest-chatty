@@ -16,6 +16,7 @@
   UILabel *preview;
   UILabel *replyCount;
   UILabel *category;
+  UILabel *participated;
   UIActivityIndicatorView *activityIndicator;
   
   BOOL striped;

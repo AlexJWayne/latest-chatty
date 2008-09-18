@@ -25,10 +25,12 @@
   int depth;
   int cachedReplyCount;
   int recentIndex;
+  BOOL hasNewPosts;
+  BOOL youParticipated;
 }
 
-- (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent;
-- (BOOL)parseXml:(CXMLElement *)xml;
+- (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent lastRefreshDict:(NSMutableDictionary *)lastRefresh;
+- (BOOL)parseXml:(CXMLElement *)xml lastRefreshDict:(NSMutableDictionary *)lastRefresh;
   
 - (id)initWithThreadId:(int)threadId delegate:(id)aDelegate;
 
@@ -49,6 +51,8 @@
 @property (readwrite, retain) NSMutableArray *children;
 @property (readwrite, assign) int depth;
 @property (readwrite, assign) int cachedReplyCount;
+@property (readwrite, assign) BOOL hasNewPosts;
+@property (readwrite, assign) BOOL youParticipated;
 @property (readonly) NSString *formattedDate;
 @property (readwrite) int recentIndex;
 

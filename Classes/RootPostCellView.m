@@ -94,6 +94,15 @@
   category.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
   [self.contentView addSubview:category];
   
+  // Participated
+  participated = [[UILabel alloc] initWithFrame:CGRectMake(5, 25, 25, 25)];
+  participated.font = [UIFont systemFontOfSize:10];
+  participated.textAlignment = UITextAlignmentRight;
+  participated.opaque = NO;
+  participated.backgroundColor = [UIColor clearColor];
+  participated.textColor = [UIColor greenColor];
+  participated.text = @"+";
+  participated.hidden = YES;
 	return self;
 }
 
@@ -122,6 +131,12 @@
     username.textColor = [UIColor colorWithRed:1.0 green:0.73 blue:0.0  alpha:1.0];
     username.font = [UIFont systemFontOfSize:10];
   }
+  if (post.hasNewPosts) {
+    replyCount.textColor = [UIColor colorWithRed:0.0 green:0.75 blue:0.95 alpha:1.0];
+  } else {
+    replyCount.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
+  }
+  participated.hidden = !post.youParticipated;
 }
 
 

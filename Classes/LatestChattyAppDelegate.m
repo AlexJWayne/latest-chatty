@@ -23,8 +23,23 @@
 	return self;
 }
 
+- (void)cleanCacheFiles {
+  // Clean up all old post count cache files.
+  NSError *err;
+  NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
+  [formatter setDateFormat:@"Dyyyy"];
+  NSString* postCountFile = [NSString stringWithFormat:@"/%@/%@.postcount", NSTemporaryDirectory(), [formatter stringFromDate:[NSDate date]]];
+  NSArray *pathObjects = [[NSFileManager alloc] contentsOfDirectoryAtPath:@"/tmp/" error:&err];
+  for(NSString *path in [pathObjects objectEnumerator]) {
+    //If ".postcount" is in the filename but it's not the file for today, delete it.
+    if(([path rangeOfString:postCountFile].location == NSNotFound) && ([path rangeOfString:@".postcount"].location != NSNotFound)) {
+      [[NSFileManager alloc] removeItemAtPath:path error:&err];
+    }
+  }
+}
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+  [self cleanCacheFiles];
   // Configure and show the window
 	window.backgroundColor = [UIColor blackColor];
 	[window addSubview:[navigationController view]];
