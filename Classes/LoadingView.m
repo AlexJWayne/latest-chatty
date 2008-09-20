@@ -18,7 +18,7 @@
 	
 	self.frame = frame;
 	self.backgroundColor = [UIColor blackColor];
-	self.alpha = .5;
+	self.alpha = .7;
 	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 	CGRect theFrame = spinner.frame;
 	theFrame.origin.x = frame.size.width/2 - spinner.frame.size.width/2;

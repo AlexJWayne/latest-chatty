@@ -27,9 +27,13 @@
 	BOOL loadingNextPage;
 	int rowOfLoadingCell;
 	
+	UIButton* scrollTrigger;
+	
+	Post* loadingPost;
 	LoadingView* loadView;
 }
 
+- (void)scrollUp:(id)sender;
 - (void)feedDidFinishLoading;
 - (id) initWithChattyId:(int)chatIdNum;
 - (IBAction)refresh:(id)sender;

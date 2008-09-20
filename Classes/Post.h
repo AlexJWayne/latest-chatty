@@ -22,6 +22,9 @@
   NSDate *date;
   int postId;
   NSMutableArray *children;
+
+	NSURLConnection* theConnection;
+	
   int depth;
   int cachedReplyCount;
   int recentIndex;
@@ -38,7 +41,7 @@
 - (int)replyCount;
 - (Post *)postAtIndex:(int)index;
 - (NSString *)cleanString:(NSString *)string;
-
+- (void) abortLoadIfLoading;
 - (int)compare:(Post *)otherPost;
 
 @property (readwrite, retain) Post *parent;

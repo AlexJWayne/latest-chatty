@@ -128,12 +128,18 @@
 	[self init];
 	delegate = aDelegate;
 	NSString *urlString = [Feed urlStringWithPath:[NSString stringWithFormat:@"thread/%d.xml", threadId]];
-	[NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self];
+	theConnection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self startImmediately:YES];
+	//[NSURLConnection connectionWithRequest:] delegate:self];
 	return self;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
 	[partialData appendData:data];
+}
+
+- (void) abortLoadIfLoading
+{
+	[theConnection cancel];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
@@ -148,14 +154,15 @@
 
 
 - (void)dealloc {
-	[parent release];
-	[author release];
-	[preview release];
-	[body release];
-	[date release];
-	[children dealloc];
-	[partialData release];
-	[category release];
+	if( parent ) [parent release];
+	if( author )[author release];
+	if( preview )[preview release];
+	if( body )[body release];
+	if( date )[date release];
+	if( children )[children dealloc];
+	if( partialData )[partialData release];
+	if( category )[category release];
+	[theConnection release];
 	[super dealloc];
 }
 

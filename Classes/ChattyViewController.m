@@ -25,7 +25,14 @@
 	UIBarButtonItem *composeItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose
 																				 target:self
 																				 action:@selector(compose:)];
-	self.navigationItem.rightBarButtonItem = composeItem;
+	self.navigationItem.rightBarButtonItem = composeItem;	
+	scrollTrigger = [UIButton buttonWithType:UIButtonTypeCustom];
+	scrollTrigger.font = [UIFont boldSystemFontOfSize:20];
+	scrollTrigger.frame = CGRectMake(0, 0, 320, 48);
+	[scrollTrigger addTarget:self action:@selector(scrollUp:) forControlEvents:UIControlEventTouchUpInside];
+	scrollTrigger.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	self.navigationItem.titleView = scrollTrigger;
+	
 	[composeItem release];
 	
 	stopButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(refresh:)];
@@ -35,6 +42,10 @@
 	[self refresh:self];
 }
 
+- (void)scrollUp:(id)sender
+{
+	[tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
@@ -76,6 +87,7 @@
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Tapped a post cell
 	if( rowOfLoadingCell == -1 || loadingNextPage){
+	reallyLoad:
 		loadingNextPage = NO;
 		rowOfLoadingCell = indexPath.row;
 		if (indexPath.row < [[feed posts] count]) {
@@ -84,7 +96,7 @@
 			//we'll be fucked up if it's loading still; on a refresh
 			if(feed) [feed abortLoadIfInProgress];
 			Post *rootPost = [[feed posts] objectAtIndex:indexPath.row];
-			[[Post alloc] initWithThreadId:rootPost.postId delegate:self];
+			loadingPost = [[Post alloc] initWithThreadId:rootPost.postId delegate:self];
 			// Tapped the load more cell
 		} else {
 			RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
@@ -96,7 +108,12 @@
 	}
 	else{
 		//BAIL HERE!
-		[aTableView deselectRowAtIndexPath:indexPath animated:NO];
+		[loadingPost abortLoadIfLoading];
+		[loadingPost release];
+		[(RootPostCellView *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0]] setLoading:NO];
+		rowOfLoadingCell = -1;
+		goto reallyLoad; //lolol goto
+		//[aTableView deselectRowAtIndexPath:indexPath animated:NO];
 	}
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
@@ -109,13 +126,13 @@
 	[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
 	
 	self.title = [feed storyName];
+	[scrollTrigger setTitle:self.title forState:UIControlStateNormal];
 	
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	[loadView removeFromSuperview];
 	[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
 	tableView.userInteractionEnabled = YES;
 	[(RootPostCellView *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0]] setLoading:NO];
-	NSLog(@"setting rolc to -1");
 	rowOfLoadingCell == -1;
 }
 
