@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "RSSReader.h"
 #import "ChattyViewController.h"
+#import "LoadingView.h"
 
-@interface RootViewController : UIViewController {
+@interface RootViewController : UIViewController<RSSDownloadDelegate> {
 	RSSReader* theReader;
 	NSArray* posts;
 	IBOutlet UITableView *tableView;
 	ExternalWebViewController* postView;
 	ChattyViewController* chattyView;
+	LoadingView* loadView;
 }
 
 -(IBAction) refresh:(id)sender;

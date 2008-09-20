@@ -9,12 +9,18 @@
 #import "TouchXML.h"
 #import "NewsPost.h"
 #import "JFNewsPostCell.h"
+@protocol RSSDownloadDelegate
+-(void)dataReady;
+@end
 
 @interface RSSReader : NSObject {
 	CXMLDocument *feed;
 	NSMutableArray *newsPosts;
+	NSMutableData* partialData;
+	id delegate;
 }
 
 -(NSArray*)getNewsPosts;
+-(id)initWithDelegate:(id)nDelegate;
 
 @end

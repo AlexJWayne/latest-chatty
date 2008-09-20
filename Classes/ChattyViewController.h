@@ -12,11 +12,13 @@
 #import "RootPostCellView.h"
 #import "Feed.h"
 #import "Post.h"
+#import "LoadingView.h"
 
 @interface ChattyViewController : UIViewController {
 	Feed *feed;
 	int chatId;
 	IBOutlet UITableView *tableView;
+	LoadingView* loadView;
 }
 
 - (void)feedDidFinishLoading;

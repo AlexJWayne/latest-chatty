@@ -13,15 +13,29 @@
 
 NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 
-- (id)init {
+- (id)initWithDelegate:(id)nDelegate {
 	NSURLRequest* chRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:shackURL] cachePolicy: NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
-	NSError* theError;
-	NSData* response = [NSURLConnection sendSynchronousRequest:chRequest returningResponse:nil error:&theError];
-	feed = [[CXMLDocument alloc] initWithData:response options:0 error:nil];
+	[NSURLConnection connectionWithRequest:chRequest delegate:self];
+	
+	//feed = [[CXMLDocument alloc] initWithData:response options:0 error:nil];
+	delegate = nDelegate;
 	[super init];
 	return self;
 }
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+	if(!partialData) partialData = [[NSMutableData alloc] init];
+	[partialData appendData:data];
+}
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+	feed = [[CXMLDocument alloc] initWithData:partialData options:0 error:nil];
+	[delegate dataReady];
+}
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
+{
 
+}
 - (NSArray*)getNewsPosts {
 	//before we do anything let's release the data
 	if (newsPosts != nil) [newsPosts release];
@@ -62,8 +76,8 @@ NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 -(void) dealloc
 {
 	[feed release];
-	//[newsPosts release];
-	
+	if( partialData ) [partialData release];
+	if(newsPosts) [newsPosts release];
 	[super dealloc];
 }
 @end

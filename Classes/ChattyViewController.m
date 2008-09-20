@@ -97,6 +97,8 @@
 	self.title = [feed storyName];
 	
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	[loadView removeFromSuperview];
+	tableView.userInteractionEnabled = YES;
 }
 
 - (void)didFinishLoadingThread:(Post *)post {
@@ -154,6 +156,12 @@
 
 
 - (void)refresh:(id)sender {
+	if( loadView ) [loadView release];
+	loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
+	[loadView setupViewWithFrame:self.view.frame];
+	[self.view addSubview:loadView];
+	tableView.userInteractionEnabled = NO;	
+	
 	[feed release];
 	//feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
 	if( chatId == 0 ){

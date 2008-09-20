@@ -15,6 +15,7 @@
 		2899E5600DE3E45000AC0155 /* ChattyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2899E55F0DE3E45000AC0155 /* ChattyViewController.xib */; };
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* ChattyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* ChattyViewController.m */; };
+		599CEF140E856E8900B7FB2F /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 599CEF130E856E8900B7FB2F /* LoadingView.m */; };
 		59F766340E6500970022FE0C /* NewsPost.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F7662B0E6500970022FE0C /* NewsPost.m */; };
 		59F766350E6500970022FE0C /* JFNewsPostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F7662C0E6500970022FE0C /* JFNewsPostCell.m */; };
 		59F766360E6500970022FE0C /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 59F7662E0E6500970022FE0C /* RootViewController.m */; };
@@ -70,6 +71,8 @@
 		28C286DF0D94DF7D0034E888 /* ChattyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChattyViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* ChattyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChattyViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		599CEF120E856E8900B7FB2F /* LoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingView.h; sourceTree = "<group>"; };
+		599CEF130E856E8900B7FB2F /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 		59F7662A0E6500970022FE0C /* JFNewsPostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JFNewsPostCell.h; path = NewsAdditions/JFNewsPostCell.h; sourceTree = "<group>"; };
 		59F7662B0E6500970022FE0C /* NewsPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsPost.m; path = NewsAdditions/NewsPost.m; sourceTree = "<group>"; };
 		59F7662C0E6500970022FE0C /* JFNewsPostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JFNewsPostCell.m; path = NewsAdditions/JFNewsPostCell.m; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				59F7662C0E6500970022FE0C /* JFNewsPostCell.m */,
 				FA02CB460E44F8400013981F /* RootPostCellView.h */,
 				FA02CB470E44F8400013981F /* RootPostCellView.m */,
+				599CEF120E856E8900B7FB2F /* LoadingView.h */,
+				599CEF130E856E8900B7FB2F /* LoadingView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -419,6 +424,7 @@
 				59F766350E6500970022FE0C /* JFNewsPostCell.m in Sources */,
 				59F766360E6500970022FE0C /* RootViewController.m in Sources */,
 				59F766370E6500970022FE0C /* RSSReader.m in Sources */,
+				599CEF140E856E8900B7FB2F /* LoadingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

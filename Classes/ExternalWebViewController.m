@@ -60,7 +60,9 @@
 
 - (void)dealloc {
 	//NSLog(@"DEALLOCEX!");
+	NSLog(@"%i", [webView retainCount]);
 	[webView release];
+	//[webView release];
 	[initialRequest release];
 	[super dealloc];
 }

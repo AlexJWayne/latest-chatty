@@ -18,15 +18,26 @@
 	// self.navigationItem.leftBarButtonItem = self.editButtonItem;
 	
 	//load up the stuff	
-	theReader = [[RSSReader alloc] init];
+	[self refresh:nil];
+
+
+}
+
+-(void)dataReady
+{
 	posts = [theReader getNewsPosts];
-	
 	//hop to LC.x
 	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"startup_destination"] isEqualToString:@"chatty"]){
 		[self latestChatty:self];
 	}
+	//[self refresh:self];
+	posts = [theReader getNewsPosts];
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	[tableView reloadData];
+	NSLog(@"Done.");
+	[loadView removeFromSuperview];
+	tableView.userInteractionEnabled = YES;
 }
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
@@ -141,11 +152,15 @@
 
 - (IBAction)refresh:(id)sender {
 	NSLog(@"Refreshing...");
-  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-	posts = [theReader getNewsPosts];
-  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	[tableView reloadData];
-  NSLog(@"Done.");
+	if( loadView ) [loadView release];
+	loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
+	//CGRect tableViewFrame = self.tableView;
+	[loadView setupViewWithFrame:tableView.frame];
+	[self.view addSubview:loadView];
+	if(theReader) [theReader release];
+	theReader = [[RSSReader alloc] initWithDelegate:self];
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+	tableView.userInteractionEnabled = NO;
 }
 
 - (IBAction)latestChatty:(id)sender {
