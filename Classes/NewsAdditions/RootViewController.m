@@ -18,23 +18,25 @@
 	// self.navigationItem.leftBarButtonItem = self.editButtonItem;
 	
 	//load up the stuff	
-	[self refresh:nil];
-
-
+	stopButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(refresh:)];
+	[self refresh:self];
+	refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	//[toolBar addSubview:stopButton];
+	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"startup_destination"] isEqualToString:@"chatty"]){
+		[self latestChatty:self];
+	}
 }
 
 -(void)dataReady
 {
-	posts = [theReader getNewsPosts];
+	//posts = [theReader getNewsPosts];
 	//hop to LC.x
-	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"startup_destination"] isEqualToString:@"chatty"]){
-		[self latestChatty:self];
-	}
 	//[self refresh:self];
 	posts = [theReader getNewsPosts];
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	[tableView reloadData];
 	NSLog(@"Done.");
+	[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
 	[loadView removeFromSuperview];
 	tableView.userInteractionEnabled = YES;
 }
@@ -152,15 +154,27 @@
 
 - (IBAction)refresh:(id)sender {
 	NSLog(@"Refreshing...");
-	if( loadView ) [loadView release];
-	loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
-	//CGRect tableViewFrame = self.tableView;
-	[loadView setupViewWithFrame:tableView.frame];
-	[self.view addSubview:loadView];
-	if(theReader) [theReader release];
-	theReader = [[RSSReader alloc] initWithDelegate:self];
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-	tableView.userInteractionEnabled = NO;
+	if( sender == refreshButton || sender == self ){
+		[toolBar setItems:[NSArray arrayWithObject:stopButton]];
+		if( loadView ) [loadView release];
+		loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
+		//CGRect tableViewFrame = self.tableView;
+		[loadView setupViewWithFrame:tableView.frame];
+		[self.view addSubview:loadView];
+		if(theReader) [theReader release];
+		theReader = [[RSSReader alloc] initWithDelegate:self];
+		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+		tableView.userInteractionEnabled = NO;
+	}
+	else{
+		NSLog(@"stopping!");
+		[theReader stopLoading];
+		[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
+		[loadView removeFromSuperview];
+		posts = nil;
+		[tableView reloadData];
+		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	}
 }
 
 - (IBAction)latestChatty:(id)sender {

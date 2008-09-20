@@ -15,7 +15,7 @@ NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 
 - (id)initWithDelegate:(id)nDelegate {
 	NSURLRequest* chRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:shackURL] cachePolicy: NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
-	[NSURLConnection connectionWithRequest:chRequest delegate:self];
+	conn = [[NSURLConnection alloc] initWithRequest:chRequest delegate:self startImmediately:YES];
 	
 	//feed = [[CXMLDocument alloc] initWithData:response options:0 error:nil];
 	delegate = nDelegate;
@@ -34,8 +34,13 @@ NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 }
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-
+	//maybe some bailout stuff
 }
+-(void)stopLoading
+{
+	[conn cancel];
+}
+
 - (NSArray*)getNewsPosts {
 	//before we do anything let's release the data
 	if (newsPosts != nil) [newsPosts release];
@@ -75,9 +80,10 @@ NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 }
 -(void) dealloc
 {
-	[feed release];
+	if( feed ) [feed release];
 	if( partialData ) [partialData release];
 	if(newsPosts) [newsPosts release];
+	if( conn ) [conn release];
 	[super dealloc];
 }
 @end

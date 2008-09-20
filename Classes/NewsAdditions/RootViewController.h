@@ -15,6 +15,12 @@
 	RSSReader* theReader;
 	NSArray* posts;
 	IBOutlet UITableView *tableView;
+	IBOutlet UIToolbar* toolBar;
+	UIBarButtonItem* refreshButton;
+	UIBarButtonItem* stopButton;
+	
+//	IBOutlet UIBarButtonItem* refreshButton;
+//	UIBarButtonItem* temp;
 	ExternalWebViewController* postView;
 	ChattyViewController* chattyView;
 	LoadingView* loadView;

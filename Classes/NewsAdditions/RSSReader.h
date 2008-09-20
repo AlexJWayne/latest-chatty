@@ -18,9 +18,11 @@
 	NSMutableArray *newsPosts;
 	NSMutableData* partialData;
 	id delegate;
+	NSURLConnection* conn;
 }
 
 -(NSArray*)getNewsPosts;
 -(id)initWithDelegate:(id)nDelegate;
+-(void)stopLoading;
 
 @end
