@@ -16,6 +16,7 @@
 - (id)initWithChattyId:(int)aChatId {
 	chatId = aChatId;
 	self = [self initWithNibName:@"ChattyViewController" bundle:[NSBundle mainBundle]];
+	
 	return self;
 }
 
@@ -28,8 +29,11 @@
 	self.navigationItem.rightBarButtonItem = composeItem;
 	[composeItem release];
 	
+	stopButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(refresh:)];
+	refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	
 	// Fetch feed
-	[self refresh:nil];
+	[self refresh:self];
 }
 
 
@@ -98,6 +102,7 @@
 	
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	[loadView removeFromSuperview];
+	[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
 	tableView.userInteractionEnabled = YES;
 }
 
@@ -150,27 +155,41 @@
 
 - (void)dealloc {
 	//NSLog(@"DEALLOC");
-	[feed release];
+	if(feed)[feed release];
+	[refreshButton release];
+	[stopButton	release];
 	[super dealloc];
 }
 
 
 - (void)refresh:(id)sender {
-	if( loadView ) [loadView release];
-	loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
-	[loadView setupViewWithFrame:self.view.frame];
-	[self.view addSubview:loadView];
-	tableView.userInteractionEnabled = NO;	
-	
-	[feed release];
-	//feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
-	if( chatId == 0 ){
-		feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
+	if( sender == refreshButton || sender == self ){
+		[toolBar setItems:[NSArray arrayWithObject:stopButton]];
+		if( loadView ) [loadView release];
+		loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
+		[loadView setupViewWithFrame:self.view.frame];
+		[self.view addSubview:loadView];
+		tableView.userInteractionEnabled = NO;	
+		
+		[feed release];
+		//feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
+		if( chatId == 0 ){
+			feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
+		}
+		else{
+			feed = [[Feed alloc] initWithStoryId:chatId delegate:self];
+		}
+		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	}
 	else{
-		feed = [[Feed alloc] initWithStoryId:chatId delegate:self];
+		NSLog(@"stopping!");
+		if(feed) [feed abortLoadIfInProgress];
+		[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
+		[loadView removeFromSuperview];
+		feed = nil;
+		[tableView reloadData];
+		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	}
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
 - (IBAction)compose:(id)sender {

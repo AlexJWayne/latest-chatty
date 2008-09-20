@@ -149,6 +149,8 @@
 - (void)dealloc {
 	[theReader release];
 	[posts release];
+	[refreshButton release];
+	[stopButton release];
 	[super dealloc];
 }
 

@@ -18,6 +18,10 @@
 	Feed *feed;
 	int chatId;
 	IBOutlet UITableView *tableView;
+	IBOutlet UIToolbar* toolBar;
+	UIBarButtonItem* refreshButton;
+	UIBarButtonItem* stopButton;
+	
 	LoadingView* loadView;
 }
 
