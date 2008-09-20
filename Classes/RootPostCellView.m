@@ -16,7 +16,7 @@
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier {
   [self initWithFrame:CGRectZero reuseIdentifier:reuseIdentifier];
-  
+	loading = NO;
   // Background view
   UIView *bg = [[UIView alloc] init];
   bg.backgroundColor = [UIColor clearColor];
@@ -152,12 +152,18 @@
     if (preview.text == @"Load More") {
       preview.text = @"";
     }
-    [activityIndicator startAnimating];    
+    if(!loading) [activityIndicator startAnimating];    
+	  loading = YES;
   } else {
-    [activityIndicator stopAnimating];
+    if(loading)[activityIndicator stopAnimating];
+	  loading = NO;
   }
 }
 
+-(BOOL) loading
+{
+	return loading;
+}
 - (void)setStriped:(BOOL)isStriped {
   striped = isStriped;
   if (striped) {

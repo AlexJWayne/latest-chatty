@@ -19,6 +19,7 @@
   UILabel *participated;
   UIActivityIndicatorView *activityIndicator;
   
+	BOOL loading;
   BOOL striped;
 }
 
@@ -27,7 +28,7 @@
 - (id)initForPost;
 - (void)updateWithPost:(Post *)aPost;
 - (void)setLoading:(BOOL)isLoading;
-
+- (BOOL)loading;
 @property (readonly) UILabel *preview;
 @property (nonatomic) BOOL striped;
 

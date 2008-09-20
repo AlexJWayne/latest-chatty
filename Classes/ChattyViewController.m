@@ -9,14 +9,13 @@
 #import "ChattyViewController.h"
 #import "LatestChattyAppDelegate.h"
 
-
 @implementation ChattyViewController
 
 
 - (id)initWithChattyId:(int)aChatId {
 	chatId = aChatId;
 	self = [self initWithNibName:@"ChattyViewController" bundle:[NSBundle mainBundle]];
-	
+	rowOfLoadingCell = -1;
 	return self;
 }
 
@@ -62,9 +61,12 @@
 		}
 		
 		[cell updateWithPost:post];
+		
 	} else {
 		cell = [[RootPostCellView alloc] initLoadMore];
 	}
+	if( rowOfLoadingCell == indexPath.row )[cell setLoading:YES];
+	else [cell setLoading:NO];
 	
 	cell.striped = (indexPath.row % 2 == 1);
 	return (UITableViewCell *)cell;
@@ -73,21 +75,29 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Tapped a post cell
-	if (indexPath.row < [[feed posts] count]) {
-		RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
-		[cell setLoading:YES];
-		//we'll be fucked up if it's loading still; on a refresh
-		if(feed) [feed abortLoadIfInProgress];
-		Post *rootPost = [[feed posts] objectAtIndex:indexPath.row];
-		[[Post alloc] initWithThreadId:rootPost.postId delegate:self];
+	if( rowOfLoadingCell == -1 || loadingNextPage){
+		loadingNextPage = NO;
+		rowOfLoadingCell = indexPath.row;
+		if (indexPath.row < [[feed posts] count]) {
+			RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
+			[cell setLoading:YES];
+			//we'll be fucked up if it's loading still; on a refresh
+			if(feed) [feed abortLoadIfInProgress];
+			Post *rootPost = [[feed posts] objectAtIndex:indexPath.row];
+			[[Post alloc] initWithThreadId:rootPost.postId delegate:self];
+			// Tapped the load more cell
+		} else {
+			RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
+			[cell setLoading:YES];
+			[feed loadNextPage];
+			loadingNextPage = YES;
+		}
 		
-		// Tapped the load more cell
-	} else {
-		RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
-		[cell setLoading:YES];
-		[feed loadNextPage];
 	}
-	
+	else{
+		//BAIL HERE!
+		[aTableView deselectRowAtIndexPath:indexPath animated:NO];
+	}
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 }
 
@@ -104,6 +114,9 @@
 	[loadView removeFromSuperview];
 	[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
 	tableView.userInteractionEnabled = YES;
+	[(RootPostCellView *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0]] setLoading:NO];
+	NSLog(@"setting rolc to -1");
+	rowOfLoadingCell == -1;
 }
 
 - (void)didFinishLoadingThread:(Post *)post {
@@ -115,8 +128,8 @@
 	[detailViewController release];
 	
 	// Remove loading status from tapped cell
-	[(RootPostCellView *)[tableView cellForRowAtIndexPath:[tableView indexPathForSelectedRow]] setLoading:NO];
-	
+	[(RootPostCellView *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0]] setLoading:NO];
+	rowOfLoadingCell = -1;
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 

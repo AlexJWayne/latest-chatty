@@ -21,6 +21,11 @@
 	IBOutlet UIToolbar* toolBar;
 	UIBarButtonItem* refreshButton;
 	UIBarButtonItem* stopButton;
+	//for some reason, when loadmore happens it lazily sets the rowOfLoadingCell type
+	//so this is a dirty hack that I need to fix later so that's the purpose
+	//of this bool
+	BOOL loadingNextPage;
+	int rowOfLoadingCell;
 	
 	LoadingView* loadView;
 }
