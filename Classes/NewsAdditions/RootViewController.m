@@ -71,6 +71,7 @@
 	 postView = [[ExternalWebViewController alloc] initWithNewsPost:[posts objectAtIndex:indexPath.row]];
 	 [[self navigationController] pushViewController:postView animated:YES];
 	 [postView release];
+	 NSLog(@"PostView retainCount: %i", [postView retainCount] );
 }
 
 
@@ -147,6 +148,7 @@
 
 
 - (void)dealloc {
+	NSLog(@"rootviewdealloc");
 	[theReader release];
 	[posts release];
 	[refreshButton release];

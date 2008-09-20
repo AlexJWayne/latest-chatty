@@ -80,7 +80,7 @@
   NSDateFormatter* formatter = [[[NSDateFormatter alloc] init] autorelease];
   [formatter setDateFormat:@"Dyyyy"];
   NSString* postCountFile = [NSString stringWithFormat:@"/%@/%@.postcount", NSTemporaryDirectory(), [formatter stringFromDate:[NSDate date]]];
-  NSMutableDictionary* postCounts = [[NSMutableDictionary dictionaryWithContentsOfFile:postCountFile] autorelease];
+	NSMutableDictionary* postCounts = [NSMutableDictionary dictionaryWithContentsOfFile:postCountFile];
   if(postCounts == nil) postCounts = [[[NSMutableDictionary alloc] init] autorelease];
 	// Parse XML
 	NSError *err=nil;

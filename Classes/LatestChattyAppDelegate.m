@@ -33,7 +33,7 @@
   for(NSString *path in [pathObjects objectEnumerator]) {
     //If ".postcount" is in the filename but it's not the file for today, delete it.
     if(([path rangeOfString:postCountFile].location == NSNotFound) && ([path rangeOfString:@".postcount"].location != NSNotFound)) {
-      [[NSFileManager alloc] removeItemAtPath:path error:&err];
+      [[NSFileManager defaultManager] removeItemAtPath:path error:&err];
     }
   }
 }

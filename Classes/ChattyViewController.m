@@ -171,7 +171,7 @@
 		[self.view addSubview:loadView];
 		tableView.userInteractionEnabled = NO;	
 		
-		[feed release];
+		if(feed)[feed release];
 		//feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
 		if( chatId == 0 ){
 			feed = [[Feed alloc] initWithLatestChattyAndDelegate:self];
