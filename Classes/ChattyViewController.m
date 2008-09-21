@@ -95,7 +95,8 @@
 			//we'll be fucked up if it's loading still; on a refresh
 			if(feed) [feed abortLoadIfInProgress];
 			Post *rootPost = [[feed posts] objectAtIndex:indexPath.row];
-			loadingPost = [[[Post alloc] initWithThreadId:rootPost.postId delegate:self] autorelease];
+			//FIXME: THIS IS A LEAK
+			loadingPost = [[Post alloc] initWithThreadId:rootPost.postId delegate:self];// autorelease];
 			// Tapped the load more cell
 		} else {
 			RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
@@ -129,6 +130,7 @@
 	[loadView removeFromSuperview];
 	[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
 	tableView.userInteractionEnabled = YES;
+	self.navigationItem.rightBarButtonItem.enabled = YES;
 	[(RootPostCellView *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0]] setLoading:NO];
 	rowOfLoadingCell == -1;
 }
@@ -151,6 +153,8 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
+	//if( loadingPost ) [loadingPost release];
+	//loadingPost = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -211,6 +215,7 @@
 		loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
 		[loadView setupViewWithFrame:self.view.frame];
 		[self.view addSubview:loadView];
+		self.navigationItem.rightBarButtonItem.enabled = NO;
 		tableView.userInteractionEnabled = NO;	
 		
 		if(feed)[feed release];
@@ -228,6 +233,7 @@
 		if(feed) [feed abortLoadIfInProgress];
 		[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
 		[loadView removeFromSuperview];
+		self.navigationItem.rightBarButtonItem.enabled = YES;
 		//feed = nil;
 		[tableView reloadData];
 		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];

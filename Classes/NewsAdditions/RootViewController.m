@@ -39,6 +39,7 @@
 	[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
 	[loadView removeFromSuperview];
 	tableView.userInteractionEnabled = YES;
+	self.navigationItem.rightBarButtonItem.enabled = YES;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -169,12 +170,14 @@
 		theReader = [[RSSReader alloc] initWithDelegate:self];
 		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 		tableView.userInteractionEnabled = NO;
+		self.navigationItem.rightBarButtonItem.enabled = NO;
 	}
 	else{
 		NSLog(@"stopping!");
 		[theReader stopLoading];
 		[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
 		[loadView removeFromSuperview];
+		self.navigationItem.rightBarButtonItem.enabled = YES;
 		posts = nil;
 		[tableView reloadData];
 		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
