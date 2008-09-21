@@ -68,13 +68,13 @@
 		
 		cell = (RootPostCellView *)[tableView dequeueReusableCellWithIdentifier:@"rootPostCell"];
 		if (cell == nil) {
-			cell = [[RootPostCellView alloc] initForPost];
+			cell = [[[RootPostCellView alloc] initForPost] autorelease];
 		}
 		
 		[cell updateWithPost:post];
 		
 	} else {
-		cell = [[RootPostCellView alloc] initLoadMore];
+		cell = [[[RootPostCellView alloc] initLoadMore] autorelease];
 	}
 	if( rowOfLoadingCell == indexPath.row )[cell setLoading:YES];
 	else [cell setLoading:NO];
@@ -86,8 +86,8 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Tapped a post cell
-	if( rowOfLoadingCell == -1 || loadingNextPage){
 	reallyLoad:
+	if( rowOfLoadingCell == -1 || loadingNextPage){
 		loadingNextPage = NO;
 		rowOfLoadingCell = indexPath.row;
 		if (indexPath.row < [[feed posts] count]) {
@@ -96,7 +96,7 @@
 			//we'll be fucked up if it's loading still; on a refresh
 			if(feed) [feed abortLoadIfInProgress];
 			Post *rootPost = [[feed posts] objectAtIndex:indexPath.row];
-			loadingPost = [[Post alloc] initWithThreadId:rootPost.postId delegate:self];
+			loadingPost = [[[Post alloc] initWithThreadId:rootPost.postId delegate:self] autorelease];
 			// Tapped the load more cell
 		} else {
 			RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
@@ -107,11 +107,7 @@
 		
 	}
 	else{
-		//BAIL HERE!
-		[loadingPost abortLoadIfLoading];
-		[loadingPost release];
-		[(RootPostCellView *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0]] setLoading:NO];
-		rowOfLoadingCell = -1;
+		[self stopPostFromLoading];
 		goto reallyLoad; //lolol goto
 		//[aTableView deselectRowAtIndexPath:indexPath animated:NO];
 	}
@@ -164,6 +160,10 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	//abort a possible load in progress
 	if(feed) [feed abortLoadIfInProgress];
+	if( rowOfLoadingCell != -1 ){
+		[loadingPost abortLoadIfLoading];
+		if( loadingPost ) [loadingPost release];
+	}
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -188,12 +188,23 @@
 	if(feed)[feed release];
 	[refreshButton release];
 	[stopButton	release];
+	[tableView release];
 	[super dealloc];
 }
 
+- (void)stopPostFromLoading
+{
+	//BAIL HERE!
+	[loadingPost abortLoadIfLoading];
+	[loadingPost release];
+	[(RootPostCellView *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0]] setLoading:NO];
+	[tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0] animated:NO];
+	rowOfLoadingCell = -1;
+}
 
 - (void)refresh:(id)sender {
 	if( sender == refreshButton || sender == self ){
+		if( rowOfLoadingCell != -1 ) [self stopPostFromLoading];
 		[toolBar setItems:[NSArray arrayWithObject:stopButton]];
 		if( loadView ) [loadView release];
 		loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
@@ -216,7 +227,7 @@
 		if(feed) [feed abortLoadIfInProgress];
 		[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
 		[loadView removeFromSuperview];
-		feed = nil;
+		//feed = nil;
 		[tableView reloadData];
 		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	}

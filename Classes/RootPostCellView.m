@@ -107,8 +107,9 @@
 }
 
 - (void)updateWithPost:(Post *)aPost {
-  post = [aPost retain];
-  username.text = post.author;
+	if( post ) [post release];
+	post = [aPost retain];
+	username.text = post.author;
   timestamp.text = post.formattedDate;
   preview.text = post.preview;
   replyCount.text = [NSString stringWithFormat:@"%d", post.cachedReplyCount];
@@ -175,7 +176,7 @@
 
 
 - (void)dealloc {
-  [post release];
+  if(post) [post release];
 	[super dealloc];
 }
 

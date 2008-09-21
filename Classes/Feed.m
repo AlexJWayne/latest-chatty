@@ -85,10 +85,12 @@
 	// Parse XML
 	NSError *err=nil;
 	xml = [[CXMLDocument alloc] initWithXMLString:dataString options:1 error:&err];
+	//[dataString release];
 	// Parse response into post objects
 	NSArray *postElements = [[xml rootElement] nodesForXPath:@"comment" error:nil];
-	for (CXMLElement *postXml in [postElements objectEnumerator]) {
-		Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:nil lastRefreshDict:postCounts];
+	int i;
+	for (i = 0; i < [postElements count]; i++ ) {
+		Post *postObject = [[Post alloc] initWithXmlElement:(CXMLElement*)[postElements objectAtIndex:i] parent:nil lastRefreshDict:postCounts];
 		if (postObject != nil)
 			[posts addObject:postObject];
 		[postObject release];
@@ -102,6 +104,7 @@
   [postCounts description];
   
   [postCounts writeToFile:postCountFile atomically:NO];
+	[xml release];
 }
 
 
@@ -120,7 +123,6 @@
 
 
 - (void)dealloc {
-  [xml release];
   [posts release];
   [super dealloc];
 }

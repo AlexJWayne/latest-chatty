@@ -25,5 +25,6 @@
 - (IBAction)openInSafari:(id)sender;
 - (IBAction)dragonDrop:(id)sender;
 - (IBAction)chat:(id)sender;
+- (void)backButton:(id)sender;
 
 @end

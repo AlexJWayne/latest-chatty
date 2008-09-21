@@ -33,7 +33,9 @@
 
 - (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent lastRefreshDict:(NSMutableDictionary *)lastRefresh {
 	[self init];
+	
 	self.parent = [aParent retain];
+	//NSLog(@"parent retainCount: %i", [aParent retainCount] );
 	if ([self parseXml:xml lastRefreshDict:lastRefresh]) {
 		return self;
 	} else {
@@ -42,6 +44,7 @@
 }
 
 - (BOOL)parseXml:(CXMLElement *)xml lastRefreshDict:(NSMutableDictionary *)lastRefresh {
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	// Set basic attributes
 	self.author   = [[xml attributeForName:@"author"]  stringValue];
 	self.date     = [NSDate dateWithNaturalLanguageString:[[xml attributeForName:@"date"] stringValue]];
@@ -51,8 +54,8 @@
 	self.category = [[xml attributeForName:@"category"] stringValue];
 	self.preview  = [self cleanString:self.preview];
 	self.cachedReplyCount = [[[xml attributeForName:@"reply_count"] stringValue] intValue];
-  self.hasNewPosts = NO;
-  
+	self.hasNewPosts = NO;
+	
 	// set depth
 	if (parent == nil) {
 		self.depth = 0;
@@ -67,32 +70,32 @@
 		Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self lastRefreshDict:nil];
 		if (postObject != nil){
 			[children addObject:postObject];
-      if (parent == nil){ 
-        self.youParticipated = ([postObject.author rangeOfString:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]].location != NSNotFound); 
-      }
+			if (parent == nil){ 
+				//self.youParticipated = ([postObject.author rangeOfString:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]].location != NSNotFound); 
+			}
 			[postObject release];
 		}
 	}
-  /*
-  NSArray *postElements = [xml nodesForXPath:@"comments//comment" error:nil];
-	for (CXMLElement *postXml in [postElements objectEnumerator]) {
-		Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self lastRefreshDict:nil];
-		if (postObject != nil){
-			[children addObject:postObject];
-      if (parent == nil){ 
-        self.youParticipated = ([postObject.author rangeOfString:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]].location != NSNotFound); 
-      }
-			[postObject release];
-		}
+	/*
+	 NSArray *postElements = [xml nodesForXPath:@"comments//comment" error:nil];
+	 for (CXMLElement *postXml in [postElements objectEnumerator]) {
+	 Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self lastRefreshDict:nil];
+	 if (postObject != nil){
+	 [children addObject:postObject];
+	 if (parent == nil){ 
+	 self.youParticipated = ([postObject.author rangeOfString:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]].location != NSNotFound); 
+	 }
+	 [postObject release];
+	 }
+	 }
+	 */
+	if((parent == nil) && (lastRefresh != nil)) {
+		NSString* postID = [NSString stringWithFormat:@"%d", self.postId];
+		NSNumber* previousPostCount = [lastRefresh valueForKey:postID];
+		// If we haven't seen the post before, or if the count of children is more than the last time we saw it, mark it as having new posts.
+		hasNewPosts = (previousPostCount == nil) || ([previousPostCount intValue] < self.cachedReplyCount);
+		[lastRefresh setValue:[NSNumber numberWithInt:self.cachedReplyCount] forKey:postID];
 	}
-  */
-  if((parent == nil) && (lastRefresh != nil)) {
-    NSString* postID = [NSString stringWithFormat:@"%d", self.postId];
-    NSNumber* previousPostCount = [lastRefresh valueForKey:postID];
-    // If we haven't seen the post before, or if the count of children is more than the last time we saw it, mark it as having new posts.
-    hasNewPosts = (previousPostCount == nil) || ([previousPostCount intValue] < self.cachedReplyCount);
-    [lastRefresh setValue:[NSNumber numberWithInt:self.cachedReplyCount] forKey:postID];
-  }
 	
 	// get the recent sort index
 	if (parent == nil) {
@@ -110,8 +113,9 @@
 		
 		[sortedByRecent release];
 	}
-	
 	// Filter post
+	//NSLog(@"retainCount! %i", [self retainCount] );
+	[pool release];
 	if ([self.category isEqualToString:@"ontopic"]) {
 		return YES;
 	} else {

@@ -33,6 +33,7 @@
 	LoadingView* loadView;
 }
 
+- (void)stopPostFromLoading;
 - (void)scrollUp:(id)sender;
 - (void)feedDidFinishLoading;
 - (id) initWithChattyId:(int)chatIdNum;

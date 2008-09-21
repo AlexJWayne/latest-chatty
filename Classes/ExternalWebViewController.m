@@ -43,6 +43,10 @@
 		[dragonDropButton setEnabled:NO];
 		self.navigationItem.rightBarButtonItem = chatButton;
 	}
+	//NSLog(@"wtfwtf %@", self.navigationItem.leftBarButtonItem.title);
+	UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backButton:)];
+	self.navigationItem.leftBarButtonItem = item;
+	[item release];
 	[webView loadRequest:initialRequest];
 }
 
@@ -60,15 +64,17 @@
 
 - (void)dealloc {
 	//NSLog(@"DEALLOCEX!");
-	[webView stopLoading];
-	NSLog(@"%i", [webView retainCount]);
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	//NSLog(@"%i", [webView retainCount]);
+	//while( [webView retainCount]>1)[webView release];
 	[webView release];
-	//[webView release];
 	[initialRequest release];
 	[super dealloc];
 }
 
 - (IBAction)chat:(id)sender {
+	[webView stopLoading];
+	[NSThread sleepForTimeInterval:.2];
 	//need thePost - link
 	NSString *link = [thePost link];
 	NSArray *comps = [link componentsSeparatedByString:@"/"];
@@ -81,7 +87,12 @@
 	[chattyView release];
 	chattyView = nil;
 }
-
+- (void)backButton:(id)sender
+{
+	if( webView.loading )[webView stopLoading];
+	[NSThread sleepForTimeInterval:.5];
+	[[self navigationController] popViewControllerAnimated:YES];
+}
 - (IBAction)openInSafari:(id)sender {
 	[[UIApplication sharedApplication] openURL:[webView.request URL]];
 }
@@ -98,9 +109,4 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[webView stopLoading];
-}
-
 @end
