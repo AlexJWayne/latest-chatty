@@ -95,7 +95,11 @@
 			//we'll be fucked up if it's loading still; on a refresh
 			if(feed) [feed abortLoadIfInProgress];
 			Post *rootPost = [[feed posts] objectAtIndex:indexPath.row];
-			//FIXME: THIS IS A LEAK
+			//FIXME: THIS IS A LEAK (maybe)
+			//if( loadingPost ){
+			//	NSLog(@"hello!");
+				//if( [loadingPost.children count]>0 ) [loadingPost release];
+			//}
 			loadingPost = [[Post alloc] initWithThreadId:rootPost.postId delegate:self];// autorelease];
 			// Tapped the load more cell
 		} else {

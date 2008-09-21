@@ -26,5 +26,6 @@
 - (IBAction)dragonDrop:(id)sender;
 - (IBAction)chat:(id)sender;
 - (void)backButton:(id)sender;
+- (void)sleepHack;
 
 @end

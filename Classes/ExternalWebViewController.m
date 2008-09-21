@@ -90,8 +90,18 @@
 - (void)backButton:(id)sender
 {
 	if( webView.loading )[webView stopLoading];
-	[NSThread sleepForTimeInterval:.5];
+	[webView loadHTMLString:@"<html></html>" baseURL:nil];
+	//[NSThread sleepForTimeInterval:5.0];
+	[NSThread detachNewThreadSelector:@selector(sleepHack) toTarget:self withObject:nil];
+}
+
+//muahahahahahahahhaha
+- (void)sleepHack
+{
+	[NSThread sleepForTimeInterval:1.5];
+	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	[[self navigationController] popViewControllerAnimated:YES];
+	[pool release];
 }
 - (IBAction)openInSafari:(id)sender {
 	[[UIApplication sharedApplication] openURL:[webView.request URL]];
