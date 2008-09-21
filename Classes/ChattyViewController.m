@@ -86,7 +86,6 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Tapped a post cell
-	reallyLoad:
 	if( rowOfLoadingCell == -1 || loadingNextPage){
 		loadingNextPage = NO;
 		rowOfLoadingCell = indexPath.row;
@@ -104,14 +103,16 @@
 			[feed loadNextPage];
 			loadingNextPage = YES;
 		}
-		
+		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	}
-	else{
+	else if( rowOfLoadingCell == indexPath.row ){
 		[self stopPostFromLoading];
-		goto reallyLoad; //lolol goto
+		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 		//[aTableView deselectRowAtIndexPath:indexPath animated:NO];
 	}
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+	else [aTableView deselectRowAtIndexPath:indexPath animated:NO];
+
+
 }
 
 - (void)feedDidFinishLoading {
@@ -162,7 +163,7 @@
 	if(feed) [feed abortLoadIfInProgress];
 	if( rowOfLoadingCell != -1 ){
 		[loadingPost abortLoadIfLoading];
-		if( loadingPost ) [loadingPost release];
+		//if( loadingPost ) [loadingPost release];
 	}
 }
 
@@ -196,7 +197,7 @@
 {
 	//BAIL HERE!
 	[loadingPost abortLoadIfLoading];
-	[loadingPost release];
+	//[loadingPost release];
 	[(RootPostCellView *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0]] setLoading:NO];
 	[tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0] animated:NO];
 	rowOfLoadingCell = -1;
