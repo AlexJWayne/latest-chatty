@@ -173,6 +173,7 @@
 		[loadingPost abortLoadIfLoading];
 		//if( loadingPost ) [loadingPost release];
 	}
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

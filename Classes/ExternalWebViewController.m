@@ -8,7 +8,6 @@
 
 #import "ExternalWebViewController.h"
 
-
 @implementation ExternalWebViewController
 
 - (id)init {
