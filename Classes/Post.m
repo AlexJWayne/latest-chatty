@@ -22,8 +22,7 @@
 @synthesize depth;
 @synthesize cachedReplyCount;
 @synthesize recentIndex;
-@synthesize hasNewPosts;
-@synthesize youParticipated;
+@synthesize newPostCount;
 
 - (id)init {
 	[super init];
@@ -54,7 +53,7 @@
 	self.category = [[xml attributeForName:@"category"] stringValue];
 	self.preview  = [self cleanString:self.preview];
 	self.cachedReplyCount = [[[xml attributeForName:@"reply_count"] stringValue] intValue];
-	self.hasNewPosts = NO;
+	self.newPostCount = 0;
 	
 	// set depth
 	if (parent == nil) {
@@ -63,37 +62,22 @@
 		self.depth = parent.depth + 1;
 	}
 	
-	// traverse children
-	self.children = [[NSMutableArray alloc] init];
-	NSArray *postElements = [xml nodesForXPath:@"comments/comment" error:nil];
-	for (CXMLElement *postXml in [postElements objectEnumerator]) {
-		Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self lastRefreshDict:nil];
-		if (postObject != nil){
-			[children addObject:postObject];
-			if (parent == nil){ 
-				//self.youParticipated = ([postObject.author rangeOfString:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]].location != NSNotFound); 
-			}
-			[postObject release];
-		}
-	}
-	/*
-	 NSArray *postElements = [xml nodesForXPath:@"comments//comment" error:nil];
-	 for (CXMLElement *postXml in [postElements objectEnumerator]) {
-	 Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self lastRefreshDict:nil];
-	 if (postObject != nil){
-	 [children addObject:postObject];
-	 if (parent == nil){ 
-	 self.youParticipated = ([postObject.author rangeOfString:[[NSUserDefaults standardUserDefaults] stringForKey:@"username_preference"]].location != NSNotFound); 
-	 }
-	 [postObject release];
-	 }
-	 }
-	 */
+  // traverse children
+  self.children = [[NSMutableArray alloc] init];
+  NSArray *postElements = [xml nodesForXPath:@"comments/comment" error:nil];
+  for (CXMLElement *postXml in [postElements objectEnumerator]) {
+    Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self lastRefreshDict:nil];
+    if (postObject != nil){
+      [children addObject:postObject];
+      [postObject release];
+    }
+  }
+  
 	if((parent == nil) && (lastRefresh != nil)) {
 		NSString* postID = [NSString stringWithFormat:@"%d", self.postId];
 		NSNumber* previousPostCount = [lastRefresh valueForKey:postID];
 		// If we haven't seen the post before, or if the count of children is more than the last time we saw it, mark it as having new posts.
-		hasNewPosts = (previousPostCount == nil) || ([previousPostCount intValue] < self.cachedReplyCount);
+		self.newPostCount = (previousPostCount == nil) ? self.cachedReplyCount : (self.cachedReplyCount - [previousPostCount intValue]);
 		[lastRefresh setValue:[NSNumber numberWithInt:self.cachedReplyCount] forKey:postID];
 	}
 	

@@ -16,7 +16,7 @@
   UILabel *preview;
   UILabel *replyCount;
   UILabel *category;
-  UILabel *participated;
+  UILabel *newpostcount;
   UIActivityIndicatorView *activityIndicator;
   
 	BOOL loading;

@@ -77,13 +77,22 @@
   [self.contentView addSubview:activityIndicator];
   
   // Reply count
-  replyCount = [[UILabel alloc] initWithFrame:CGRectMake(5, 52, 310, 20)];
+  replyCount = [[UILabel alloc] initWithFrame:CGRectMake(290, 52, 40, 20)];
   replyCount.font = [UIFont systemFontOfSize:11];
-  replyCount.textAlignment = UITextAlignmentRight;
+  replyCount.textAlignment = UITextAlignmentLeft;
   replyCount.opaque = NO;
   replyCount.backgroundColor = [UIColor clearColor];
   replyCount.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
   [self.contentView addSubview:replyCount];
+  
+  // Participated
+  newpostcount = [[UILabel alloc] initWithFrame:CGRectMake(245, 52, 40, 20)];
+  newpostcount.font = [UIFont systemFontOfSize:11];
+  newpostcount.textAlignment = UITextAlignmentRight;
+  newpostcount.opaque = NO;
+  newpostcount.backgroundColor = [UIColor clearColor];
+  newpostcount.textColor = [UIColor colorWithRed:0.0 green:0.75 blue:0.95 alpha:1.0];
+  [self.contentView addSubview:newpostcount];
   
   // Category
   category = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 310, 12)];
@@ -94,15 +103,6 @@
   category.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
   [self.contentView addSubview:category];
   
-  // Participated
-  participated = [[UILabel alloc] initWithFrame:CGRectMake(5, 25, 25, 25)];
-  participated.font = [UIFont systemFontOfSize:10];
-  participated.textAlignment = UITextAlignmentRight;
-  participated.opaque = NO;
-  participated.backgroundColor = [UIColor clearColor];
-  participated.textColor = [UIColor greenColor];
-  participated.text = @"+";
-  participated.hidden = YES;
 	return self;
 }
 
@@ -113,6 +113,8 @@
   timestamp.text = post.formattedDate;
   preview.text = post.preview;
   replyCount.text = [NSString stringWithFormat:@"%d", post.cachedReplyCount];
+  newpostcount.text = [NSString stringWithFormat:@"(+%d)", post.newPostCount];
+  newpostcount.hidden = !(post.newPostCount > 0);
   
   if ([post.category isEqualToString:@"nws"]) {
     category.text = @"NWS";
@@ -132,12 +134,6 @@
     username.textColor = [UIColor colorWithRed:1.0 green:0.73 blue:0.0  alpha:1.0];
     username.font = [UIFont systemFontOfSize:10];
   }
-  if (post.hasNewPosts) {
-    replyCount.textColor = [UIColor colorWithRed:0.0 green:0.75 blue:0.95 alpha:1.0];
-  } else {
-    replyCount.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
-  }
-  participated.hidden = !post.youParticipated;
 }
 
 
