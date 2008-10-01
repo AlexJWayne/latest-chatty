@@ -173,10 +173,10 @@
   }
 }
 
--(BOOL) loading
-{
+-(BOOL) loading {
 	return loading;
 }
+
 - (void)setStriped:(BOOL)isStriped {
   striped = isStriped;
   if (striped) {
@@ -188,7 +188,14 @@
 
 
 - (void)dealloc {
-  if(post) [post release];
+  if (post) [post release];
+  [username release];
+  [timestamp release];
+  [preview release];
+  [replyCount release];
+  [category release];
+  [newpostcount release];
+  [activityIndicator release];
 	[super dealloc];
 }
 
