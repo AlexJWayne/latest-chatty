@@ -77,18 +77,17 @@
   [self.contentView addSubview:activityIndicator];
   
   // Reply count
-  replyCount = [[UILabel alloc] initWithFrame:CGRectMake(290, 52, 40, 20)];
+  replyCount = [[UILabel alloc] initWithFrame:CGRectMake(260, 52, 25, 20)];
   replyCount.font = [UIFont systemFontOfSize:11];
-  replyCount.textAlignment = UITextAlignmentLeft;
   replyCount.opaque = NO;
   replyCount.backgroundColor = [UIColor clearColor];
   replyCount.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
   [self.contentView addSubview:replyCount];
   
   // Participated
-  newpostcount = [[UILabel alloc] initWithFrame:CGRectMake(245, 52, 40, 20)];
+  newpostcount = [[UILabel alloc] initWithFrame:CGRectMake(290, 52, 30, 20)];
   newpostcount.font = [UIFont systemFontOfSize:11];
-  newpostcount.textAlignment = UITextAlignmentRight;
+  newpostcount.textAlignment = UITextAlignmentLeft;
   newpostcount.opaque = NO;
   newpostcount.backgroundColor = [UIColor clearColor];
   newpostcount.textColor = [UIColor colorWithRed:0.0 green:0.75 blue:0.95 alpha:1.0];
@@ -112,9 +111,26 @@
 	username.text = post.author;
   timestamp.text = post.formattedDate;
   preview.text = post.preview;
-  replyCount.text = [NSString stringWithFormat:@"%d", post.cachedReplyCount];
-  newpostcount.text = [NSString stringWithFormat:@"(+%d)", post.newPostCount];
-  newpostcount.hidden = !(post.newPostCount > 0);
+  replyCount.text = [NSString stringWithFormat:@" %d", post.cachedReplyCount];
+  
+  if (post.newPostCount == 0) {
+    replyCount.frame = CGRectMake(290, replyCount.frame.origin.y, replyCount.frame.size.width, replyCount.frame.size.height);
+    replyCount.textAlignment = UITextAlignmentLeft;
+    newpostcount.hidden = YES;
+  } else {
+    replyCount.frame = CGRectMake(260, replyCount.frame.origin.y, replyCount.frame.size.width, replyCount.frame.size.height);
+    replyCount.textAlignment = UITextAlignmentRight;
+    newpostcount.hidden = NO;
+  }
+  
+  if (post.cachedReplyCount == post.newPostCount && post.cachedReplyCount > 0) {
+    replyCount.hidden = YES;
+    newpostcount.text = [NSString stringWithFormat:@" %d", post.newPostCount];
+  } else {
+    replyCount.hidden = NO;
+    newpostcount.text = [NSString stringWithFormat:@"+%d", post.newPostCount];
+  }
+  
   
   if ([post.category isEqualToString:@"nws"]) {
     category.text = @"NWS";

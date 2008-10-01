@@ -42,7 +42,6 @@
 		[dragonDropButton setEnabled:NO];
 		self.navigationItem.rightBarButtonItem = chatButton;
 	}
-	//NSLog(@"wtfwtf %@", self.navigationItem.leftBarButtonItem.title);
 	UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backButton:)];
 	self.navigationItem.leftBarButtonItem = item;
 	[item release];
@@ -86,17 +85,16 @@
 	[chattyView release];
 	chattyView = nil;
 }
-- (void)backButton:(id)sender
-{
-	if( webView.loading )[webView stopLoading];
+
+- (void)backButton:(id)sender {
+	if (webView.loading) [webView stopLoading];
 	[webView loadHTMLString:@"<html></html>" baseURL:nil];
 	//[NSThread sleepForTimeInterval:5.0];
 	[NSThread detachNewThreadSelector:@selector(sleepHack) toTarget:self withObject:nil];
 }
 
 //muahahahahahahahhaha
-- (void)sleepHack
-{
+- (void)sleepHack {
 	[NSThread sleepForTimeInterval:1.5];
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	[[self navigationController] popViewControllerAnimated:YES];

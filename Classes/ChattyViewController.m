@@ -67,9 +67,7 @@
 		Post *post = [[feed posts] objectAtIndex:indexPath.row];
 		
 		cell = (RootPostCellView *)[tableView dequeueReusableCellWithIdentifier:@"rootPostCell"];
-		if (cell == nil) {
-			cell = [[[RootPostCellView alloc] initForPost] autorelease];
-		}
+		if (cell == nil) cell = [[[RootPostCellView alloc] initForPost] autorelease];
 		
 		[cell updateWithPost:post];
 		
