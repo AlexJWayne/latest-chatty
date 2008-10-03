@@ -26,6 +26,8 @@
 																				 target:self
 																				 action:@selector(compose:)];
 	self.navigationItem.rightBarButtonItem = composeItem;	
+  [composeItem release];
+  
 	scrollTrigger = [UIButton buttonWithType:UIButtonTypeCustom];
 	scrollTrigger.font = [UIFont boldSystemFontOfSize:20];
 	scrollTrigger.frame = CGRectMake(0, 0, 320, 48);
@@ -33,17 +35,14 @@
 	scrollTrigger.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	self.navigationItem.titleView = scrollTrigger;
 	
-	[composeItem release];
-	
-	stopButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(refresh:)];
+	stopButton    = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop    target:self action:@selector(refresh:)];
 	refreshButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	
 	// Fetch feed
 	[self refresh:self];
 }
 
-- (void)scrollUp:(id)sender
-{
+- (void)scrollUp:(id)sender {
 	[tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 }
 
@@ -74,7 +73,7 @@
 	} else {
 		cell = [[[RootPostCellView alloc] initLoadMore] autorelease];
 	}
-	if( rowOfLoadingCell == indexPath.row )[cell setLoading:YES];
+	if (rowOfLoadingCell == indexPath.row) [cell setLoading:YES];
 	else [cell setLoading:NO];
 	
 	cell.striped = (indexPath.row % 2 == 1);
@@ -84,14 +83,16 @@
 
 - (void)tableView:(UITableView *)aTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	// Tapped a post cell
-	if( rowOfLoadingCell == -1 || loadingNextPage){
+	if (rowOfLoadingCell == -1 || loadingNextPage) {
 		loadingNextPage = NO;
 		rowOfLoadingCell = indexPath.row;
+    
 		if (indexPath.row < [[feed posts] count]) {
 			RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
 			[cell setLoading:YES];
-			//we'll be fucked up if it's loading still; on a refresh
-			if(feed) [feed abortLoadIfInProgress];
+			
+      if (feed) [feed abortLoadIfInProgress];
+      
 			Post *rootPost = [[feed posts] objectAtIndex:indexPath.row];
 			//FIXME: THIS IS A LEAK (maybe)
 			//if( loadingPost ){
@@ -99,7 +100,8 @@
 				//if( [loadingPost.children count]>0 ) [loadingPost release];
 			//}
 			loadingPost = [[Post alloc] initWithThreadId:rootPost.postId delegate:self];// autorelease];
-			// Tapped the load more cell
+    
+    // Tapped the load more cell
 		} else {
 			RootPostCellView *cell = (RootPostCellView *)[tableView cellForRowAtIndexPath:indexPath];
 			[cell setLoading:YES];
@@ -107,13 +109,14 @@
 			loadingNextPage = YES;
 		}
 		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-	}
-	else if( rowOfLoadingCell == indexPath.row ){
+    
+	}	else if (rowOfLoadingCell == indexPath.row) {
 		[self stopPostFromLoading];
 		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-		//[aTableView deselectRowAtIndexPath:indexPath animated:NO];
-	}
-	else [aTableView deselectRowAtIndexPath:indexPath animated:NO];
+    
+	}	else {
+    [aTableView deselectRowAtIndexPath:indexPath animated:NO];
+  }
 
 
 }
@@ -211,10 +214,10 @@
 }
 
 - (void)refresh:(id)sender {
-	if( sender == refreshButton || sender == self ){
-		if( rowOfLoadingCell != -1 ) [self stopPostFromLoading];
+	if (sender == refreshButton || sender == self) {
+		if (rowOfLoadingCell != -1) [self stopPostFromLoading];
 		[toolBar setItems:[NSArray arrayWithObject:stopButton]];
-		if( loadView ) [loadView release];
+		if(loadView) [loadView release];
 		loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
 		[loadView setupViewWithFrame:self.view.frame];
 		[self.view addSubview:loadView];
