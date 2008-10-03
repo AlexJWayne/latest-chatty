@@ -33,8 +33,7 @@
 - (id)initWithXmlElement:(CXMLElement *)xml parent:(Post *)aParent lastRefreshDict:(NSMutableDictionary *)lastRefresh {
 	[self init];
 	
-	self.parent = [aParent retain];
-	//NSLog(@"parent retainCount: %i", [aParent retainCount] );
+	self.parent = aParent;
 	if ([self parseXml:xml lastRefreshDict:lastRefresh]) {
 		return self;
 	} else {
@@ -63,7 +62,7 @@
 	}
 	
   // traverse children
-  self.children = [[NSMutableArray alloc] init];
+  self.children = [[[NSMutableArray alloc] init] autorelease];
   NSArray *postElements = [xml nodesForXPath:@"comments/comment" error:nil];
   for (CXMLElement *postXml in [postElements objectEnumerator]) {
     Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self lastRefreshDict:nil];
@@ -73,10 +72,10 @@
     }
   }
   
-	if((parent == nil) && (lastRefresh != nil)) {
-		NSString* postID = [NSString stringWithFormat:@"%d", self.postId];
-		NSNumber* previousPostCount = [lastRefresh valueForKey:postID];
-		// If we haven't seen the post before, or if the count of children is more than the last time we saw it, mark it as having new posts.
+  // If we haven't seen the post before, or if the count of children is more than the last time we saw it, mark it as having new posts.
+	if ((parent == nil) && (lastRefresh != nil)) {
+		NSString *postID = [NSString stringWithFormat:@"%d", self.postId];
+		NSNumber *previousPostCount = [lastRefresh valueForKey:postID];
 		self.newPostCount = (previousPostCount == nil) ? self.cachedReplyCount : (self.cachedReplyCount - [previousPostCount intValue]);
 		[lastRefresh setValue:[NSNumber numberWithInt:self.cachedReplyCount] forKey:postID];
 	}
@@ -85,16 +84,9 @@
 	if (parent == nil) {
 		int i;
 		NSMutableArray *sortedByRecent = [[NSMutableArray alloc] initWithObjects:self, nil];
-		
-		for (i = 0; i <= cachedReplyCount; i++) {
-			[sortedByRecent addObject:[self postAtIndex:i]];
-		}
+		for (i = 0; i <= cachedReplyCount; i++) [sortedByRecent addObject:[self postAtIndex:i]];
 		[sortedByRecent sortUsingSelector:@selector(compare:)];
-		
-		for (i = 0; i <= cachedReplyCount; i++) {
-			[[sortedByRecent objectAtIndex:i] setRecentIndex:i];
-		}
-		
+		for (i = 0; i <= cachedReplyCount; i++) [[sortedByRecent objectAtIndex:i] setRecentIndex:i];
 		[sortedByRecent release];
 	}
 	// Filter post
@@ -116,8 +108,8 @@
 	[self init];
 	delegate = aDelegate;
 	NSString *urlString = [Feed urlStringWithPath:[NSString stringWithFormat:@"thread/%d.xml", threadId]];
-	theConnection = [[NSURLConnection alloc] initWithRequest: [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self startImmediately:YES];
-	//[NSURLConnection connectionWithRequest:] delegate:self];
+  if (theConnection) [theConnection release];
+	theConnection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self startImmediately:YES];
 	return self;
 }
 
@@ -125,8 +117,7 @@
 	[partialData appendData:data];
 }
 
-- (void) abortLoadIfLoading
-{
+- (void)abortLoadIfLoading {
 	[theConnection cancel];
 }
 
@@ -142,14 +133,14 @@
 
 
 - (void)dealloc {
-	if( parent ) [parent release];
-	if( author )[author release];
-	if( preview )[preview release];
-	if( body )[body release];
-	if( date )[date release];
-	if( children )[children dealloc];
-	if( partialData )[partialData release];
-	if( category )[category release];
+	if (parent) [parent release];
+	if (author) [author release];
+	if (preview) [preview release];
+	if (body) [body release];
+	if (date) [date release];
+	if (children) [children dealloc];
+	if (partialData) [partialData release];
+	if (category) [category release];
 	[theConnection release];
 	[super dealloc];
 }
@@ -163,16 +154,14 @@
 	template = [template stringByReplacingOccurrencesOfString:@"<%= date %>"   withString:[self formattedDate]];
 	template = [template stringByReplacingOccurrencesOfString:@"<%= author %>" withString:author];
 	template = [template stringByReplacingOccurrencesOfString:@"<%= body %>"   withString:body];
-	template = [template stringByReplacingOccurrencesOfString:@"<%= postId %>" withString:[[[NSString alloc] initWithFormat:@"%i", postId]autorelease]];
+	template = [template stringByReplacingOccurrencesOfString:@"<%= postId %>" withString:[NSString stringWithFormat:@"%i", postId]];
 	
 	return template;
 }
 
 - (NSInteger)replyCount {
 	NSInteger count = [children count];
-	for (Post *post in [children objectEnumerator]) {
-		count = count + [post replyCount];
-	}
+	for (Post *post in children) count = count + [post replyCount];
 	return count;
 }
 
@@ -182,8 +171,8 @@
 	if (index == 0) {
 		result = self;
 	} else {
-		for (Post *post in [children objectEnumerator]) {
-			if (index <= [post replyCount]+1) {
+		for (Post *post in children) {
+			if (index <= [post replyCount] + 1) {
 				return [post postAtIndex:index - 1];
 			} else {
 				index = index - [post replyCount] - 1;

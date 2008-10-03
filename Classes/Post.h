@@ -43,14 +43,14 @@
 - (void) abortLoadIfLoading;
 - (int)compare:(Post *)otherPost;
 
-@property (readwrite, retain) Post *parent;
+@property (retain) Post *parent;
 @property (readwrite, copy) NSString *author;
 @property (readwrite, copy) NSString *preview;
 @property (readwrite, copy) NSString *body;
 @property (readwrite, copy) NSString *category;
 @property (readwrite, copy) NSDate *date;
 @property (readwrite) int postId;
-@property (readwrite, retain) NSMutableArray *children;
+@property (retain) NSMutableArray *children;
 @property (readwrite, assign) int depth;
 @property (readwrite, assign) int cachedReplyCount;
 @property (readwrite, assign) int newPostCount;
