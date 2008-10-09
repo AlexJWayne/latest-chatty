@@ -81,12 +81,15 @@
 	}
 	
 	// get the recent sort index
-	if (parent == nil) {
+	if ( parent == nil ) {
 		int i;
 		NSMutableArray *sortedByRecent = [[NSMutableArray alloc] initWithObjects:self, nil];
-		for (i = 0; i <= cachedReplyCount; i++) [sortedByRecent addObject:[self postAtIndex:i]];
+		for (i = 0; i <= cachedReplyCount; i++){
+			Post* post = [self postAtIndex:i];
+			if(post!=nil) [sortedByRecent addObject:post];
+		}
 		[sortedByRecent sortUsingSelector:@selector(compare:)];
-		for (i = 0; i <= cachedReplyCount; i++) [[sortedByRecent objectAtIndex:i] setRecentIndex:i];
+		for (i = 0; i < [sortedByRecent count]; i++) [[sortedByRecent objectAtIndex:i] setRecentIndex:i];
 		[sortedByRecent release];
 	}
 	// Filter post
@@ -166,7 +169,7 @@
 }
 
 - (Post *)postAtIndex:(int)index {
-	Post *result;
+	Post *result=nil;
 	
 	if (index == 0) {
 		result = self;
