@@ -87,15 +87,20 @@
 }
 
 - (void)backButton:(id)sender {
-	if (webView.loading) [webView stopLoading];
+	if (webView.loading){
+		//exitOnFinish = YES;
+		[webView stopLoading];
+	}
+	//else [[self navigationController] popViewControllerAnimated:YES];
 	[webView loadHTMLString:@"<html></html>" baseURL:nil];
 	//[NSThread sleepForTimeInterval:5.0];
 	[NSThread detachNewThreadSelector:@selector(sleepHack) toTarget:self withObject:nil];
+	//[[self navigationController] popViewControllerAnimated:YES];
 }
 
 //muahahahahahahahhaha
 - (void)sleepHack {
-	[NSThread sleepForTimeInterval:1.5];
+	[NSThread sleepForTimeInterval:2.0];
 	NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
 	[[self navigationController] popViewControllerAnimated:YES];
 	[pool release];
@@ -114,6 +119,11 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
+	NSLog(@"finished!");
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
 @end

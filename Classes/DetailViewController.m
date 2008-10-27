@@ -54,8 +54,8 @@
 
 - (void)dealloc {
   [postView release];
-  [currentRoot release];
-	[super dealloc];
+  //[currentRoot release];
+  [super dealloc];
 }
 
 

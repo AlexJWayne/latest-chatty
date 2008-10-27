@@ -42,19 +42,20 @@
 - (NSString *)cleanString:(NSString *)string;
 - (void) abortLoadIfLoading;
 - (int)compare:(Post *)otherPost;
+- (void)killChildren;
 
 @property (retain) Post *parent;
-@property (readwrite, copy) NSString *author;
-@property (readwrite, copy) NSString *preview;
-@property (readwrite, copy) NSString *body;
-@property (readwrite, copy) NSString *category;
-@property (readwrite, copy) NSDate *date;
-@property (readwrite) int postId;
-@property (retain) NSMutableArray *children;
-@property (readwrite, assign) int depth;
-@property (readwrite, assign) int cachedReplyCount;
-@property (readwrite, assign) int newPostCount;
-@property (readonly) NSString *formattedDate;
-@property (readwrite) int recentIndex;
+@property (retain, nonatomic) NSString *author;
+@property (retain, nonatomic) NSString *preview;
+@property (retain, nonatomic) NSString *body;
+@property (retain, nonatomic) NSString *category;
+@property (retain, nonatomic) NSDate *date;
+@property (assign, nonatomic) int postId;
+@property (retain, nonatomic) NSMutableArray *children;
+@property (assign, nonatomic) int depth;
+@property (assign, nonatomic) int cachedReplyCount;
+@property (assign, nonatomic) int newPostCount;
+@property (retain, nonatomic) NSString *formattedDate;
+@property (assign, nonatomic) int recentIndex;
 
 @end
