@@ -138,7 +138,7 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	// Return YES for supported orientations
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 
@@ -161,7 +161,7 @@
 	NSLog(@"Refreshing...");
 	if( sender == refreshButton || sender == self ){
 		[toolBar setItems:[NSArray arrayWithObject:stopButton]];
-		if( loadView ) [loadView release];
+		if (loadView) [loadView release];
 		loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
 		//CGRect tableViewFrame = self.tableView;
 		[loadView setupViewWithFrame:tableView.frame];

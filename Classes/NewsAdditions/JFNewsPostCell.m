@@ -29,20 +29,22 @@
 	if (color) cell.backgroundColor = [UIColor colorWithWhite:.231 alpha:1.0];
 	else cell.backgroundColor = [UIColor colorWithWhite:.196 alpha:1.0];
 	
-	date.frame            = CGRectMake(5, 5, 310, 12);
+	date.frame            = CGRectMake(5, 5, cell.frame.size.width - 10, 12);
 	date.textColor        = [UIColor colorWithWhite:0.39 alpha:1.0];
 	date.backgroundColor  = [UIColor clearColor];
 	date.font             = [UIFont systemFontOfSize:10];
 	date.text             = [post date];
   date.textAlignment    = UITextAlignmentRight;
+  date.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
 	[cell addSubview:date];
 	
-	title.frame           = CGRectMake(10, 18, 295, 40);
+	title.frame           = CGRectMake(10, 18, cell.frame.size.width - 25, 40);
 	title.textColor       = [UIColor whiteColor];
 	title.backgroundColor = [UIColor clearColor];
 	title.font            = [UIFont systemFontOfSize:16];
 	title.text            = [post title];
   title.numberOfLines   = 2;
+  title.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[cell addSubview:title];
 	
   /*

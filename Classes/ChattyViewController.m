@@ -182,9 +182,16 @@
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-	return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+  return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+//	return (interfaceOrientation == UIInterfaceOrientationPortrait);
+//	return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
 }
+
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+//  [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+//  
+//  UIViewAutoresizing mask = tableView.autoresizingMask;
+//}
 
 
 - (void)didReceiveMemoryWarning {

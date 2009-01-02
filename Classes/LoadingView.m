@@ -11,31 +11,29 @@
 
 @implementation LoadingView
 
--(void)setupViewWithFrame:(CGRect)frame
-{
-	//FIXME: HardCoded value because of a bug in the first load
-	frame.size.height = 372;
-	
+- (void)setupViewWithFrame:(CGRect)frame {
 	self.frame = frame;
 	self.backgroundColor = [UIColor blackColor];
 	self.alpha = .7;
+  
 	spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 	CGRect theFrame = spinner.frame;
 	theFrame.origin.x = frame.size.width/2 - spinner.frame.size.width/2;
-	theFrame.origin.y = (frame.size.height/2 - spinner.frame.size.height/2);
+	theFrame.origin.y = frame.size.height/2 - spinner.frame.size.height/2;
 	
 	spinner.frame = theFrame;
+  spinner.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin;
 	
 	[self addSubview:spinner];
 	[spinner release];
 	[spinner startAnimating];
 
+  self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	self.userInteractionEnabled = NO;
-	
 }
 - (void)dealloc {
-	[spinner stopAnimating];
-    [super dealloc];
+  [spinner stopAnimating];
+  [super dealloc];
 }
 
 

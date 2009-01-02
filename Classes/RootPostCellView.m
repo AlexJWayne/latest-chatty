@@ -28,19 +28,23 @@
 - (id)initLoadMore {
   [self initWithReuseIdentifier:@"loadMoreCell"];
   
+  CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+  
   // Post preview
-  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 16, 320, 38)];
+  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 16, appFrame.size.width, 38)];
   preview.backgroundColor = [UIColor clearColor];
   preview.numberOfLines = 1;
   preview.font = [UIFont boldSystemFontOfSize:18];
   preview.textColor = [UIColor colorWithWhite:1.0 alpha:0.4];
   preview.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.75];
   preview.textAlignment = UITextAlignmentCenter;
+  preview.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   preview.text = @"Load More";
   [self.contentView addSubview:preview];
   
   activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-  activityIndicator.frame = CGRectMake(141, 16, activityIndicator.frame.size.width, activityIndicator.frame.size.height);
+  activityIndicator.frame = CGRectMake(appFrame.size.width/2 - activityIndicator.frame.size.width/2, 16, activityIndicator.frame.size.width, activityIndicator.frame.size.height);
+  activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
   [self.contentView addSubview:activityIndicator];
   
   return self;
@@ -55,51 +59,57 @@
   [self.contentView addSubview:username];
   
   // timestamp label
-  timestamp = [[UILabel alloc] initWithFrame:CGRectMake(160, 5, 155, 12)];
+  timestamp = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 160, 5, 155, 12)];
   timestamp.font = [UIFont systemFontOfSize:10];
   timestamp.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
   timestamp.backgroundColor = [UIColor clearColor];
   timestamp.textAlignment = UITextAlignmentRight;
+  timestamp.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
   [self.contentView addSubview:timestamp];
   
   // Post preview
-  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 18, 285, 38)];
+  preview = [[UILabel alloc] initWithFrame:CGRectMake(5, 18, self.frame.size.width - 35, 38)];
   preview.backgroundColor = [UIColor clearColor];
   preview.numberOfLines = 2;
   preview.font = [UIFont systemFontOfSize:14];
   preview.minimumFontSize = 14;
   preview.textColor = [UIColor colorWithWhite:0.9 alpha:1.0];
+  preview.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   [self.contentView addSubview:preview];
   
   // Loading spinner
   activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-  activityIndicator.frame = CGRectMake(295, 25, activityIndicator.frame.size.width, activityIndicator.frame.size.height);
+  activityIndicator.frame = CGRectMake(self.frame.size.width - 25, 25, activityIndicator.frame.size.width, activityIndicator.frame.size.height);
+  activityIndicator.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
   [self.contentView addSubview:activityIndicator];
   
   // Reply count
-  replyCount = [[UILabel alloc] initWithFrame:CGRectMake(260, 52, 25, 20)];
+  replyCount = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 60, 52, 25, 20)];
   replyCount.font = [UIFont systemFontOfSize:11];
   replyCount.opaque = NO;
   replyCount.backgroundColor = [UIColor clearColor];
   replyCount.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
+  replyCount.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
   [self.contentView addSubview:replyCount];
   
   // Participated
-  newpostcount = [[UILabel alloc] initWithFrame:CGRectMake(290, 52, 30, 20)];
+  newpostcount = [[UILabel alloc] initWithFrame:CGRectMake(self.frame.size.width - 30, 52, 30, 20)];
   newpostcount.font = [UIFont systemFontOfSize:11];
   newpostcount.textAlignment = UITextAlignmentLeft;
   newpostcount.opaque = NO;
   newpostcount.backgroundColor = [UIColor clearColor];
   newpostcount.textColor = [UIColor colorWithRed:0.0 green:0.75 blue:0.95 alpha:1.0];
+  newpostcount.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
   [self.contentView addSubview:newpostcount];
   
   // Category
-  category = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, 310, 12)];
+  category = [[UILabel alloc] initWithFrame:CGRectMake(5, 5, self.frame.size.width - 10, 12)];
   category.font = [UIFont boldSystemFontOfSize:10];
   category.textAlignment = UITextAlignmentCenter;
   category.opaque = NO;
   category.backgroundColor = [UIColor clearColor];
   category.textColor = [UIColor colorWithWhite:0.39 alpha:1.0];
+  category.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   [self.contentView addSubview:category];
   
 	return self;
@@ -114,11 +124,11 @@
   replyCount.text = [NSString stringWithFormat:@" %d", post.cachedReplyCount];
   
   if (post.newPostCount == 0) {
-    replyCount.frame = CGRectMake(290, replyCount.frame.origin.y, replyCount.frame.size.width, replyCount.frame.size.height);
+    replyCount.frame = CGRectMake(self.frame.size.width - 30, replyCount.frame.origin.y, replyCount.frame.size.width, replyCount.frame.size.height);
     replyCount.textAlignment = UITextAlignmentLeft;
     newpostcount.hidden = YES;
   } else {
-    replyCount.frame = CGRectMake(260, replyCount.frame.origin.y, replyCount.frame.size.width, replyCount.frame.size.height);
+    replyCount.frame = CGRectMake(self.frame.size.width - 60, replyCount.frame.origin.y, replyCount.frame.size.width, replyCount.frame.size.height);
     replyCount.textAlignment = UITextAlignmentRight;
     newpostcount.hidden = NO;
   }

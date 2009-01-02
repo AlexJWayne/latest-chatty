@@ -45,6 +45,7 @@
 	UIBarButtonItem* item = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backButton:)];
 	self.navigationItem.leftBarButtonItem = item;
 	[item release];
+  
 	[webView loadRequest:initialRequest];
 }
 
@@ -91,6 +92,7 @@
 	[webView loadHTMLString:@"<html></html>" baseURL:nil];
 	//[NSThread sleepForTimeInterval:5.0];
 	[NSThread detachNewThreadSelector:@selector(sleepHack) toTarget:self withObject:nil];
+  NSLog(@"Back pressed!");
 }
 
 //muahahahahahahahhaha
