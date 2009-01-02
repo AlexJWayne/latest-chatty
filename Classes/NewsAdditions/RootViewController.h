@@ -18,6 +18,7 @@
 	IBOutlet UIToolbar* toolBar;
 	UIBarButtonItem* refreshButton;
 	UIBarButtonItem* stopButton;
+	BOOL warningReceived;
 	
 //	IBOutlet UIBarButtonItem* refreshButton;
 //	UIBarButtonItem* temp;

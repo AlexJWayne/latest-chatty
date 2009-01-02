@@ -99,7 +99,7 @@
 			//	NSLog(@"hello!");
 				//if( [loadingPost.children count]>0 ) [loadingPost release];
 			//}
-			loadingPost = [[Post alloc] initWithThreadId:rootPost.postId delegate:self];// autorelease];
+			loadingPost = [[Post alloc] initWithThreadId:rootPost.postId delegate:self];
     
     // Tapped the load more cell
 		} else {
@@ -152,14 +152,19 @@
 	[(RootPostCellView *)[tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:rowOfLoadingCell inSection:0]] setLoading:NO];
 	rowOfLoadingCell = -1;
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	//[post autorelease];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:YES];
-	//if( loadingPost ) [loadingPost release];
-	//loadingPost = nil;
+	if( loadingPost ){
+		[loadingPost killChildren];
+		NSLog(@"LoadingPost's RetainCount: %d", [loadingPost retainCount] );
+		[loadingPost release];
+		loadingPost = nil;
+	}
 }
 
 - (void)viewDidAppear:(BOOL)animated {

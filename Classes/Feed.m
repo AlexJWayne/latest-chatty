@@ -32,7 +32,7 @@
 // Init with an XML feed at this URL
 - (id)initWithUrl:(NSString *)urlString delegate:(id)aDelegate {
   [self init];
-  delegate = [aDelegate retain];
+  delegate = aDelegate; //[aDelegate retain];
   [self addPostsInFeedWithUrl:urlString];
   return self;
 }
@@ -44,11 +44,13 @@
 
 // Get a feed for a specific storyId
 - (id)initWithStoryId:(int)aStoryId delegate:(id)aDelegate {
+	[aDelegate retain];
   return [self initWithUrl:[Feed urlStringWithPath:[NSString stringWithFormat:@"%d.xml", aStoryId]] delegate:aDelegate];
 }
 
 - (void)addPostsInFeedWithUrl:(NSString *)urlString {
-  download = [NSURLConnection connectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self];
+	download = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]] delegate:self startImmediately:YES];
+	//download = [NSURLConnection connectionWithRequest: delegate:self];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -63,6 +65,7 @@
 	 * of the data coming out of the URL download. I'll fix it sometime.
 	 *	Oh, this is in the simulator.
 	 */
+	[download release];
 	download = nil;
 	NSString* test = [[NSString alloc] initWithData:partialData encoding:NSASCIIStringEncoding];
 	[self addPostsInFeedWithString:test];
@@ -91,8 +94,7 @@
 	int i;
 	for (i = 0; i < [postElements count]; i++ ) {
 		Post *postObject = [[Post alloc] initWithXmlElement:(CXMLElement*)[postElements objectAtIndex:i] parent:nil lastRefreshDict:postCounts];
-		if (postObject != nil)
-			[posts addObject:postObject];
+		if (postObject != nil) [posts addObject:postObject];
 		[postObject release];
 	}
 	

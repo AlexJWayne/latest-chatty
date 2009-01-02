@@ -18,6 +18,7 @@
 	NewsPost* thePost;
 	//ChattyViewController* chattyView;
 	id chattyView;
+	BOOL exitOnFinish;
 }
 
 - (id)initWithRequest:(NSURLRequest *)request;

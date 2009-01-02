@@ -143,8 +143,14 @@
 
 
 - (void)didReceiveMemoryWarning {
+	[theReader retain];
+	warningReceived = YES;
 	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
 	// Release anything that's not essential, such as cached data
+	//[theReader release];
+	//[posts release];
+	//posts = nil;
+	//theReader = nil;
 }
 
 
@@ -159,28 +165,36 @@
 
 - (IBAction)refresh:(id)sender {
 	NSLog(@"Refreshing...");
-	if( sender == refreshButton || sender == self ){
-		[toolBar setItems:[NSArray arrayWithObject:stopButton]];
-		if (loadView) [loadView release];
-		loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
-		//CGRect tableViewFrame = self.tableView;
-		[loadView setupViewWithFrame:tableView.frame];
-		[self.view addSubview:loadView];
-		if(theReader) [theReader release];
-		theReader = [[RSSReader alloc] initWithDelegate:self];
-		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-		tableView.userInteractionEnabled = NO;
-		self.navigationItem.rightBarButtonItem.enabled = NO;
+	if( !warningReceived ){
+		if( sender == refreshButton || sender == self ){
+			warningReceived = NO;
+			[toolBar setItems:[NSArray arrayWithObject:stopButton]];
+			if( loadView ) [loadView release];
+			loadView = [[LoadingView alloc] initWithFrame:CGRectZero];
+			//CGRect tableViewFrame = self.tableView;
+			[loadView setupViewWithFrame:tableView.frame];
+			[self.view addSubview:loadView];
+			if(theReader) [theReader release];
+			theReader = [[RSSReader alloc] initWithDelegate:self];
+			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+			tableView.userInteractionEnabled = NO;
+			self.navigationItem.rightBarButtonItem.enabled = NO;
+			warningReceived = NO;
+		}
+		else{
+			NSLog(@"stopping!");
+			[theReader stopLoading];
+			[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
+			[loadView removeFromSuperview];
+			self.navigationItem.rightBarButtonItem.enabled = YES;
+			posts = nil;
+			[tableView reloadData];
+			[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+		}
 	}
 	else{
-		NSLog(@"stopping!");
-		[theReader stopLoading];
 		[toolBar setItems:[NSArray arrayWithObject:refreshButton]];
-		[loadView removeFromSuperview];
-		self.navigationItem.rightBarButtonItem.enabled = YES;
-		posts = nil;
-		[tableView reloadData];
-		[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+		warningReceived = NO;
 	}
 }
 

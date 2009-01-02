@@ -29,6 +29,12 @@
 }
 */
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+	NSLog(@"disappearing!");
+	[postContent resignFirstResponder];
+}
+
 - (void)viewDidLoad {
   if (parentPost) {
     parentPreview.text = parentPost.preview;

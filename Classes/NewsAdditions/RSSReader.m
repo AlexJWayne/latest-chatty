@@ -14,12 +14,14 @@
 NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 
 - (id)initWithDelegate:(id)nDelegate {
-	NSURLRequest* chRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:shackURL] cachePolicy: NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
-	conn = [[NSURLConnection alloc] initWithRequest:chRequest delegate:self startImmediately:YES];
-	
-	//feed = [[CXMLDocument alloc] initWithData:response options:0 error:nil];
-	delegate = nDelegate;
-	[super init];
+	if( self = [super init] ){
+		//NSURLRequest* chRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:shackURL] cachePolicy: NSURLRequestReloadIgnoringCacheData timeoutInterval:10];
+		NSURLRequest* chRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:shackURL] cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30];
+		conn = [[NSURLConnection alloc] initWithRequest:chRequest delegate:self startImmediately:YES];
+		
+		//feed = [[CXMLDocument alloc] initWithData:response options:0 error:nil];
+		delegate = nDelegate;
+	}
 	return self;
 }
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
@@ -35,6 +37,7 @@ NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
 	//maybe some bailout stuff
+	NSLog(@"ConnectionFailed!");
 }
 -(void)stopLoading
 {

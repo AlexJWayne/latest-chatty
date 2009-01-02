@@ -27,6 +27,7 @@
 - (id)init {
 	[super init];
 	partialData = [[NSMutableData alloc] init];
+	children = nil;
 	return self;
 }
 
@@ -62,12 +63,13 @@
 	}
 	
   // traverse children
-  self.children = [[[NSMutableArray alloc] init] autorelease];
+  children = [[NSMutableArray alloc] init];
   NSArray *postElements = [xml nodesForXPath:@"comments/comment" error:nil];
   for (CXMLElement *postXml in [postElements objectEnumerator]) {
     Post *postObject = [[Post alloc] initWithXmlElement:postXml parent:self lastRefreshDict:nil];
     if (postObject != nil){
       [children addObject:postObject];
+		//NSLog(@"postObject RetainCount: %d", [postObject retainCount]);
       [postObject release];
     }
   }
@@ -81,12 +83,16 @@
 	}
 	
 	// get the recent sort index
-	if (parent == nil) {
+	if ( parent == nil ) {
 		int i;
-		NSMutableArray *sortedByRecent = [[NSMutableArray alloc] initWithObjects:self, nil];
-		for (i = 0; i <= cachedReplyCount; i++) [sortedByRecent addObject:[self postAtIndex:i]];
+		//NSMutableArray *sortedByRecent = [[NSMutableArray alloc] initWithObjects:self, nil];
+		NSMutableArray *sortedByRecent = [[NSMutableArray alloc] init];
+		for (i = 0; i <= cachedReplyCount; i++){
+			Post* post = [self postAtIndex:i];
+			if(post!=nil) [sortedByRecent addObject:post];
+		}
 		[sortedByRecent sortUsingSelector:@selector(compare:)];
-		for (i = 0; i <= cachedReplyCount; i++) [[sortedByRecent objectAtIndex:i] setRecentIndex:i];
+		for (i = 0; i < [sortedByRecent count]; i++) [[sortedByRecent objectAtIndex:i] setRecentIndex:i];
 		[sortedByRecent release];
 	}
 	// Filter post
@@ -130,9 +136,20 @@
 	//partialData = [[NSMutableData alloc] init];
 }
 
-
+- (void)killChildren
+{
+	if( children ){
+		int i;
+		for( i = 0; i < [children count]; i++ ){
+			[[children objectAtIndex:i] killChildren];
+		}
+		[children release];
+	}
+	children = nil;
+}
 
 - (void)dealloc {
+	//NSLog(@"post dealloc");
 	if (parent) [parent release];
 	if (author) [author release];
 	if (preview) [preview release];
@@ -166,7 +183,7 @@
 }
 
 - (Post *)postAtIndex:(int)index {
-	Post *result;
+	Post *result=nil;
 	
 	if (index == 0) {
 		result = self;
