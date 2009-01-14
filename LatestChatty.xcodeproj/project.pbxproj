@@ -435,8 +435,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "Don't Code Sign";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Wayne";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Wayne";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -444,6 +444,8 @@
 				GCC_PREFIX_HEADER = LatestChatty_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = LatestChatty;
+				PROVISIONING_PROFILE = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
 			};
 			name = Debug;
 		};
@@ -451,13 +453,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "Don't Code Sign";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Wayne";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Wayne";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LatestChatty_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = LatestChatty;
+				PROVISIONING_PROFILE = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
 			};
 			name = Release;
 		};
@@ -474,8 +478,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "1848511A-EC9E-4D38-AC3E-FD3EE5141859";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1848511A-EC9E-4D38-AC3E-FD3EE5141859";
+				PROVISIONING_PROFILE = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Debug;
@@ -492,8 +496,8 @@
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "1848511A-EC9E-4D38-AC3E-FD3EE5141859";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1848511A-EC9E-4D38-AC3E-FD3EE5141859";
+				PROVISIONING_PROFILE = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Release;
@@ -510,8 +514,8 @@
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				OTHER_LDFLAGS = "-lxml2";
 				PREBINDING = NO;
-				PROVISIONING_PROFILE = "1848511A-EC9E-4D38-AC3E-FD3EE5141859";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1848511A-EC9E-4D38-AC3E-FD3EE5141859";
+				PROVISIONING_PROFILE = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Distribution;
@@ -520,13 +524,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "Don't Code Sign";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Don't Code Sign";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alex Wayne";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Alex Wayne";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LatestChatty_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = LatestChatty;
+				PROVISIONING_PROFILE = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
 			};
 			name = Distribution;
 		};
