@@ -8,6 +8,8 @@
 
 #import "RSSReader.h"
 
+#include "LatestChattyAppDelegate.h"
+@class LatestChattyAppDelegate;
 
 @implementation RSSReader
 
@@ -34,13 +36,12 @@ NSString* shackURL = @"http://feed.shacknews.com/shackfeed.xml";
 	feed = [[CXMLDocument alloc] initWithData:partialData options:0 error:nil];
 	[delegate dataReady];
 }
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-	//maybe some bailout stuff
-	NSLog(@"ConnectionFailed!");
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+  [LatestChattyAppDelegate showErrorAlertNamed:@"NoNetwork"];
 }
--(void)stopLoading
-{
+
+-(void)stopLoading {
 	[conn cancel];
 }
 

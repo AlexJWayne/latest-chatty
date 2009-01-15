@@ -27,8 +27,7 @@
 	}
 }
 
--(void)dataReady
-{
+- (void)dataReady {
 	//posts = [theReader getNewsPosts];
 	//hop to LC.x
 	//[self refresh:self];

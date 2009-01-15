@@ -58,6 +58,10 @@
   [partialData appendData:data];
 }
 
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+  NSLog(@"Died!");
+}
+
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
 
 	/* FIXME: for some reason, I can't run this in release/distribution 

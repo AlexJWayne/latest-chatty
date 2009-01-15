@@ -108,9 +108,16 @@
        cancelButtonTitle:@"OK"
        otherButtonTitles:nil];
   
+  } else if ([name isEqualToString:@"NoNetwork"]) {
+    [alert initWithTitle:name
+                 message:@"The server is not currently accessible.  You may need to find a spot with Wifi or cellular data coverage."
+                delegate:nil
+       cancelButtonTitle:@"OK"
+       otherButtonTitles:nil];
+    
   } else {
     [alert initWithTitle:@"Unexpected Error"
-                 message:@"Something has gone terribly wrong. Sorry for the inconvience, but this can't be posted right now."
+                 message:@"Something has gone terribly wrong. Sorry for the inconvience."
                 delegate:nil
        cancelButtonTitle:@"OK"
        otherButtonTitles:nil];
