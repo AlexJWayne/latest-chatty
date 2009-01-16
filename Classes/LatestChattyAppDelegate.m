@@ -136,5 +136,15 @@
                       kCFStringEncodingUTF8);
 }
 
++ (BOOL)shouldAllowRotationTo:(UIInterfaceOrientation)orientation {
+  BOOL allowLandscape = [[NSUserDefaults standardUserDefaults] boolForKey:@"rotation_allow_landscape"];
+  
+  if (orientation == UIInterfaceOrientationPortraitUpsideDown)  return NO;
+  if (orientation == UIInterfaceOrientationPortrait) return YES;
+  if (allowLandscape) return YES;
+  
+  return NO;
+}
+
 
 @end

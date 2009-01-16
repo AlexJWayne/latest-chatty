@@ -16,6 +16,7 @@
 
 + (void)showErrorAlertNamed:(NSString *)name;
 + (NSString *)urlEscape:(NSString *)string;
++ (BOOL)shouldAllowRotationTo:(UIInterfaceOrientation)orientation;
 
 @property (nonatomic, retain) UIWindow *window;
 @property (nonatomic, retain) UINavigationController *navigationController;

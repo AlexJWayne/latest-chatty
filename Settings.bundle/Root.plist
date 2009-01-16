@@ -134,6 +134,22 @@
 		</dict>
 		<dict>
 			<key>Title</key>
+			<string>Allow Rotation</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Landscape</string>
+			<key>Key</key>
+			<string>rotation_allow_landscape</string>
+			<key>DefaultValue</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string>Server</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>

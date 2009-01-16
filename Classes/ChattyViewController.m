@@ -187,9 +187,7 @@
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-  return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-//	return (interfaceOrientation == UIInterfaceOrientationPortrait);
-//	return (interfaceOrientation == UIInterfaceOrientationPortrait || interfaceOrientation == UIInterfaceOrientationLandscapeLeft || interfaceOrientation == UIInterfaceOrientationLandscapeRight);
+  return [LatestChattyAppDelegate shouldAllowRotationTo:interfaceOrientation];
 }
 
 //- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
