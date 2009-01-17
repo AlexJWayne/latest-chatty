@@ -125,13 +125,13 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-  // Adjust index for missing "OK" in landscape view.
-  if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) buttonIndex++;
-  
   if ([alertView.title isEqualToString:@"Submit Post"]) {
     // Send post alert
     if (buttonIndex == 1) [self sendPostConfirmed];
   } else {
+    // Adjust index for missing "OK" in landscape view.
+    if ([[UIApplication sharedApplication] statusBarOrientation] != UIInterfaceOrientationPortrait) buttonIndex++;
+    
     // Noob help alert
     if (buttonIndex == 1) {
       NSURLRequest *rulesPageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://www.shacknews.com/extras/guidelines.x"]];
