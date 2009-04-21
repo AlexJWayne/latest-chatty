@@ -72,7 +72,7 @@
 
 // Code from: http://discussions.apple.com/thread.jspa?messageID=7949889
 - (UIImage *)scaleAndRotateImage {
-  int kMaxResolution = 640; // Or whatever
+  int kMaxResolution = 800; // Or whatever
 	
 	CGImageRef imgRef = image.CGImage;
 	

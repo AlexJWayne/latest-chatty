@@ -123,10 +123,21 @@
 
 // UIWebViewDelegate methods
 - (BOOL)webView:(UIWebView *)aWebView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+  NSString *url = [[request URL] absoluteString];
   if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-    ExternalWebViewController *controller = [[ExternalWebViewController alloc] initWithRequest:request];
-    [[self navigationController] pushViewController:controller animated:YES];
-    [controller release];
+    if ([url isMatchedByRegex:@"shacknews\\.com/laryn\\.x\\?id=\\d+"]) {
+      int threadId = [[url stringByMatching:@"shacknews\\.com/laryn\\.x\\?id=(\\d+)" capture:1] intValue];
+      
+      nextNavigateIsToAThread = YES;
+      nextThreadPostId = threadId;
+      [[[Post alloc] initWithThreadId:threadId delegate:self] autorelease];
+      
+      return NO;
+    } else {
+      ExternalWebViewController *controller = [[ExternalWebViewController alloc] initWithRequest:request];
+      [[self navigationController] pushViewController:controller animated:YES];
+      [controller release];
+    }
     return NO;
   }
   
@@ -226,23 +237,31 @@
 }
 
 - (void)didFinishLoadingThread:(Post *)post {
-  currentPost = currentRoot;
-  currentPostIndex = 0;
-  [self showPost:currentRoot];
-  [self updateViews];
-  [tableView reloadData];
-  
-  [refreshButtonLoading stopAnimating];
-  
-  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-  NSLog(@"Done refreshing...");
-  loading = NO;
-  
-  if (popAfterLoad) {
-    [self.navigationController popViewControllerAnimated:YES];
+  if (nextNavigateIsToAThread) {
+    nextNavigateIsToAThread = NO;
+    DetailViewController *controller = [[DetailViewController alloc] initWithStoryId:storyId rootPost:post];
+    // TODO: Show linked post, not root post.  ID for this post is stored in "nextThreadPostId"
+    [[self navigationController] pushViewController:controller animated:YES];
+    [controller release];
+  } else {
+    currentPost = currentRoot;
+    currentPostIndex = 0;
+    [self showPost:currentRoot];
+    [self updateViews];
+    [tableView reloadData];
+    
+    [refreshButtonLoading stopAnimating];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    NSLog(@"Done refreshing...");
+    loading = NO;
+    
+    if (popAfterLoad) {
+      [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    popAfterLoad = NO;    
   }
-  
-  popAfterLoad = NO;
 }
 
 - (IBAction)reply:(id)sender {

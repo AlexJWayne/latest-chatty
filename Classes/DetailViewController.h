@@ -11,6 +11,7 @@
 #import "ExternalWebViewController.h"
 #import "Feed.h"
 #import "Post.h"
+#import "RegexKitLite.h"
 
 @interface DetailViewController : UIViewController <UIActionSheetDelegate> {
   IBOutlet UIWebView *postView;
@@ -26,6 +27,9 @@
   int currentPostIndex;
   BOOL loading;
   BOOL popAfterLoad;
+  
+  BOOL nextNavigateIsToAThread;
+  int  nextThreadPostId;
 }
 
 - (id)initWithStoryId:(int)aStoryId rootPost:(Post *)post;

@@ -206,10 +206,8 @@
 	}
 	else{ [[self navigationController] pushViewController:chattyView animated:YES];
 	}
-	//NSLog(@"%i", [chattyView retainCount] );
-	while( [chattyView retainCount] != 1 ) [chattyView release];
-	chattyView = nil;
-	//[chattyView release];
+	[chattyView release];
+  chattyView = nil;
 }
 
 @end

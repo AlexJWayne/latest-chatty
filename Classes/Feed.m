@@ -32,7 +32,7 @@
 // Init with an XML feed at this URL
 - (id)initWithUrl:(NSString *)urlString delegate:(id)aDelegate {
   [self init];
-  delegate = aDelegate; //[aDelegate retain];
+  delegate = [aDelegate retain];
   [self addPostsInFeedWithUrl:urlString];
   return self;
 }
@@ -75,6 +75,7 @@
 	[self addPostsInFeedWithString:test];
 	[test release];
 	[delegate feedDidFinishLoading];
+  [delegate release];
 	[partialData release];
 	partialData = nil;
 	//partialData = [[NSMutableData alloc] init];

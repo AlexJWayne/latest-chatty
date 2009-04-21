@@ -10,7 +10,6 @@
 #import "TouchXML.h"
 #import "Post.h"
 
-
 @interface Feed : NSObject {
   id delegate;
   

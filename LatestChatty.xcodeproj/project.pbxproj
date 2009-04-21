@@ -47,6 +47,7 @@
 		FA461BC20E4255B500E3654D /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = FA461BC00E4255B500E3654D /* Post.m */; };
 		FA461BC80E42561900E3654D /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA461BC70E42561900E3654D /* DetailViewController.m */; };
 		FA461BCB0E42568900E3654D /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA461BCA0E42568900E3654D /* DetailViewController.xib */; };
+		FA4FA15C0F3E7ADF001EB103 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = FA4FA15B0F3E7ADF001EB103 /* RegexKitLite.m */; };
 		FA55573C0E4E1F7700A79258 /* ExternalWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA55573B0E4E1F7700A79258 /* ExternalWebViewController.xib */; };
 		FA55574A0E4E214600A79258 /* ExternalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA5557490E4E214600A79258 /* ExternalWebViewController.m */; };
 		FA8EBF860E6343D2009B657C /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8EBF850E6343D2009B657C /* Image.m */; };
@@ -121,6 +122,8 @@
 		FA461BC60E42561900E3654D /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		FA461BC70E42561900E3654D /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		FA461BCA0E42568900E3654D /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		FA4FA15A0F3E7ADF001EB103 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RegexKitLite.h; path = "../../../Desktop/RegexKitLite-2.2/RegexKitLite.h"; sourceTree = SOURCE_ROOT; };
+		FA4FA15B0F3E7ADF001EB103 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RegexKitLite.m; path = "../../../Desktop/RegexKitLite-2.2/RegexKitLite.m"; sourceTree = SOURCE_ROOT; };
 		FA55573B0E4E1F7700A79258 /* ExternalWebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ExternalWebViewController.xib; sourceTree = "<group>"; };
 		FA5557480E4E214600A79258 /* ExternalWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExternalWebViewController.h; sourceTree = "<group>"; };
 		FA5557490E4E214600A79258 /* ExternalWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExternalWebViewController.m; sourceTree = "<group>"; };
@@ -188,6 +191,8 @@
 			children = (
 				FA461BA90E4255A300E3654D /* TouchXML */,
 				FAF681690E57966300C61212 /* Base64 */,
+				FA4FA15A0F3E7ADF001EB103 /* RegexKitLite.h */,
+				FA4FA15B0F3E7ADF001EB103 /* RegexKitLite.m */,
 				28A0AAE50D9B0CCF005BE974 /* LatestChatty_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
@@ -429,6 +434,7 @@
 				59F766360E6500970022FE0C /* RootViewController.m in Sources */,
 				59F766370E6500970022FE0C /* RSSReader.m in Sources */,
 				599CEF140E856E8900B7FB2F /* LoadingView.m in Sources */,
+				FA4FA15C0F3E7ADF001EB103 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +453,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LatestChatty_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = (
+					"-licucore",
+					"-lxml2",
+				);
 				PRODUCT_NAME = LatestChatty;
 				PROVISIONING_PROFILE = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
@@ -463,6 +473,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LatestChatty_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = (
+					"-licucore",
+					"-lxml2",
+				);
 				PRODUCT_NAME = LatestChatty;
 				PROVISIONING_PROFILE = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "37679E7C-14AC-4EAE-9374-BD9962AAA40F";
@@ -533,6 +547,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = LatestChatty_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				OTHER_LDFLAGS = (
+					"-licucore",
+					"-lxml2",
+				);
 				PRODUCT_NAME = LatestChatty;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B5007E2F-8F81-46C2-8917-6445C108AE5C";
 			};
